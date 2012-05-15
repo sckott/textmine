@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>rOpenSci: tools for textmining open source science literature</h1>
+
+<h2>Abstract</h2>
+
+<ol>
+<li><p>ABSTRACT PARAGRAPH 1</p></li>
+<li><p>ABSTRACT PARAGRAPH 2</p></li>
+<li><p>ABSTRACT PARAGRAPH 3</p></li>
+<li><p>ABSTRACT PARAGRAPH 4</p></li>
+</ol>
+
+<h4>Keywords</h4>
+
+<p>R, software, API, PLoS, Springer, Pensoft, database, textmining, opensource</p>
+
+<h1>Introduction</h1>
+
+<p>Explosion of digital context online. But we need tools to facilitate textmining (i.e., rOpenSci)</p>
+
+<p>Why text mine it.</p>
+
+<p>How to text mine it.</p>
+
+<p>Here, we introduce and give examples for textmining in R using rOpenSci packages, and related packages. </p>
+
+<h1>Text mining sources</h1>
+
+<p>[Describe open source data for text mining that we link to in R, and those we don&#39;t link to in R.]</p>
+
+<p>There is increasing open source scientific literature content available online. However, only a small proportion of scientific journals provide access to their full content; whereas, many publishers provide open access to their metadata only (Table 1). </p>
+
+<table><thead>
+<tr>
+<th>Data Provider</th>
+<th>Content Type</th>
+<th>rOpenSci?</th>
+<th>API Documentation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Public Library of Science (PLoS)</td>
+<td>Full text/altmetrics</td>
+<td>rplos</td>
+<td><a href="http://api.plos.org/">http://api.plos.org/</a></td>
+</tr>
+<tr>
+<td>Springer</td>
+<td>Full text on OA content</td>
+<td>rspringer</td>
+<td><a href="http://dev.springer.com/">http://dev.springer.com/</a></td>
+</tr>
+<tr>
+<td>Pensoft</td>
+<td>Full text/altmetrics</td>
+<td>rpensoft</td>
+<td><a href="http://bit.ly/KYP0Zi">http://bit.ly/KYP0Zi</a></td>
+</tr>
+<tr>
+<td>Nature Publishing Group</td>
+<td>Metadata only</td>
+<td>No</td>
+<td><a href="http://developers.nature.com/">http://developers.nature.com/</a></td>
+</tr>
+<tr>
+<td>Mendeley</td>
+<td>Metadata only</td>
+<td>rmendeley</td>
+<td><a href="http://dev.mendeley.com/">http://dev.mendeley.com/</a></td>
+</tr>
+<tr>
+<td>DataCite</td>
+<td>Metadata only</td>
+<td>rdatacite</td>
+<td><a href="http://oai.datacite.org/">http://oai.datacite.org/</a></td>
+</tr>
+<tr>
+<td>Biodiversity Heritage Library</td>
+<td>Full content</td>
+<td>rbhl</td>
+<td><a href="http://bit.ly/KYQ1Rd">http://bit.ly/KYQ1Rd</a></td>
+</tr>
+<tr>
+<td>Scopus (Elsevier)</td>
+<td>Metadata only ????</td>
+<td>No</td>
+<td><a href="http://bit.ly/J9S616">http://bit.ly/J9S616</a></td>
+</tr>
+</tbody></table>
+
+<h1>How to text mine from R: Three case studies</h1>
+
+<h2>Case study 1</h2>
+
+<h2>Case study 2</h2>
+
+<h2>Case study 3</h2>
+
+<h1>Conclusion</h1>
+
+<h1>Acknowledgements</h1>
+
+<h1>References</h1>
+
+<h1>Appendix</title>
+
+<base target="_blank"/>
+
+<style type="text/css">
+
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', Consolas, 'Lucida Console', monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+}
+
+.r {
+   background-color: #F8F8F8;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+	border-top-style: dotted;
+	border-top-color: #999999;
+}
+
+
+
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<script type="text/javascript">
+     
+</script>
+
+
+
+</head>
+
+<body>
+<h1>rOpenSci: tools for textmining open source science literature</h1>
+
+<h2>Abstract</h2>
+
+<ol>
+<li><p>ABSTRACT PARAGRAPH 1</p></li>
+<li><p>ABSTRACT PARAGRAPH 2</p></li>
+<li><p>ABSTRACT PARAGRAPH 3</p></li>
+<li><p>ABSTRACT PARAGRAPH 4</p></li>
+</ol>
+
+<h4>Keywords</h4>
+
+<p>R, software, API, PLoS, Springer, Pensoft, database, textmining, opensource</p>
+
+<h1>Introduction</h1>
+
+<p>Explosion of digital context online. But we need tools to facilitate textmining (i.e., rOpenSci)</p>
+
+<p>Why text mine it.</p>
+
+<p>How to text mine it.</p>
+
+<p>Here, we introduce and give examples for textmining in R using rOpenSci packages, and related packages. </p>
+
+<h1>Text mining sources</h1>
+
+<p>[Describe open source data for text mining that we link to in R, and those we don&#39;t link to in R.]</p>
+
+<p>There is increasing open source scientific literature content available online. However, only a small proportion of scientific journals provide access to their full content; whereas, many publishers provide open access to their metadata only (Table 1). </p>
+
+<table><thead>
+<tr>
+<th>Data Provider</th>
+<th>Content Type</th>
+<th>rOpenSci?</th>
+<th>API Documentation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Public Library of Science (PLoS)</td>
+<td>Full text/altmetrics</td>
+<td>rplos</td>
+<td><a href="http://api.plos.org/">http://api.plos.org/</a></td>
+</tr>
+<tr>
+<td>Springer</td>
+<td>Full text on OA content</td>
+<td>rspringer</td>
+<td><a href="http://dev.springer.com/">http://dev.springer.com/</a></td>
+</tr>
+<tr>
+<td>Pensoft</td>
+<td>Full text/altmetrics</td>
+<td>rpensoft</td>
+<td><a href="http://bit.ly/KYP0Zi">http://bit.ly/KYP0Zi</a></td>
+</tr>
+<tr>
+<td>Nature Publishing Group</td>
+<td>Metadata only</td>
+<td>No</td>
+<td><a href="http://developers.nature.com/">http://developers.nature.com/</a></td>
+</tr>
+<tr>
+<td>Mendeley</td>
+<td>Metadata only</td>
+<td>rmendeley</td>
+<td><a href="http://dev.mendeley.com/">http://dev.mendeley.com/</a></td>
+</tr>
+<tr>
+<td>DataCite</td>
+<td>Metadata only</td>
+<td>rdatacite</td>
+<td><a href="http://oai.datacite.org/">http://oai.datacite.org/</a></td>
+</tr>
+<tr>
+<td>Biodiversity Heritage Library</td>
+<td>Full content</td>
+<td>rbhl</td>
+<td><a href="http://bit.ly/KYQ1Rd">http://bit.ly/KYQ1Rd</a></td>
+</tr>
+<tr>
+<td>Scopus (Elsevier)</td>
+<td>Metadata only ????</td>
+<td>No</td>
+<td><a href="http://bit.ly/J9S616">http://bit.ly/J9S616</a></td>
+</tr>
+</tbody></table>
+
+<h1>How to text mine from R: Three case studies</h1>
+
+<h2>Case study 1</h2>
+
+<h2>Case study 2</h2>
+
+<h2>Case study 3</h2>
+
+<h1>Conclusion</h1>
+
+<h1>Acknowledgements</h1>
+
+<h1>References</h1>
+
+<h1>Appendix</h1>
+
+</body>
+
+</html>
+
