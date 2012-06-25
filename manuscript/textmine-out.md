@@ -80,7 +80,7 @@ Case study 3 - XXX
 ------------
 asdfsfd 
 
-```{r}
+```r
 knitcitations::citet(c("10.1111/j.1461-0248.2005.00827.x", "10.1890/11-0011.1"))
 ``` 
 
@@ -96,9 +96,26 @@ Acknowledgements
 
 
 # References
-```{r}
+
+
+```r
 print(knitcitations::bibliography(), "html")
 ```
+
+
+
+```
+## Warning message: NAs introduced by coercion
+```
+
+
+
+```
+## Error: invalid 'digits' argument
+```
+
+
+
 
 Appendix
 ========

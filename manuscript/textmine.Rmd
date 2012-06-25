@@ -34,6 +34,8 @@ Text mining sources
 
 There is increasing open source scientific literature content available online. However, only a small proportion of scientific journals provide access to their full content; whereas, many publishers provide open access to their metadata only (Table 1). 
 
+#### Table 1. Sources of scientific literature, their content type provided via web services, whether rOpenSci has an R packages for the service, and where to find the API documentation.  
+
 Data Provider                      | Content Type            | rOpenSci? | API Documentation
 ---------------------------------- | ---------------------   | --------- | -----------------
 Public Library of Science (PLoS)   | Full text/altmetrics    | rplos     | http://api.plos.org/
@@ -44,6 +46,23 @@ Mendeley                           | Metadata only           | rmendeley | http:
 DataCite                           | Metadata only           | rdatacite | http://oai.datacite.org/
 Biodiversity Heritage Library      | Full content            | rbhl      | http://bit.ly/KYQ1Rd
 Scopus (Elsevier)                  | Metadata only ????      | No        | http://bit.ly/J9S616
+
+#### Table 2. Tools for text mining science literature. 
+
+Tool           |  Platform            | Services              | URL
+-------------- | -------------------- | --------------------- | ---------------------
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+rOpenSci       | R                    | See Table 1           | http://ropensci.org/
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
+PMC Miner      | Python               | PubMed                | http://bit.ly/L29ekY
 
 
 How to text mine from R: Three case studies
@@ -77,3 +96,7 @@ Acknowledgements
 
 Appendix
 ========
+
+### To read:
++ http://lintool.github.com/MapReduceAlgorithms/index.html
++ 
