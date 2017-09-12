@@ -1,0 +1,60 @@
+```{r include=FALSE}
+opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  comment = '#>',
+  collapse = TRUE,
+  cache.path = "cache/"
+)
+```
+
+In this example, we plot actual occurrence data for _Bradypus_ species against a single predictor variable, BIO1 (annual mean temperature). This is only ont step in a species distribution modelling nworkflow.
+
+This example can be done using BISON data as well with our rbison package.
+
+_Load libraries_
+
+```{r}
+library("sp")
+library("rgbif")
+library("dismo")
+library("maptools")
+library("dplyr")
+```
+
+_Raster files_
+
+Make a list of files that are installed with the dismo package, then create a rasterStack from these
+
+```{r}
+files <- list.files(paste(system.file(package = "dismo"), "/ex", sep = ""),
+                    "grd", full.names = TRUE)
+predictors <- stack(files)
+```
+
+_Get world boundaries_
+
+```{r}
+data(wrld_simpl)
+```
+
+_Get GBIF data using the rOpenSci package rgbif_
+
+```{r cache=FALSE}
+nn <- name_lookup("bradypus*", rank = "species")
+nn <- na.omit(unique(nn$data$nubKey))
+df <- occ_search(taxonKey = nn, hasCoordinate = TRUE, limit = 500)
+df_data <- df[ sapply(df, function(x) any(class(x$data) %in% "tbl_df")) ]
+df_data <- dplyr::bind_rows(lapply(df_data, "[[", "data"))
+df2 <- df_data %>% dplyr::select(decimalLongitude, decimalLatitude)
+```
+
+_Plot_
+
+(1) Add raster data, (2) Add political boundaries, (3) Add the points (occurrences)
+
+```{r fig.keep='last'}
+plot(predictors, 1)
+plot(wrld_simpl, add = TRUE)
+points(df2, col = "blue")
+```

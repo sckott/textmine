@@ -1,0 +1,275 @@
+\documentclass[author-year, review, 11pt]{components/elsarticle} %review=doublespace preprint=single 5p=2 column
+%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+\usepackage[hyphens]{url}
+\usepackage{lineno} % add
+  \linenumbers % turns line numbering on
+\bibliographystyle{elsarticle-harv}
+\biboptions{sort&compress} % For natbib
+\usepackage{graphicx}
+\usepackage{booktabs} % book-quality tables
+%% Redefines the elsarticle footer
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \def\@oddfoot{\it \hfill\today}%
+ \let\@evenfoot\@oddfoot}
+ \def\tightlist{}
+\makeatother
+
+% A modified page layout
+\textwidth 6.75in
+\oddsidemargin -0.15in
+\evensidemargin -0.15in
+\textheight 9in
+\topmargin -0.5in
+%%%%%%%%%%%%%%%% end my additions to header
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{longtable}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={rOpenSci tools for textmining open source science literature},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+% Pandoc toggle for numbering sections (defaults to be off)
+\setcounter{secnumdepth}{0}
+% Pandoc header
+
+
+
+\begin{document}
+\begin{frontmatter}
+
+  \title{rOpenSci tools for textmining open source science literature}
+    \author[cstar]{Scott Chamberlain\corref{c1}}
+   \ead{scott(at)ropensci.org} 
+   \cortext[c1]{Corresponding author}
+      \address[cstar]{rOpenSci, Museum of Paleontology, University of California, Berkeley,
+CA, USA}
+  
+  \begin{abstract}
+  Corresponding Author:
+  
+  Scott Chamberlain
+  
+  rOpenSci, Museum of Paleontology, University of California, Berkeley,
+  CA, USA
+  
+  Email address:
+  \href{mailto:scott@ropensci.org}{\nolinkurl{scott@ropensci.org}}
+  
+  \newpage
+  
+  Background. xxxx.
+  
+  Methods. xxxx.
+  
+  Results. xxxx.
+  
+  Discussion. xxxx.
+  \end{abstract}
+  
+ \end{frontmatter}
+
+
+\newpage
+
+\section{Introduction}\label{introduction}
+
+Explosion of digital context online. But we need tools to facilitate
+textmining (i.e., rOpenSci)
+
+Why text mine it.
+
+How to text mine it.
+
+Here, we introduce and give examples for textmining in R using rOpenSci
+packages, and related packages.
+
+\section{Text mining sources}\label{text-mining-sources}
+
+{[}Describe open source data for text mining that we link to in R, and
+those we don't link to in R.{]}
+
+There is increasing open source scientific literature content available
+online. However, only a small proportion of scientific journals provide
+access to their full content; whereas, many publishers provide open
+access to their metadata only (Table 1).
+
+\paragraph{Table 1. Sources of scientific literature, their content type
+provided via web services, whether rOpenSci has an R packages for the
+service, and where to find the API
+documentation.}\label{table-1.-sources-of-scientific-literature-their-content-type-provided-via-web-services-whether-ropensci-has-an-r-packages-for-the-service-and-where-to-find-the-api-documentation.}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\begin{minipage}[b]{0.36\columnwidth}\raggedright\strut
+Data Provider\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+Content Type\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright\strut
+rOpenSci?\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright\strut
+API Documentation\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Public Library of Science (PLoS)\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Full text/altmetrics\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rplos\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://api.plos.org/}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Springer\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Full text on OA content\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rspringer\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://dev.springer.com/}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Pensoft\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Full text/altmetrics\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rpensoft\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://bit.ly/KYP0Zi}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Nature Publishing Group\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Metadata only\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+No\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://developers.nature.com/}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Mendeley\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Metadata only\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rmendeley\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://dev.mendeley.com/}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+DataCite\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Metadata only\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rdatacite\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://oai.datacite.org/}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Biodiversity Heritage Library\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Full content\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+rbhl\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://bit.ly/KYQ1Rd}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.36\columnwidth}\raggedright\strut
+Scopus (Elsevier)\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Metadata only ????\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright\strut
+No\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright\strut
+\url{http://bit.ly/J9S616}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{Table 2. Tools for text mining science
+literature.}\label{table-2.-tools-for-text-mining-science-literature.}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Tool & Platform & Services & URL\tabularnewline
+\midrule
+\endhead
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+rOpenSci & R & See Table 1 & \url{http://ropensci.org/}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+PMC Miner & Python & PubMed & \url{http://bit.ly/L29ekY}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\section{How to text mine from R: Three case
+studies}\label{how-to-text-mine-from-r-three-case-studies}
+
+\subsubsection{Case study 1}\label{case-study-1}
+
+\subsubsection{Case study 2}\label{case-study-2}
+
+\subsubsection{Case study 3}\label{case-study-3}
+
+\section{Conclusions and future
+directions}\label{conclusions-and-future-directions}
+
+\section{Acknowledgments}\label{acknowledgments}
+
+\section{Data Accessibility}\label{data-accessibility}
+
+All scripts and data used in this paper can be found in the permanent
+data archive Zenodo under the digital object identifier (DOI). This DOI
+corresponds to a snapshot of the GitHub repository at
+\url{https://github.com/ropensci/textmine}. Software can be found at
+\url{https://github.com/ropensci/xxx}, xxxx, all under MIT licenses.
+
+\section{References}\label{references}
+
+\end{document}
+
+
