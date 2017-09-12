@@ -1,11 +1,7 @@
 machine:
   services:
     - docker
-# dependencies:
-#   pre:
-#     - sudo pip install 'requests>=2.7'
-#     - sudo pip install 'shapely>=1.5.13'
-#     - sudo pip install pygbif
+
 test:
   override:
     - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "rmarkdown::render('manuscript.Rmd')"
