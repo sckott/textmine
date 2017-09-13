@@ -13,4 +13,4 @@ deployment:
     branch:
       - gh-pages
     commands:
-      - bash git_deploy.sh
+      - sh ./git_deploy.sh
