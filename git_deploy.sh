@@ -2,7 +2,7 @@
 set -e
 
 {
-  git pull
+  git fetch --unshallow
 } > /dev/null 2>&1
 
 git config --global user.email 'myrmecocystus@gmail.com' && git config --global user.name 'Scott Chamberlain'
