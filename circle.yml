@@ -8,9 +8,9 @@ test:
   post:
     - cp manuscript.pdf $CIRCLE_ARTIFACTS/
 
-deployment:
-  production:
-    branch:
-      - gh-pages
-    commands:
-      - sh ./git_deploy.sh
+# deployment:
+#   production:
+#     branch:
+#       - gh-pages
+#     commands:
+#       - sh ./git_deploy.sh
