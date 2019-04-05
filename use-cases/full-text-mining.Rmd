@@ -1,0 +1,63 @@
+```{r include=FALSE}
+opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  comment = '#>',
+  collapse = TRUE,
+  cache.path = "cache/"
+)
+```
+
+In this example, xxxx
+
+```{r}
+library("fulltext")
+# library("crminer")
+```
+
+_Search for articles_
+
+Search for the term _ecology_ in PLOS journals.
+
+```{r}
+(res1 <- ft_search(query = 'ecology', from = 'plos'))
+```
+
+Each publisher/search-engine has a slot with metadata and data
+
+```{r}
+res1$plos
+```
+
+_Get full text_
+
+Using the results from `ft_search()` we can grab full text of some articles
+
+```{r}
+(out <- ft_get(res1))
+```
+
+_Extract text from pdfs_
+
+Ideally for text mining you have access to XML or other text based formats. However, 
+sometimes you only have access to PDFs. In this case you want to extract text 
+from PDFs. `fulltext` can help with that. 
+
+You can extract from any pdf from a file path, like:
+
+```{r}
+path <- system.file("examples", "example1.pdf", package = "fulltext")
+ft_extract(path)
+```
+
+_Extract text chunks_
+
+Requires the [pubchunks][] library. Here, we'll search for some PLOS articles, then
+get their full text, then extract various parts of each article with `pub_chunks()`.
+
+```{r}
+library("pubchunks")
+res <- ft_search(query = "ecology", from = "plos", limit = 3)
+x <- ft_get(res)
+x %>% ft_collect() %>% pub_chunks(c("doi", "history")) %>% pub_tabularize()
+```

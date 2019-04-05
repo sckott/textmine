@@ -44,6 +44,46 @@
 \fi
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -55,7 +95,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={rOpenSci tools for textmining open source science literature},
+            pdftitle={rOpenSci tools for accessing science literature for textmining},
             colorlinks=true,
             urlcolor=blue,
             linkcolor=magenta,
@@ -74,9 +114,9 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{rOpenSci tools for textmining open source science literature}
+  \title{rOpenSci tools for accessing science literature for textmining}
     \author[cstar]{Scott Chamberlain\corref{c1}}
-   \ead{scott(at)ropensci.org} 
+   \ead{myrmecocystus(at)gmail.com} 
    \cortext[c1]{Corresponding author}
       \address[cstar]{rOpenSci, Museum of Paleontology, University of California, Berkeley,
 CA, USA}
@@ -90,7 +130,7 @@ CA, USA}
   CA, USA
   
   Email address:
-  \href{mailto:scott@ropensci.org}{\nolinkurl{scott@ropensci.org}}
+  \href{mailto:myrmecocystus@gmail.com}{\nolinkurl{myrmecocystus@gmail.com}}
   
   \newpage
   
@@ -108,12 +148,13 @@ CA, USA}
 
 \newpage
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-There's likely more than 100 million articles published (source:
-Crossref API), representing an enormous amount of knowledge. In addition
-to simply reading these articles, they contain a vast trove of
-information of interest to researchers.
+There's more than 100 million articles published (source: Crossref API),
+representing an enormous amount of knowledge. In addition to simply
+reading these articles, they contain a vast trove of information of
+interest to researchers for machine aided questions.
 
 For example, many researchers are interested in statistical outcomes of
 articles: questions about P-values, about effect sizes, and more. With
@@ -123,24 +164,26 @@ particular question.
 
 Text-mining is the broad term associated with pulling information out of
 articles. Given the importance of text-mining, good text-mining tools
-are needed to make it easier for researchers to do.
+are needed to make it easier for researchers. In particular, the R
+programming language is used widely throughout many academic fields and
+thus tools in R for text mining are of particular importance.
 
-Here, we do an overview of text-mining tools in the R programming
+Here, we present an overview of text-mining tools in the R programming
 language. We do not cover analysis tools per se, but rather those tools
 for searching for, acquiring, and ``mashing up'' text.
 
+\hypertarget{digital-articles-technical-aspects}{%
 \section{Digital articles: technical
-aspects}\label{digital-articles-technical-aspects}
+aspects}\label{digital-articles-technical-aspects}}
 
-Of digital articles some of which are available digitally, and some of
-which are not. Those that are digital can be split into two groups:
-easily machine readable and non-machine readable.
+Those articles that are digital can be split into two groups: easily
+machine readable and non-machine readable.
 
 The machine readable articles are those in XML, JSON, or plain text
-format. The former two, XML and JSON, are ideal of the machine readable
+format. The former two, XML and JSON, are ideal for the machine readable
 types because they are structured data, whereas plain text has no
-structure - it's simply a long set of characters with line breaks and
-spaces in between.
+structure - it's simply a set of characters with line breaks and spaces
+in between.
 
 Of the non-machine readable kind, there's PDFs. These can be broken out
 into two groups: text based PDFs and scanned PDFs. The former are
@@ -148,33 +191,55 @@ converted from digital versions of various kinds (MS Word, OpenOffice,
 markdown, etc.), while the latter are PDFs created by scanning in print
 articles for which there is no digital version.
 
+\hypertarget{digital-articles-the-access-landscape}{%
 \section{Digital articles: the access
-landscape}\label{digital-articles-the-access-landscape}
+landscape}\label{digital-articles-the-access-landscape}}
 
 Acces to full-text is the holy grail in text-mining. Some use cases can
 get by with article metadata (authors, title, etc.), some with
 abstracts, but many use cases need full-text.
 
-The landscape of access to full-text is a extremely hetergeous, with the
-majority of variation along the publisher axis. The major hurdle are
+The landscape of access to full-text is extremely hetergeous, with the
+majority of variation along the publisher axis. The major hurdle is
 paywalls. The majority of articles are published by the big three
-publishers - Wiley, Springer, Elsever - and the majority of their
+publishers - Wiley, Springer, Elsevier - and the majority of their
 articles are behind paywalls.
 
-A promising sign is that there's an increasing number of open access
-publishers. xxxx.
+A promising sign is an increasing number of open access publishers, yet
+these represent a very small portion of the total articles (XXXXX)
+(ref.).
 
-\section{The discovery problem (maybe remove
-section)}\label{the-discovery-problem-maybe-remove-section}
+With respect to paywalled articles, access varies by institution,
+depending on what each institution decided to pay for. In addition, some
+users may not realize access varies with IP address so that access from
+campus vs.~from home (if not on a VPN) will drastically differ.
+
+We can not end this section without mentioning SciHub. This is a last
+resort option for many probably, providing access to full text of
+articles that are normally paywalled. No tools in this manuscript
+provide access to SciHub.
+
+\hypertarget{the-discovery-problem}{%
+\section{The discovery problem}\label{the-discovery-problem}}
 
 xxx
 
-\section{Data sources}\label{data-sources}
+\hypertarget{section}{%
+\section{}\label{section}}
 
-There is increasing open source scientific literature content available
+xxx
+
+\hypertarget{data-sources}{%
+\section{Data sources}\label{data-sources}}
+
+There is increasing open access scientific literature content available
 online. However, only a small proportion of scientific journals provide
 access to their full content; whereas, most publishers provide open
 access to their metadata only (most often through Crossref; Table 1).
+The following is a synopsis of the major data sources and associated R
+tools.
+
+\newpage
 
 Table 1. Sources of scientific literature, their content type provided
 via web services, whether rOpenSci has an R packages for the service,
@@ -182,11 +247,11 @@ and where to find the API documentation.
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule
-Data Provider & Content Type & rOpenSci Pkg? & API
+Data Provider & Content Type & rOpenSci Package &
 Documentation\tabularnewline
 \midrule
 \endhead
-Crossref & Metadata only & rcrossref & \footnote{\url{http://api.crossref.org}}\tabularnewline
+Crossref & Metadata only & rcrossref/crminer & \footnote{\url{https://api.crossref.org}}\tabularnewline
 DataCite & Metadata only & rdatacite & \footnote{\url{https://support.datacite.org/docs/api}}\tabularnewline
 Biodiversity Heritage Library & Full content/Metadata & rbhl &
 \footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
@@ -198,58 +263,427 @@ Biomed Central (via Springer) & Full content/Metadata & fulltext &
 \footnote{\url{https://dev.springer.com/}}\tabularnewline
 bioRxiv & Full content/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
 PMC/Pubmed (via Entrez) & Full content/Metadata & rentrez & \footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
-Microsoft Academic Search & Metadata & fulltext/microdemic & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
+Europe PMC & Full content/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
+Microsoft Academic Search & Metadata & fulltext/microdemic & \footnote{\url{https://dev.labs.cognitive.microsoft.com/docs/services/56332331778daf02acc0a50b/operations/565d9001ca73072048922d97}}\tabularnewline
+Directory of Open Access Journals & Metadata & jaod & \footnote{\url{https://doaj.org/api/v1/docs}}\tabularnewline
+JSTOR Data for Research & Full content & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
+ORCID & Metadata & rorcid & \footnote{\url{https://pub.orcid.org/}}\tabularnewline
+Wikimedia's Citoid & Citations & rcitoid & \footnote{\url{https://en.wikipedia.org/api/rest_v1/\#/Citation/getCitation}}\tabularnewline
+Open Citation Corpus & Citations & citecorp & \footnote{\url{http://opencitations.net/}}\tabularnewline
 \bottomrule
 \end{longtable}
 
-The following is a synopsis of the major data sources and associated R
-tools.
-
-\subsection{Crossref}\label{crossref}
+\hypertarget{crossrefdatacite}{%
+\subsection{Crossref/Datacite}\label{crossrefdatacite}}
 
 Crossref is a non-profit that creates (or ``mints'') Digital Object
 Identifiers (DOIs). In addition, they maintain metadata associated with
 each DOI. The metadata ranges from simple (including author, title,
 dates, DOI, type, publisher) to including number of citations to the
-article, as well as references in the article, and even abstracts.
+article, as well as references in the article, and even abstracts. At
+the time of writing they hold 100 million DOIs.
 
-Crossref does have a text-mining opt-in program for publishers. The
-result of this is that some publishers deposit URLs for full text
+One can search by DOI or search citation data to get citations. In
+addition, Crossref has a text-mining opt-in program for publishers. The
+result of this is that some publishers provide URLs for full text
 content of their articles. The majority of these links are pay-walled,
 while some are open access. Using any of the various tools for working
 with Crossref data, you can filter your search to get only articles with
 full text links, and further to get only articles with full text links
 that are open access.
 
-The main interface for Crossref in R is
-\href{https://github.com/ropensci/rcrossref}{rcrossref}. Parallel
-interfaces are available in Ruby
+The main interfaces for Crossref in R are
+\href{https://github.com/ropensci/rcrossref}{rcrossref} and
+\href{https://github.com/ropensci/crminer}{crminer}. Similar interfaces
+are available in Ruby
 (\href{https://github.com/sckott/serrano}{serrano}) and Python
 (\href{https://github.com/sckott/habanero}{habanero}).
 
-\subsection{Pubmed}\label{pubmed}
+Datacite is similar to Crossref, but focuses on datasets instead of
+articles. The main interface for Datacite in R is
+\href{https://github.com/ropensci/rdatacite}{rdatacite}.
 
-Pubmed is a corpus/website of NIH funded research \ldots{}
+\hypertarget{biodiversity-heritage-library}{%
+\subsection{Biodiversity Heritage
+Library}\label{biodiversity-heritage-library}}
 
+The Biodiversity Heritage Library (BHL) houses scans of biodiversity
+books, and provides web interfaces and APIs to query and fetch those
+data. They also provide text of the scanned pages. The main R interace
+to BHL is through \href{https://github.com/ropensci/rbhl}{rbhl}.
+
+\hypertarget{public-library-of-science}{%
+\subsection{Public Library of Science}\label{public-library-of-science}}
+
+The Public Library of Science (PLOS) is one of the largest open access
+only publishers. They as of this writing have published 2.1 million
+articles. One of the strongs advantages of PLOS is that they provide an
+API to their Solr instance, which is a very flexible way to search their
+articles. The main R interace to PLOS is through
+\href{https://github.com/ropensci/rplos}{rplos}.
+
+\hypertarget{elsevierscopus}{%
+\subsection{Elsevier/Scopus}\label{elsevierscopus}}
+
+Elsevier is one of the largest publishers. Most of their articles are
+not open access. However, they have a numbrer of advantages if you have
+access to their articles: they are one of the few publishers to provide
+machine readable XML (many publishers do have XML versions of articles,
+but do not provide it); they are one of the few (two) publishers part of
+Crossref's text and data mining program. The packages
+\href{https://github.com/ropensci/fulltext}{fulltext} and
+\href{https://github.com/ropensci/crminer}{crminer} can be used to
+access Elsevier articles through Crossref's TDM program. There's an
+interface to Scopus article search within
+\href{https://github.com/ropensci/fulltext}{fulltext}.
+
+\hypertarget{arxivbiorxiv}{%
+\subsection{arXiv/bioRxiv}\label{arxivbiorxiv}}
+
+arXiv and bioRxiv are preprint publishers, the former in existence for
+many years, and the latter new on the scene. You can access articles
+from these publishers through
+\href{https://github.com/ropensci/fulltext}{fulltext}. arXiv does
+provide a web API that we hook into; bioRxiv does not, but we can get
+you articles nonetheless.
+
+\hypertarget{pubmedpmceurope-pmc}{%
+\subsection{Pubmed/PMC/Europe PMC}\label{pubmedpmceurope-pmc}}
+
+Pubmed/PMC is a corpus/website of NIH funded research in the United
+States; while Europe PMC is an equivalent for the European Union. You
+can access articles from Pubmed/PMC through
+\href{https://github.com/ropensci/fulltext}{fulltext}, and for Europe
+PMC through \href{https://github.com/ropensci/europepmc}{europepmc}.
+
+\hypertarget{microsoft-academic-research}{%
+\subsection{Microsoft Academic
+Research}\label{microsoft-academic-research}}
+
+Microsoft Academic Research (MAR) is a search engine for research
+articles. You can use their GUI web interface to search, and they
+provide APIs for programmatic access. The R interface for MAR is
+\href{https://github.com/ropensci/microdemic}{microdemic}; and
+\href{https://github.com/ropensci/fulltext}{fulltext} hooks into
+\texttt{microdemic} as well for article search and abstract retrieval.
+
+\hypertarget{directory-of-open-access-journals}{%
+\subsection{Directory of Open Access
+Journals}\label{directory-of-open-access-journals}}
+
+xxxxx
+
+\hypertarget{jstor}{%
+\subsection{JSTOR}\label{jstor}}
+
+xxxxx
+
+\hypertarget{orcid}{%
+\subsection{ORCID}\label{orcid}}
+
+xxxxx
+
+\hypertarget{citoidopen-citation-corpus}{%
+\subsection{Citoid/Open Citation
+Corpus}\label{citoidopen-citation-corpus}}
+
+xxx
+
+\hypertarget{how-to-text-mine-from-r-three-case-studies}{%
 \section{How to text mine from R: Three case
-studies}\label{how-to-text-mine-from-r-three-case-studies}
+studies}\label{how-to-text-mine-from-r-three-case-studies}}
 
-\subsubsection{Case study 1}\label{case-study-1}
+\hypertarget{case-study-1-citation-mining}{%
+\subsubsection{Case study 1: Citation
+mining}\label{case-study-1-citation-mining}}
 
-\subsubsection{Case study 2}\label{case-study-2}
+In this example, xxxx
 
-\subsubsection{Case study 3}\label{case-study-3}
+\emph{Load libraries}
 
-\section{Conclusions and future
-directions}\label{conclusions-and-future-directions}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"rcrossref"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rplos"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rorcid"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rcitoid"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"citecorp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{rcrossref}
+
+Using \texttt{rcrossref} for Crossref data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{cr_works}\NormalTok{(}\DataTypeTok{query=}\StringTok{"NSF"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(x}\OperatorTok{$}\NormalTok{data)}
+\CommentTok{#> # A tibble: 6 x 32}
+\CommentTok{#>   alternative.id container.title created deposited published.print doi  }
+\CommentTok{#>   <chr>          <chr>           <chr>   <chr>     <chr>           <chr>}
+\CommentTok{#> 1 S106352031630~ Applied and Co~ 2016-0~ 2019-02-~ 2018-03         10.1~}
+\CommentTok{#> 2 <NA>           Biogeosciences~ 2017-0~ 2017-07-~ <NA>            10.5~}
+\CommentTok{#> 3 <NA>           Global Biogeoc~ 2018-0~ 2019-01-~ 2018-10         10.1~}
+\CommentTok{#> 4 <NA>           IEEE Communica~ 2016-1~ 2017-12-~ 2017            10.1~}
+\CommentTok{#> 5 S002178241400~ Journal de Mat~ 2014-0~ 2018-10-~ 2014-10         10.1~}
+\CommentTok{#> 6 123            Light: Science~ 2019-0~ 2019-01-~ 2019-12         10.1~}
+\CommentTok{#> # ... with 26 more variables: indexed <chr>, issn <chr>, issue <chr>,}
+\CommentTok{#> #   issued <chr>, member <chr>, page <chr>, prefix <chr>, publisher <chr>,}
+\CommentTok{#> #   reference.count <chr>, score <chr>, ...}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{case-study-2-abstract-mining}{%
+\subsubsection{Case study 2: Abstract
+mining}\label{case-study-2-abstract-mining}}
+
+Sometimes you just need abstracts for your research question. The
+benefit of only needing abstracts, and not need full text, is that
+there's many more articles that will have abstracts available than have
+their full text available.
+
+As an example, let's say you xxxx
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{xxxxx}
+
+Using \texttt{fulltext}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{,}
+  \DataTypeTok{crossrefopts =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{filter =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{has_abstract =} \OtherTok{TRUE}\NormalTok{)))}
+\NormalTok{ids <-}\StringTok{ }\NormalTok{res}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_abstract}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ids, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{)}
+\NormalTok{abstracts <-}\StringTok{ }\KeywordTok{vapply}\NormalTok{(out}\OperatorTok{$}\NormalTok{crossref, }\StringTok{"[["}\NormalTok{, }\StringTok{""}\NormalTok{, }\StringTok{"abstract"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using \href{https://quanteda.io/}{quanteda}, read the abstracts into a
+corpus
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
+\NormalTok{corp <-}\StringTok{ }\KeywordTok{corpus}\NormalTok{(abstracts)}
+\KeywordTok{docvars}\NormalTok{(corp) <-}\StringTok{ }\NormalTok{ids}
+\end{Highlighting}
+\end{Shaded}
+
+Get a summary of the abstracts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(corp)}
+\CommentTok{#> Corpus consisting of 10 documents:}
+\CommentTok{#> }
+\CommentTok{#>    Text Types Tokens Sentences                    V1}
+\CommentTok{#>   text1   143    262        10   10.2458/v22i1.21112}
+\CommentTok{#>   text2   117    244         6   10.2458/v17i1.21696}
+\CommentTok{#>   text3    75    118         4   10.2458/v25i1.23119}
+\CommentTok{#>   text4     5      8         1    10.2458/v1i1.21154}
+\CommentTok{#>   text5   105    171         7   10.1155/2011/868426}
+\CommentTok{#>   text6   112    181         6   10.1155/2012/273413}
+\CommentTok{#>   text7   117    240         8 10.5194/we-13-91-2013}
+\CommentTok{#>   text8   140    245         9 10.5194/we-13-95-2013}
+\CommentTok{#>   text9   107    202         7   10.1155/2014/198707}
+\CommentTok{#>  text10   118    224         6   10.5402/2011/897578}
+\CommentTok{#> }
+\CommentTok{#> Source: /Users/sckott/github/ropensci/textmine/use-cases/* on x86_64 by sckott}
+\CommentTok{#> Created: Fri Apr  5 11:36:04 2019}
+\CommentTok{#> Notes:}
+\end{Highlighting}
+\end{Shaded}
+
+Use the \texttt{kwic()} function to see a word in context across the
+abstracts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{kwic}\NormalTok{(corp, }\DataTypeTok{pattern =} \StringTok{"ecology"}\NormalTok{)}
+\CommentTok{#>                                                                         }
+\CommentTok{#>   [text1, 33] knowledge production within critical political | ecology |}
+\CommentTok{#>   [text1, 50]              in scientific articles on dryland | ecology |}
+\CommentTok{#>  [text1, 204]                 to equilibrium models in range | ecology |}
+\CommentTok{#>  [text1, 246]    communal areas.Keywords: Critical political | ecology |}
+\CommentTok{#>  [text1, 255]                 , scientific models, rangeland | ecology |}
+\CommentTok{#>    [text2, 5]                            < jats:p> Political | ecology |}
+\CommentTok{#>   [text2, 23]        manifestations of political economy and | ecology |}
+\CommentTok{#>   [text2, 45]                      I try to extend political | ecology |}
+\CommentTok{#>  [text2, 149]                   , in dialogue with political | ecology |}
+\CommentTok{#>  [text2, 177]            people and resources that political | ecology |}
+\CommentTok{#>  [text2, 229]      indigeneity scholars.Key words: political | ecology |}
+\CommentTok{#>   [text3, 71]                   an analysis from a political | ecology |}
+\CommentTok{#>  [text3, 114]                system, supermarkets, political | ecology |}
+\CommentTok{#>  [text6, 134]                was observed when allopatry and | ecology |}
+\CommentTok{#>  [text7, 167]             ecosystem should be considered for | ecology |}
+\CommentTok{#>  [text7, 185]                       the" four-color issue of | ecology |}
+\CommentTok{#>  [text7, 201]             step toward advancing knowledge in | ecology |}
+\CommentTok{#>  [text9, 195]         or for theoretical studies integrating | ecology |}
+\CommentTok{#>                                              }
+\CommentTok{#>  . This article is a                         }
+\CommentTok{#>  , and investigates the functions            }
+\CommentTok{#>  , and the fence-line photographs            }
+\CommentTok{#>  , fence-line photography, scientific        }
+\CommentTok{#>  , Southern Africa</                         }
+\CommentTok{#>  has expanded in multiple new                }
+\CommentTok{#>  in the" problem"                            }
+\CommentTok{#>  to engage with ethnic studies               }
+\CommentTok{#>  approaches to better understand the         }
+\CommentTok{#>  focuses on cannot be adequately             }
+\CommentTok{#>  , coloniality, Maidu,                       }
+\CommentTok{#>  standpoint allows a different interpretation}
+\CommentTok{#>  </ jats:p>                                  }
+\CommentTok{#>  act together, leading to                    }
+\CommentTok{#>  "? Here, I                                  }
+\CommentTok{#>  ", and propose that                         }
+\CommentTok{#>  and conservation biology. In                }
+\CommentTok{#>  and biogeography.</}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{case-study-3-full-text-mining}{%
+\subsubsection{Case study 3: Full text
+mining}\label{case-study-3-full-text-mining}}
+
+In this example, xxxx
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
+\CommentTok{# library("crminer")}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Search for articles}
+
+Search for the term \emph{ecology} in PLOS journals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(res1 <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \StringTok{'plos'}\NormalTok{))}
+\CommentTok{#> Query:}
+\CommentTok{#>   [ecology] }
+\CommentTok{#> Found:}
+\CommentTok{#>   [PLoS: 47337; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] }
+\CommentTok{#> Returned:}
+\CommentTok{#>   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]}
+\end{Highlighting}
+\end{Shaded}
+
+Each publisher/search-engine has a slot with metadata and data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res1}\OperatorTok{$}\NormalTok{plos}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [47337, 10] }
+\CommentTok{#> License: [CC-BY] }
+\CommentTok{#>                              id}
+\CommentTok{#> 1  10.1371/journal.pone.0001248}
+\CommentTok{#> 2  10.1371/journal.pone.0059813}
+\CommentTok{#> 3  10.1371/journal.pone.0155019}
+\CommentTok{#> 4  10.1371/journal.pone.0080763}
+\CommentTok{#> 5  10.1371/journal.pone.0208370}
+\CommentTok{#> 6  10.1371/journal.pone.0150648}
+\CommentTok{#> 7  10.1371/journal.pcbi.1003594}
+\CommentTok{#> 8  10.1371/journal.pone.0102437}
+\CommentTok{#> 9  10.1371/journal.pone.0175014}
+\CommentTok{#> 10 10.1371/journal.pone.0166559}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Get full text}
+
+Using the results from \texttt{ft\_search()} we can grab full text of
+some articles
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(out <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res1))}
+\CommentTok{#> <fulltext text>}
+\CommentTok{#> [Docs] 10 }
+\CommentTok{#> [Source] ext - /Users/sckott/Library/Caches/R/fulltext }
+\CommentTok{#> [IDs] 10.1371/journal.pone.0001248 10.1371/journal.pone.0059813}
+\CommentTok{#>      10.1371/journal.pone.0155019 10.1371/journal.pone.0080763}
+\CommentTok{#>      10.1371/journal.pone.0208370 10.1371/journal.pone.0150648}
+\CommentTok{#>      10.1371/journal.pcbi.1003594 10.1371/journal.pone.0102437}
+\CommentTok{#>      10.1371/journal.pone.0175014 10.1371/journal.pone.0166559 ...}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Extract text from pdfs}
+
+Ideally for text mining you have access to XML or other text based
+formats. However, sometimes you only have access to PDFs. In this case
+you want to extract text from PDFs. \texttt{fulltext} can help with
+that.
+
+You can extract from any pdf from a file path, like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{path <-}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"examples"}\NormalTok{, }\StringTok{"example1.pdf"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"fulltext"}\NormalTok{)}
+\KeywordTok{ft_extract}\NormalTok{(path)}
+\CommentTok{#> <document>/Library/Frameworks/R.framework/Versions/3.5/Resources/library/fulltext/examples/example1.pdf}
+\CommentTok{#>   Title: Suffering and mental health among older people living in nursing homes---a mixed-methods study}
+\CommentTok{#>   Producer: pdfTeX-1.40.10}
+\CommentTok{#>   Creation date: 2015-07-17}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Extract text chunks}
+
+Requires the \href{https://github.com/ropensci/pubchunks}{pubchunks}
+library. Here, we'll search for some PLOS articles, then get their full
+text, then extract various parts of each article with
+\texttt{pub\_chunks()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"pubchunks"}\NormalTok{)}
+\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"plos"}\NormalTok{, }\DataTypeTok{limit =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res)}
+\NormalTok{x }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ft_collect}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_chunks}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"doi"}\NormalTok{, }\StringTok{"history"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_tabularize}\NormalTok{()}
+\CommentTok{#> $plos}
+\CommentTok{#> $plos$`10.1371/journal.pone.0001248`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0001248       2007-07-02       2007-11-06}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\CommentTok{#> }
+\CommentTok{#> $plos$`10.1371/journal.pone.0059813`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0059813       2012-09-16       2013-02-19}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\CommentTok{#> }
+\CommentTok{#> $plos$`10.1371/journal.pone.0155019`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0155019       2015-09-22       2016-04-22}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{future-directions}{%
+\section{Future directions}\label{future-directions}}
 
 xxxx
 
-\section{Acknowledgments}\label{acknowledgments}
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
 
 xxxx
 
-\section{Data Accessibility}\label{data-accessibility}
+\hypertarget{data-accessibility}{%
+\section{Data Accessibility}\label{data-accessibility}}
 
 All scripts and data used in this paper can be found in the permanent
 data archive Zenodo under the digital object identifier (DOI). This DOI
@@ -257,7 +691,8 @@ corresponds to a snapshot of the GitHub repository at
 \url{https://github.com/ropensci/textmine}. Software can be found at
 \url{https://github.com/ropensci/xxx}, xxxx, all under MIT licenses.
 
-\section{References}\label{references}
+\hypertarget{references}{%
+\section{References}\label{references}}
 
 \end{document}
 

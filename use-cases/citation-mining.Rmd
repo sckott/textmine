@@ -1,0 +1,30 @@
+```{r include=FALSE}
+opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  comment = '#>',
+  collapse = TRUE,
+  cache.path = "cache/"
+)
+```
+
+In this example, xxxx
+
+_Load libraries_
+
+```{r}
+library("rcrossref")
+library("rplos")
+library("rorcid")
+library("rcitoid")
+library("citecorp")
+```
+
+_rcrossref_
+
+Using `rcrossref` for Crossref data:
+
+```{r}
+x <- cr_works(query="NSF")
+head(x$data)
+```

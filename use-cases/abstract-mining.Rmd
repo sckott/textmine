@@ -1,0 +1,53 @@
+```{r include=FALSE}
+opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  comment = '#>',
+  collapse = TRUE,
+  cache.path = "cache/"
+)
+```
+
+Sometimes you just need abstracts for your research question. The benefit of 
+only needing abstracts, and not need full text, is that there's many more
+articles that will have abstracts available than have their full text 
+available.
+
+As an example, let's say you xxxx
+
+```{r}
+library("fulltext")
+```
+
+_xxxxx_
+
+Using `fulltext`:
+
+```{r}
+res <- ft_search("ecology", from = "crossref",
+  crossrefopts = list(filter = c(has_abstract = TRUE)))
+ids <- res$crossref$data$doi
+out <- ft_abstract(x = ids, from = "crossref")
+abstracts <- vapply(out$crossref, "[[", "", "abstract")
+```
+
+Using [quanteda][], read the abstracts into a corpus
+
+```{r}
+library("quanteda")
+corp <- corpus(abstracts)
+docvars(corp) <- ids
+```
+
+Get a summary of the abstracts
+
+```{r}
+summary(corp)
+```
+
+Use the `kwic()` function to see a word in context across
+the abstracts
+
+```{r}
+kwic(corp, pattern = "ecology")
+```
