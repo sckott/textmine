@@ -1,7 +1,7 @@
 ---
 layout: review, 11pt
 linenumbers: true
-title: "rOpenSci tools for accessing science literature for textmining"
+title: "rOpenSci tools for accessing research literature for text mining"
 author:
   - name: Scott Chamberlain
     affiliation: cstar
@@ -276,19 +276,116 @@ xxx
 
 
 
+# fulltext: a swiss army knife for text mining in R
+
+[fulltext][] is a general purpose R package for the data part of text-mining:
+search for articles, get links to articles, get article abstracts, and fetch
+full text of articles. The `fulltext` package is always adding additional
+data sources as time allows (See Table 1). Starting from searching for 
+articles, the outputs of search can be fed into a function to get links 
+to those articles, or to get abstracts for those articles, or to fetch 
+their full text.
+
+The following is a breakdown of the major distinct functional parts of 
+`fulltext`.
+
+## Search
+
+`ft_search()` provides search access to nine different data sources (PLOS, BMC, Crossref,
+Entrez, arXiv, bioRxiv, Europe PMC, Scopus, Microsoft Academic), creating a
+mostly unified interface to all data sources. The parts of each data source
+that are common are mostly factored into the parameters of the `ft_search()` function,
+and we also allow the user to pass on data source specific options as needed.
+
+xxxxx
+
+## Links
+
+`ft_links()` provides two pathways to get links (URLs) for articles, with a choice
+of four different data sources (PLOS, BMC, Crossref, Entrez). First, you can
+use `ft_search()`, then pass the output of that function to `ft_links()`. Second, 
+you can pass DOIs directly to `ft_links()`. Both end up at the same point, links
+for each article, if they could be found for the user selected data source. 
+
+The biggest caveat with `ft_links()` is that we can't gaurantee that the links
+will work. Link rot is one way in which the links may not work: link rot is when 
+the URL does not point to the original content anymore, or fails altogether. 
+Additionally, with Crossref, publishers can deposit URLs for articles, but they 
+make change the URLs at some later date but not update the URLs with Crossref.
+
+## Abstracts
+
+`ft_abstract()` provides access to article abstracts from four different 
+data sources (PLOS, Scopus, Microsoft Academic Research, Crossref). The only 
+way to use the function is to pass article identifiers, which are for the most 
+DOIs.  
+
+The advantage of abstracts over full text is that abstracts can often be 
+retrieved even for paywalled articles. That is, you can have much broader
+coverage of the articles you're targeting relative to full text.
+
+If you are after abstracts, and you are already getting or already have full text, 
+and if the articles are in XML format, then you can use [pubchunks][] to extract
+out the abstracts.
+
+## Fetch full text
+
+`ft_get()` fetchs full text of articles from many different data sources. From the DOIs
+that are passed in to the function, we detect the publisher, and there are specific plugins
+for certain publishers:
+
+- aaas
+- aip
+- amersocclinoncol
+- amersocmicrobiol
+- arxiv
+- biorxiv
+- bmc
+- copernicus
+- crossref
+- elife
+- elsevier
+- entrez
+- frontiersin
+- ieee
+- informa
+- instinvestfil
+- jama
+- microbiology
+- peerj
+- pensoft
+- plos
+- pnas
+- royalsocchem
+- sciencedirect
+- scientificsocieties
+- wiley
+
+If there's no built-in plugin for the publisher already, we use the FTDOI API 
+(<https://ftdoi.org>) to try to get the link for the full text of the article. If 
+the FTDOI API doesn't bear fruit, we search Crossref for a link to the full text.
+If Crossref doesn't have any full text links, we give up. 
+
+Since users can go through a lot of article requests, we cache successfully 
+downloaded articles, and keep that knowledge consistent across R sessions; all 
+subsequent requests for the same article just use the cached version. Additionally,
+all errors in `ft_get()` are collected in a tidy data.frame in the output of the 
+function to help the user quickly determine what went wrong.
+
+
 # How to text mine from R: Three case studies
 
-### Case study 1: Citation mining
+## Case study 1: Citation mining
 
 ```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
 ```
 
-### Case study 2: Abstract mining
+## Case study 2: Abstract mining
 
 ```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
 ```
 
-### Case study 3: Full text mining
+## Case study 3: Full text mining
 
 ```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
 ```

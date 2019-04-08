@@ -95,7 +95,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={rOpenSci tools for accessing science literature for textmining},
+            pdftitle={rOpenSci tools for accessing research literature for text mining},
             colorlinks=true,
             urlcolor=blue,
             linkcolor=magenta,
@@ -114,7 +114,7 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{rOpenSci tools for accessing science literature for textmining}
+  \title{rOpenSci tools for accessing research literature for text mining}
     \author[cstar]{Scott Chamberlain\corref{c1}}
    \ead{myrmecocystus(at)gmail.com} 
    \cortext[c1]{Corresponding author}
@@ -389,12 +389,152 @@ Corpus}\label{citoidopen-citation-corpus}}
 
 xxx
 
+\hypertarget{fulltext-a-swiss-army-knife-for-text-mining-in-r}{%
+\section{fulltext: a swiss army knife for text mining in
+R}\label{fulltext-a-swiss-army-knife-for-text-mining-in-r}}
+
+\href{https://github.com/ropensci/fulltext}{fulltext} is a general
+purpose R package for the data part of text-mining: search for articles,
+get links to articles, get article abstracts, and fetch full text of
+articles. The \texttt{fulltext} package is always adding additional data
+sources as time allows (See Table 1). Starting from searching for
+articles, the outputs of search can be fed into a function to get links
+to those articles, or to get abstracts for those articles, or to fetch
+their full text.
+
+The following is a breakdown of the major distinct functional parts of
+\texttt{fulltext}.
+
+\hypertarget{search}{%
+\subsection{Search}\label{search}}
+
+\texttt{ft\_search()} provides search access to nine different data
+sources (PLOS, BMC, Crossref, Entrez, arXiv, bioRxiv, Europe PMC,
+Scopus, Microsoft Academic), creating a mostly unified interface to all
+data sources. The parts of each data source that are common are mostly
+factored into the parameters of the \texttt{ft\_search()} function, and
+we also allow the user to pass on data source specific options as
+needed.
+
+xxxxx
+
+\hypertarget{links}{%
+\subsection{Links}\label{links}}
+
+\texttt{ft\_links()} provides two pathways to get links (URLs) for
+articles, with a choice of four different data sources (PLOS, BMC,
+Crossref, Entrez). First, you can use \texttt{ft\_search()}, then pass
+the output of that function to \texttt{ft\_links()}. Second, you can
+pass DOIs directly to \texttt{ft\_links()}. Both end up at the same
+point, links for each article, if they could be found for the user
+selected data source.
+
+The biggest caveat with \texttt{ft\_links()} is that we can't gaurantee
+that the links will work. Link rot is one way in which the links may not
+work: link rot is when the URL does not point to the original content
+anymore, or fails altogether. Additionally, with Crossref, publishers
+can deposit URLs for articles, but they make change the URLs at some
+later date but not update the URLs with Crossref.
+
+\hypertarget{abstracts}{%
+\subsection{Abstracts}\label{abstracts}}
+
+\texttt{ft\_abstract()} provides access to article abstracts from four
+different data sources (PLOS, Scopus, Microsoft Academic Research,
+Crossref). The only way to use the function is to pass article
+identifiers, which are for the most DOIs.
+
+The advantage of abstracts over full text is that abstracts can often be
+retrieved even for paywalled articles. That is, you can have much
+broader coverage of the articles you're targeting relative to full text.
+
+If you are after abstracts, and you are already getting or already have
+full text, and if the articles are in XML format, then you can use
+\href{https://github.com/ropensci/pubchunks}{pubchunks} to extract out
+the abstracts.
+
+\hypertarget{fetch-full-text}{%
+\subsection{Fetch full text}\label{fetch-full-text}}
+
+\texttt{ft\_get()} fetchs full text of articles from many different data
+sources. From the DOIs that are passed in to the function, we detect the
+publisher, and there are specific plugins for certain publishers:
+
+\begin{itemize}
+\tightlist
+\item
+  aaas
+\item
+  aip
+\item
+  amersocclinoncol
+\item
+  amersocmicrobiol
+\item
+  arxiv
+\item
+  biorxiv
+\item
+  bmc
+\item
+  copernicus
+\item
+  crossref
+\item
+  elife
+\item
+  elsevier
+\item
+  entrez
+\item
+  frontiersin
+\item
+  ieee
+\item
+  informa
+\item
+  instinvestfil
+\item
+  jama
+\item
+  microbiology
+\item
+  peerj
+\item
+  pensoft
+\item
+  plos
+\item
+  pnas
+\item
+  royalsocchem
+\item
+  sciencedirect
+\item
+  scientificsocieties
+\item
+  wiley
+\end{itemize}
+
+If there's no built-in plugin for the publisher already, we use the
+FTDOI API (\url{https://ftdoi.org}) to try to get the link for the full
+text of the article. If the FTDOI API doesn't bear fruit, we search
+Crossref for a link to the full text. If Crossref doesn't have any full
+text links, we give up.
+
+Since users can go through a lot of article requests, we cache
+successfully downloaded articles, and keep that knowledge consistent
+across R sessions; all subsequent requests for the same article just use
+the cached version. Additionally, all errors in \texttt{ft\_get()} are
+collected in a tidy data.frame in the output of the function to help the
+user quickly determine what went wrong.
+
 \hypertarget{how-to-text-mine-from-r-three-case-studies}{%
 \section{How to text mine from R: Three case
 studies}\label{how-to-text-mine-from-r-three-case-studies}}
 
 \hypertarget{case-study-1-citation-mining}{%
-\subsubsection{Case study 1: Citation
+\subsection{Case study 1: Citation
 mining}\label{case-study-1-citation-mining}}
 
 In this example, xxxx
@@ -435,7 +575,7 @@ Using \texttt{rcrossref} for Crossref data:
 \end{Shaded}
 
 \hypertarget{case-study-2-abstract-mining}{%
-\subsubsection{Case study 2: Abstract
+\subsection{Case study 2: Abstract
 mining}\label{case-study-2-abstract-mining}}
 
 Sometimes you just need abstracts for your research question. The
@@ -549,7 +689,7 @@ abstracts
 \end{Shaded}
 
 \hypertarget{case-study-3-full-text-mining}{%
-\subsubsection{Case study 3: Full text
+\subsection{Case study 3: Full text
 mining}\label{case-study-3-full-text-mining}}
 
 In this example, xxxx
