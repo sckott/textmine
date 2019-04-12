@@ -95,7 +95,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={rOpenSci tools for accessing research literature for text mining},
+            pdftitle={R tools for accessing research literature for text mining},
             colorlinks=true,
             urlcolor=blue,
             linkcolor=magenta,
@@ -114,7 +114,7 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{rOpenSci tools for accessing research literature for text mining}
+  \title{R tools for accessing research literature for text mining}
     \author[cstar]{Scott Chamberlain\corref{c1}}
    \ead{myrmecocystus(at)gmail.com} 
    \cortext[c1]{Corresponding author}
@@ -122,25 +122,19 @@
 CA, USA}
   
   \begin{abstract}
-  Corresponding Author:
-  
-  Scott Chamberlain
-  
-  rOpenSci, Museum of Paleontology, University of California, Berkeley,
-  CA, USA
-  
-  Email address:
-  \href{mailto:myrmecocystus@gmail.com}{\nolinkurl{myrmecocystus@gmail.com}}
-  
-  \newpage
-  
-  Background. xxxx.
-  
-  Methods. xxxx.
-  
-  Results. xxxx.
-  
-  Discussion. xxxx.
+  Text-mining is a powerful method for answering research questions.
+  However, getting texts to extract information can be a daunting and
+  complicated task. The primary reason for this is publishers. There are
+  thousands of different publishers, each with their own licenses, URL
+  patterns, access options, and more. Layered on top of that is the varied
+  access each user has based on their institutional affiliation. Here, I
+  introduce a suite of software packages in the R programming language for
+  fetching texts. The tapestry of different publishers, access levels, and
+  other factors requires a patchwork of approaches for getting texts to
+  users. The flagship R package called fulltext attempts to simplify
+  search and retrieval of texts for text-mining. The fulltext package,
+  along with many others, make acquiring texts easier than ever,
+  facilitating answering research questions with text-mining.
   \end{abstract}
   
  \end{frontmatter}
@@ -151,10 +145,12 @@ CA, USA}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-There's more than 100 million articles published (source: Crossref API),
-representing an enormous amount of knowledge. In addition to simply
-reading these articles, they contain a vast trove of information of
-interest to researchers for machine aided questions.
+There's more than 100 million research articles published (Crossref API:
+\url{https://github.com/CrossRef/rest-api-doc}), representing an
+enormous amount of knowledge. In addition to simply reading these
+articles, the articles contain a vast trove of information of interest
+to researchers for machine aided questions (Kong \& Gerstein, 2018; Usai
+et al., 2018).
 
 For example, many researchers are interested in statistical outcomes of
 articles: questions about P-values, about effect sizes, and more. With
@@ -164,32 +160,59 @@ particular question.
 
 Text-mining is the broad term associated with pulling information out of
 articles. Given the importance of text-mining, good text-mining tools
-are needed to make it easier for researchers. In particular, the R
-programming language is used widely throughout many academic fields and
-thus tools in R for text mining are of particular importance.
+are needed to make it easier for researchers to do. Graphical user
+interface (GUI) based text mining tools are available (e.g., Ba \&
+Bossy, 2016) and some research papers have used them (Chaix et al.,
+2019), but given the urgent recent call to action for more reproducible
+research (Open Science Collaboration, 2015; Camerer et al., 2016, 2018),
+we must move away from GUI based tools as fast as possible.
 
-Here, we present an overview of text-mining tools in the R programming
-language. We do not cover analysis tools per se, but rather those tools
-for searching for, acquiring, and ``mashing up'' text.
+In particular, the R programming language is used widely throughout many
+academic fields and thus tools in R for text mining are of particular
+importance because they can be adopted by academics rapidly.
+
+Here, I present an overview of text-mining tools in the R programming
+language, not for text-mining analysis, but rather those tools for
+searching for, acquiring, and extracting particular chunks of texts
+(e.g., title, abstract, authors). Most of the packages are part of the
+rOpenSci suite (\url{https://ropensci.org/}).
 
 \hypertarget{digital-articles-technical-aspects}{%
 \section{Digital articles: technical
 aspects}\label{digital-articles-technical-aspects}}
 
-Those articles that are digital can be split into two groups: easily
-machine readable and non-machine readable.
+Those articles that are digital (which in theory includes all articles)
+can be split into two groups: machine readable and non-machine readable.
 
-The machine readable articles are those in XML, JSON, or plain text
-format. The former two, XML and JSON, are ideal for the machine readable
-types because they are structured data, whereas plain text has no
-structure - it's simply a set of characters with line breaks and spaces
-in between.
+The machine readable articles are those in XML\footnote{\url{https://www.w3.org/TR/xml/}},
+JSON\footnote{\url{https://tools.ietf.org/html/rfc7159}}, or plain text
+format. The former two, XML and JSON, are the best machine readable
+types because they are structured data\footnote{\url{https://en.wikipedia.org/wiki/Data_model}},
+whereas plain text has no structure - it's simply a set of characters
+with line breaks and spaces in between.
 
-Of the non-machine readable kind, there's PDFs. These can be broken out
-into two groups: text based PDFs and scanned PDFs. The former are
-converted from digital versions of various kinds (MS Word, OpenOffice,
-markdown, etc.), while the latter are PDFs created by scanning in print
-articles for which there is no digital version.
+Of the non-machine readable types, the most noteable is the Portable
+Document Format (PDF)\footnote{\url{https://en.wikipedia.org/wiki/PDF}}.
+These can be broken out into two groups: text based PDFs and scanned
+PDFs. The former are converted from digital versions of various kinds
+(MS Word, OpenOffice, LaTeX, markdown, etc.), while the latter are
+created by scanning print articles to a PDF format. Text-based PDFs are
+much better for text-mining purposes as plain text can be extracted
+easily in R with \href{https://github.com/ropensci/pdftools}{pdftools},
+a binding to \href{https://poppler.freedesktop.org/}{libpoppler}.
+However, with scanned PDFs, text must be extracted using Optimal
+Character Recognition (OCR; see R package
+\href{https://github.com/ropensci/tesseract}{tesseract}), which isn't
+always a clean solution, especially compared to true text based PDFs.
+
+The reality in scholarly publishing is all publishers, if they provide
+any access to their articles, only provide PDF format. Very few
+publishers, with some quite large (Elsevier, Pensoft, PLOS), provide XML
+format. Although most publishers most likely have the XML behind each of
+their articles, they for some indefensible reason do not share it -
+making text-mining more difficult. Some provide plain text (Elsevier). I
+only know of one publisher that provides full text as JSON (PLOS). Thus,
+text-mining, in most cases, will require extracting text from PDFs.
 
 \hypertarget{digital-articles-the-access-landscape}{%
 \section{Digital articles: the access
@@ -197,7 +220,7 @@ landscape}\label{digital-articles-the-access-landscape}}
 
 Acces to full-text is the holy grail in text-mining. Some use cases can
 get by with article metadata (authors, title, etc.), some with
-abstracts, but many use cases need full-text.
+abstracts, but many use cases require full-text.
 
 The landscape of access to full-text is extremely hetergeous, with the
 majority of variation along the publisher axis. The major hurdle is
@@ -205,29 +228,57 @@ paywalls. The majority of articles are published by the big three
 publishers - Wiley, Springer, Elsevier - and the majority of their
 articles are behind paywalls.
 
-A promising sign is an increasing number of open access publishers, yet
-these represent a very small portion of the total articles (XXXXX)
-(ref.).
+A promising sign is an increasing number of open access articles, yet
+open access articles represent a small percent of all articles: an
+estimate in 2018 said that 28\% of the scholarly literature was open
+access (Piwowar et al., 2018).
 
 With respect to paywalled articles, access varies by institution,
-depending on what each institution decided to pay for. In addition, some
-users may not realize access varies with IP address so that access from
-campus vs.~from home (if not on a VPN) will drastically differ.
+depending on each institution's publisher contracts. MORE ABOUT THIS
+\ldots{}
 
-We can not end this section without mentioning SciHub. This is a last
-resort option for many probably, providing access to full text of
-articles that are normally paywalled. No tools in this manuscript
-provide access to SciHub.
+Some may not realize access to articles varies with IP address so that
+access from campus vs.~from home (if not on a VPN) will drastically
+differ. Sometimes a VPN is required, and this can provide a significant
+technical hurdle to users attempting to do text-mining work.
+
+One final hurdle in text-mining comes unsurprisingly from Elsevier. They
+use so-called ``fences'' for programmatic access. That is, even if a
+person trying to get an article programmatically their institution has
+access to and they have access to, and they are on the correct IP
+address, they may still not get access to an Elsevier article. Elsevier
+puts in place these fences and only if you contact their technical team
+directly can you get these fences removed, and only then on a per
+institution basis.
+
+I can not end this section without mentioning SciHub. This is a last
+resort option for many probably (or possibly first, depending on your
+level of access), providing access to full text of articles that are
+normally paywalled. No tools in this manuscript provide access to
+SciHub.
 
 \hypertarget{the-discovery-problem}{%
 \section{The discovery problem}\label{the-discovery-problem}}
 
-xxx
+A text-mining project starts with a question. From that question,
+researchers then attempt to acquire scholarly articles for text-mining.
+Finding those articles is not altogether straight-forward.
 
-\hypertarget{section}{%
-\section{}\label{section}}
+There are many places to search for articles; a non-exhaustive list:
+Google Scholar, Microsoft Academic Research, Scopus, ScienceDirect, Web
+of Science, Pubmed/Entrez, Europe PMC, Directory of Open Access
+Journals, Open Knowledge Maps, and more. It's probably difficult to know
+where the best place is to search. Some of these are paywalled (e.g.,
+Web of Science), and some are not.
 
-xxx
+The most important aspect about any source for article search with
+respect to reproducible research is being able to use the data source
+programmatically. Of those listed above, the following can be used
+programmatically: Microsoft Academic Research, Scopus, ScienceDirect,
+Pubmed/Entrez, Europe PMC, and Directory of Open Access Journals. All of
+these are included in the R package
+\href{https://github.com/ropensci/fulltext}{fulltext}, discussed further
+below.
 
 \hypertarget{data-sources}{%
 \section{Data sources}\label{data-sources}}
@@ -371,23 +422,44 @@ provide APIs for programmatic access. The R interface for MAR is
 \subsection{Directory of Open Access
 Journals}\label{directory-of-open-access-journals}}
 
-xxxxx
+Directory of Open Access Journals (DOAJ) maintains data on open access
+journals, as well as some portion of the articles in those journals.
+Thus, you can search for journals as well as articles with DOAJ. The R
+interface for DOAJ is \href{https://github.com/ropensci/jaod}{jaod}.
 
 \hypertarget{jstor}{%
 \subsection{JSTOR}\label{jstor}}
 
-xxxxx
+JSTOR's Data for Research program gives institutions with access to
+JSTOR, access to full text of articles within JSTOR. There is no way
+however to make the interaction with JSTOR completely programmatic, thus
+making reproducible research very difficult. Nonetheless, there is an R
+package (\href{https://github.com/ropensci/jstor}{jstor}) for using data
+from JSTOR's Data for Research.
 
 \hypertarget{orcid}{%
 \subsection{ORCID}\label{orcid}}
 
-xxxxx
+ORCID (\url{https://orcid.org/}) is an organization keeping track of
+identifiers and metadata for researchers around the world. Individuals
+can optionally maintain metadata on their scholarly works connected to
+their account with ORCID. Thus, across all of ORCID, a significant cache
+of metadata is accruing on scholarly works, their funding amounts,
+collaborators, etc., useful for bibliometrics research and more. The R
+interface for ORCID is
+\href{https://github.com/ropensci/rorcid}{rorcid}.
 
 \hypertarget{citoidopen-citation-corpus}{%
 \subsection{Citoid/Open Citation
 Corpus}\label{citoidopen-citation-corpus}}
 
-xxx
+The Open Citation Corpus (\url{http://opencitations.net/}) holds records
+of which articles cite which other articles, allowing for all important
+research on the scholarly web of citation. Citation data has been very
+closely guarded until recently, but the largest publishers are still not
+contributing to the Open Citation Corpus. The R interface to the Open
+Citation Corpus is
+\href{https://github.com/ropenscilabs/rcitoid}{rcitoid}.
 
 \hypertarget{fulltext-a-swiss-army-knife-for-text-mining-in-r}{%
 \section{fulltext: a swiss army knife for text mining in
@@ -402,7 +474,7 @@ articles, the outputs of search can be fed into a function to get links
 to those articles, or to get abstracts for those articles, or to fetch
 their full text.
 
-The following is a breakdown of the major distinct functional parts of
+The following is a breakdown of the major distinct parts of
 \texttt{fulltext}.
 
 \hypertarget{search}{%
@@ -411,12 +483,97 @@ The following is a breakdown of the major distinct functional parts of
 \texttt{ft\_search()} provides search access to nine different data
 sources (PLOS, BMC, Crossref, Entrez, arXiv, bioRxiv, Europe PMC,
 Scopus, Microsoft Academic), creating a mostly unified interface to all
-data sources. The parts of each data source that are common are mostly
-factored into the parameters of the \texttt{ft\_search()} function, and
-we also allow the user to pass on data source specific options as
-needed.
+data sources. The parts of each data source that are common are for the
+most part factored out into the parameters of the \texttt{ft\_search()}
+function: query term(s), pagination (number of results, result number to
+start at). In addition, we allow the user to pass on data source
+specific options to refine the search per data source.
 
-xxxxx
+With \texttt{ft\_search()}, you can query any combination of the nine
+data sources at once. The returned object is a list, with access to
+results of each data source by its name (e.g., \texttt{\$plos}, or
+\texttt{\$crossref}). For each data source, the returned object does
+vary because the returned data from each data source widely varies; for
+the most part data.frame's are returned. For those data sources not
+queried, their slot is empty.
+
+One important aspect of the research result we highlight is the licenses
+in the returned data for each data source.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \KeywordTok{c}\NormalTok{(}\StringTok{"plos"}\NormalTok{, }\StringTok{"crossref"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The results for this PLOS search have all CC-BY licenses
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{$}\NormalTok{plos}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [47257, 10] }
+\CommentTok{#> License: [CC-BY] }
+\CommentTok{#>                              id}
+\CommentTok{#> 1  10.1371/journal.pone.0001248}
+\CommentTok{#> 2  10.1371/journal.pone.0059813}
+\CommentTok{#> 3  10.1371/journal.pone.0080763}
+\CommentTok{#> 4  10.1371/journal.pone.0155019}
+\CommentTok{#> 5  10.1371/journal.pone.0175014}
+\CommentTok{#> 6  10.1371/journal.pone.0150648}
+\CommentTok{#> 7  10.1371/journal.pone.0208370}
+\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
+\CommentTok{#> 9  10.1371/journal.pone.0102437}
+\CommentTok{#> 10 10.1371/journal.pone.0166559}
+\end{Highlighting}
+\end{Shaded}
+
+Whereas the results for this Crossref search have mixed licenses
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{$}\NormalTok{crossref}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [164657, 10] }
+\CommentTok{#> License: [variable, see individual records] }
+\CommentTok{#>    archive               container.title    created  deposited}
+\CommentTok{#> 1  Portico                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 2  Portico                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 3       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 4       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 5       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 6       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 7       NA                       Ecology 2006-05-09 2018-08-01}
+\CommentTok{#> 8  Portico                       Ecology 2017-04-26 2019-03-08}
+\CommentTok{#> 9       NA Trends in Ecology & Evolution 2002-07-25 2017-06-14}
+\CommentTok{#> 10      NA Journal of Industrial Ecology 2014-11-21 2017-06-23}
+\CommentTok{#> Variables not shown: published.print (chr), published.online (chr), doi}
+\CommentTok{#>      (chr), indexed (chr), issn (chr), issue (chr), issued (chr), member}
+\CommentTok{#>      (chr), page (chr), prefix (chr), publisher (chr), reference.count}
+\CommentTok{#>      (chr), score (chr), source (chr), title (chr), type (chr), url (chr),}
+\CommentTok{#>      volume (chr), author (list), link (list), license (list), subject}
+\CommentTok{#>      (chr), alternative.id (chr), subtitle (chr), reference (list)}
+\end{Highlighting}
+\end{Shaded}
+
+You can dig into the license field for each article, with URLs holding
+information on each license
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vapply}\NormalTok{(x}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{license, }\ControlFlowTok{function}\NormalTok{(w) w}\OperatorTok{$}\NormalTok{URL[}\DecValTok{1}\NormalTok{], }\StringTok{""}\NormalTok{)}
+\CommentTok{#>  [1] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [2] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [3] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [4] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [5] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [6] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [7] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [8] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [9] "http://www.elsevier.com/tdm/userlicense/1.0/"}
+\CommentTok{#> [10] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{links}{%
 \subsection{Links}\label{links}}
@@ -424,10 +581,29 @@ xxxxx
 \texttt{ft\_links()} provides two pathways to get links (URLs) for
 articles, with a choice of four different data sources (PLOS, BMC,
 Crossref, Entrez). First, you can use \texttt{ft\_search()}, then pass
-the output of that function to \texttt{ft\_links()}. Second, you can
-pass DOIs directly to \texttt{ft\_links()}. Both end up at the same
-point, links for each article, if they could be found for the user
-selected data source.
+the output of that function to \texttt{ft\_links()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"entrez"}\NormalTok{)}
+\KeywordTok{ft_links}\NormalTok{(out)}
+\CommentTok{#> <fulltext links>}
+\CommentTok{#> [Found] 6 }
+\CommentTok{#> [IDs] ID_30964001 ID_30962485 ID_30962432 ID_30952928 ID_30674747}
+\CommentTok{#>      ID_30674743 ...}
+\end{Highlighting}
+\end{Shaded}
+
+Second, you can pass DOIs directly to \texttt{ft\_links()}. Both end up
+at the same point, links for each article, if they could be found for
+the user selected data source.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# }\AlertTok{FIXME}
+\KeywordTok{ft_links}\NormalTok{(out}\OperatorTok{$}\NormalTok{entrez}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi)}
+\end{Highlighting}
+\end{Shaded}
 
 The biggest caveat with \texttt{ft\_links()} is that we can't gaurantee
 that the links will work. Link rot is one way in which the links may not
@@ -458,63 +634,14 @@ the abstracts.
 
 \texttt{ft\_get()} fetchs full text of articles from many different data
 sources. From the DOIs that are passed in to the function, we detect the
-publisher, and there are specific plugins for certain publishers:
-
-\begin{itemize}
-\tightlist
-\item
-  aaas
-\item
-  aip
-\item
-  amersocclinoncol
-\item
-  amersocmicrobiol
-\item
-  arxiv
-\item
-  biorxiv
-\item
-  bmc
-\item
-  copernicus
-\item
-  crossref
-\item
-  elife
-\item
-  elsevier
-\item
-  entrez
-\item
-  frontiersin
-\item
-  ieee
-\item
-  informa
-\item
-  instinvestfil
-\item
-  jama
-\item
-  microbiology
-\item
-  peerj
-\item
-  pensoft
-\item
-  plos
-\item
-  pnas
-\item
-  royalsocchem
-\item
-  sciencedirect
-\item
-  scientificsocieties
-\item
-  wiley
-\end{itemize}
+publisher, and there are specific plugins for certain publishers: AAAS,
+American Institute of Physics, American Society of Clinical Oncology,
+American Society for Microbiology, arXiv, bioRxiv, BiomedCentral,
+Copernicus, Crossref, Elife, Elsevier, Pubmed/PMC via NCBI's Entrez,
+Frontiers, IEEE, Informa, Instituto de Investigaciones Filologicas,
+American Medical Association, Microbiology Society, PeerJ, Pensoft,
+PLOS, PNAS, Royal Society of Chemistry, ScienceDirect, Scientific
+Societies, and Wiley.
 
 If there's no built-in plugin for the publisher already, we use the
 FTDOI API (\url{https://ftdoi.org}) to try to get the link for the full
@@ -636,7 +763,7 @@ Get a summary of the abstracts
 \CommentTok{#>  text10   118    224         6   10.5402/2011/897578}
 \CommentTok{#> }
 \CommentTok{#> Source: /Users/sckott/github/ropensci/textmine/use-cases/* on x86_64 by sckott}
-\CommentTok{#> Created: Fri Apr  5 11:36:04 2019}
+\CommentTok{#> Created: Thu Apr 11 11:20:19 2019}
 \CommentTok{#> Notes:}
 \end{Highlighting}
 \end{Shaded}
@@ -711,7 +838,7 @@ Search for the term \emph{ecology} in PLOS journals.
 \CommentTok{#> Query:}
 \CommentTok{#>   [ecology] }
 \CommentTok{#> Found:}
-\CommentTok{#>   [PLoS: 47337; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] }
+\CommentTok{#>   [PLoS: 47272; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] }
 \CommentTok{#> Returned:}
 \CommentTok{#>   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]}
 \end{Highlighting}
@@ -723,18 +850,18 @@ Each publisher/search-engine has a slot with metadata and data
 \begin{Highlighting}[]
 \NormalTok{res1}\OperatorTok{$}\NormalTok{plos}
 \CommentTok{#> Query: [ecology] }
-\CommentTok{#> Records found, returned: [47337, 10] }
+\CommentTok{#> Records found, returned: [47272, 10] }
 \CommentTok{#> License: [CC-BY] }
 \CommentTok{#>                              id}
 \CommentTok{#> 1  10.1371/journal.pone.0001248}
 \CommentTok{#> 2  10.1371/journal.pone.0059813}
-\CommentTok{#> 3  10.1371/journal.pone.0155019}
-\CommentTok{#> 4  10.1371/journal.pone.0080763}
-\CommentTok{#> 5  10.1371/journal.pone.0208370}
+\CommentTok{#> 3  10.1371/journal.pone.0080763}
+\CommentTok{#> 4  10.1371/journal.pone.0155019}
+\CommentTok{#> 5  10.1371/journal.pone.0175014}
 \CommentTok{#> 6  10.1371/journal.pone.0150648}
-\CommentTok{#> 7  10.1371/journal.pcbi.1003594}
-\CommentTok{#> 8  10.1371/journal.pone.0102437}
-\CommentTok{#> 9  10.1371/journal.pone.0175014}
+\CommentTok{#> 7  10.1371/journal.pone.0208370}
+\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
+\CommentTok{#> 9  10.1371/journal.pone.0102437}
 \CommentTok{#> 10 10.1371/journal.pone.0166559}
 \end{Highlighting}
 \end{Shaded}
@@ -751,10 +878,10 @@ some articles
 \CommentTok{#> [Docs] 10 }
 \CommentTok{#> [Source] ext - /Users/sckott/Library/Caches/R/fulltext }
 \CommentTok{#> [IDs] 10.1371/journal.pone.0001248 10.1371/journal.pone.0059813}
-\CommentTok{#>      10.1371/journal.pone.0155019 10.1371/journal.pone.0080763}
-\CommentTok{#>      10.1371/journal.pone.0208370 10.1371/journal.pone.0150648}
-\CommentTok{#>      10.1371/journal.pcbi.1003594 10.1371/journal.pone.0102437}
-\CommentTok{#>      10.1371/journal.pone.0175014 10.1371/journal.pone.0166559 ...}
+\CommentTok{#>      10.1371/journal.pone.0080763 10.1371/journal.pone.0155019}
+\CommentTok{#>      10.1371/journal.pone.0175014 10.1371/journal.pone.0150648}
+\CommentTok{#>      10.1371/journal.pone.0208370 10.1371/journal.pcbi.1003594}
+\CommentTok{#>      10.1371/journal.pone.0102437 10.1371/journal.pone.0166559 ...}
 \end{Highlighting}
 \end{Shaded}
 
@@ -804,9 +931,9 @@ text, then extract various parts of each article with
 \CommentTok{#>   .publisher}
 \CommentTok{#> 1       plos}
 \CommentTok{#> }
-\CommentTok{#> $plos$`10.1371/journal.pone.0155019`}
+\CommentTok{#> $plos$`10.1371/journal.pone.0080763`}
 \CommentTok{#>                            doi history.received history.accepted}
-\CommentTok{#> 1 10.1371/journal.pone.0155019       2015-09-22       2016-04-22}
+\CommentTok{#> 1 10.1371/journal.pone.0080763       2013-08-15       2013-10-16}
 \CommentTok{#>   .publisher}
 \CommentTok{#> 1       plos}
 \end{Highlighting}
@@ -815,7 +942,22 @@ text, then extract various parts of each article with
 \hypertarget{future-directions}{%
 \section{Future directions}\label{future-directions}}
 
-xxxx
+To make text mining easier:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  publishers should provide XML if they have it
+\item
+  publishers should not change URL patterns so often, or at all
+\item
+  publishers should keep their Crossref metadata up to date
+\item
+  remove all paywalls (Easy, yes?)
+\item
+  \ldots{}
+\end{enumerate}
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
@@ -832,7 +974,56 @@ corresponds to a snapshot of the GitHub repository at
 \url{https://github.com/ropensci/xxx}, xxxx, all under MIT licenses.
 
 \hypertarget{references}{%
-\section{References}\label{references}}
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-ba2016interoperability}{}%
+Ba M., Bossy R. 2016. Interoperability of corpus processing work-flow
+engines: The case of alvisnlp/ml in openminted. In: \emph{Proceedings of
+the workshop on cross-platform text mining and natural language
+processing interoperability (interop 2016) at lrec}. 15--18.
+
+\leavevmode\hypertarget{ref-Camerer2016}{}%
+Camerer CF., Dreber A., Forsell E., Ho T-H., Huber J., Johannesson M.,
+Kirchler M., Almenberg J., Altmejd A., Chan T., Heikensten E.,
+Holzmeister F., Imai T., Isaksson S., Nave G., Pfeiffer T., Razen M., Wu
+H. 2016. Evaluating replicability of laboratory experiments in
+economics. \emph{Science} 351:1433--1436.
+
+\leavevmode\hypertarget{ref-Camerer2018}{}%
+Camerer CF., Dreber A., Holzmeister F., Ho T-H., Huber J., Johannesson
+M., Kirchler M., Nave G., Nosek BA., Pfeiffer T., Altmejd A., Buttrick
+N., Chan T., Chen Y., Forsell E., Gampa A., Heikensten E., Hummer L.,
+Imai T., Isaksson S., Manfredi D., Rose J., Wagenmakers E-J., Wu H.
+2018. Evaluating the replicability of social science experiments in
+nature and science between 2010 and 2015. \emph{Nature Human Behaviour}
+2:637--644.
+
+\leavevmode\hypertarget{ref-Chaix2019}{}%
+Chaix E., Deléger L., Bossy R., Nédellec C. 2019. Text mining tools for
+extracting information about microbial biodiversity in food. \emph{Food
+Microbiology} 81:63--75.
+
+\leavevmode\hypertarget{ref-Kong2018}{}%
+Kong X., Gerstein MB. 2018. Text mining systems biology: Turning the
+microscope back on the observer. \emph{Current Opinion in Systems
+Biology} 11:117--122.
+
+\leavevmode\hypertarget{ref-OSC2015}{}%
+Open Science Collaboration. 2015. Estimating the reproducibility of
+psychological science. \emph{Science} 349:aac4716--aac4716.
+
+\leavevmode\hypertarget{ref-Piwowar2018}{}%
+Piwowar H., Priem J., Larivière V., Alperin JP., Matthias L., Norlander
+B., Farley A., West J., Haustein S. 2018. The state of OA: A large-scale
+analysis of the prevalence and impact of open access articles.
+\emph{PeerJ} 6:e4375.
+
+\leavevmode\hypertarget{ref-Usai2018}{}%
+Usai A., Pironti M., Mital M., Mejri CA. 2018. Knowledge discovery out
+of text data: A systematic review via text mining. \emph{Journal of
+Knowledge Management} 22:1471--1488.
 
 \end{document}
 
