@@ -367,7 +367,7 @@ interface to the Open Citation Corpus is [rcitoid][].
 
 Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a 
 "versioned, publicly-editable catalog of research publications:  journal articles,
-conference proceedings, pre-prints, blog posts". Fatcat is currently does not have an
+conference proceedings, pre-prints, blog posts". Fatcat currently does not have an
 R client, but is used inside of the [fulltext][] package.
 
 ## SHERPA/RoMEO
