@@ -62,7 +62,7 @@ options(tibble.max_extra_cols = 10)
 
 # Introduction
 
-There's more than 100 million research articles published
+There are more than 100 million research articles published
 (Crossref API: <https://github.com/CrossRef/rest-api-doc>), representing
 an enormous amount of knowledge. In addition to simply reading these
 articles, the articles contain a vast trove of information of interest to
