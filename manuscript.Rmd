@@ -227,28 +227,28 @@ Table 1. Sources of scientific literature, their content type provided via
 web services, whether rOpenSci has an R packages for the service, and
 where to find the API documentation.
 
-Data Provider                      | Content Type            | rOpenSci Package         | Documentation
----------------------------------- | ---------------------   | ------------------------ | -------------
-Crossref                           | Metadata                | rcrossref/crminer        | [^1]
-DataCite                           | Metadata                | rdatacite                | [^2]
-Biodiversity Heritage Library      | Full text/Metadata      | rbhl                     | [^3]
-Public Library of Science (PLoS)   | Full text/altmetrics    | rplos                    | [^4]
-Scopus (Elsevier)                  | Full text/Metadata      | fulltext                 | [^5]
-arXiv                              | Full text/Metadata      | aRxiv                    | [^6]
-Biomed Central (via Springer)      | Full text/Metadata      | fulltext                 | [^7]
-bioRxiv                            | Full text/Metadata      | fulltext                 | [^8]
-PMC/Pubmed (via Entrez)            | Full text/Metadata      | rentrez                  | [^9]
-Europe PMC                         | Full text/Metadata      | europepmc                | [^10]
-Microsoft Academic Search          | Metadata                | microdemic               | [^11]
-Directory of Open Access Journals  | Metadata                | jaod                     | [^12]
-JSTOR Data for Research            | Full text               | jstor                    | [^13]
-ORCID                              | Metadata                | rorcid                   | [^14]
-Wikimedia's Citoid                 | Citations               | rcitoid                  | [^15]
-Open Citation Corpus               | Citations               | citecorp                 | [^16]
-Fatcat                             | Metadata                | none                     | [^17]
-SHERPA/RoMEO                       | Journal Level Metadata  | rromeo                   | [^18]
-CORE                               | Full text/Metadata      | rcoreoa                  | [^19]
-Dissemin                           | Metadata                | dissemr                  | [^20]
+Data Provider                      | Content Type                 | rOpenSci Package   | Documentation
+---------------------------------- | ---------------------------- | ------------------ | -------------
+Crossref                           | Metadata                     | rcrossref/crminer  | [^1]
+DataCite                           | Metadata                     | rdatacite          | [^2]
+Biodiversity Heritage Library      | Full text/Metadata           | rbhl               | [^3]
+Public Library of Science (PLoS)   | Full text (pdf/xml)/Metadata | rplos              | [^4]
+Scopus (Elsevier)                  | Full text (pdf/xml)/Metadata | fulltext           | [^5]
+arXiv                              | Full text (pdf)/Metadata     | aRxiv              | [^6]
+Biomed Central (via Springer)      | Full text (pdf)/Metadata     | fulltext           | [^7]
+bioRxiv                            | Full text (pdf)/Metadata     | fulltext           | [^8]
+PMC/Pubmed (via Entrez)            | Full text (pdf/xml)/Metadata | rentrez            | [^9]
+Europe PMC                         | Full text (pdf/xml)/Metadata | europepmc          | [^10]
+Microsoft Academic Search          | Metadata                     | microdemic         | [^11]
+Directory of Open Access Journals  | Metadata                     | jaod               | [^12]
+JSTOR Data for Research            | Full text                    | jstor              | [^13]
+ORCID                              | Metadata                     | rorcid             | [^14]
+Wikimedia's Citoid                 | Citations                    | rcitoid            | [^15]
+Open Citation Corpus               | Citations                    | citecorp           | [^16]
+Fatcat                             | Metadata                     | none               | [^17]
+SHERPA/RoMEO                       | Journal Level Metadata       | rromeo             | [^18]
+CORE                               | Full text (pdf)/Metadata     | rcoreoa            | [^19]
+Dissemin                           | Metadata                     | dissemr            | [^20]
 
 [^1]: https://api.crossref.org
 [^2]: https://support.datacite.org/docs/api

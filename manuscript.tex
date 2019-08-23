@@ -336,15 +336,16 @@ Documentation\tabularnewline
 Crossref & Metadata & rcrossref/crminer & \footnote{\url{https://api.crossref.org}}\tabularnewline
 DataCite & Metadata & rdatacite & \footnote{\url{https://support.datacite.org/docs/api}}\tabularnewline
 Biodiversity Heritage Library & Full text/Metadata & rbhl & \footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
-Public Library of Science (PLoS) & Full text/altmetrics & rplos &
-\footnote{\url{http://api.plos.org/solr}}\tabularnewline
-Scopus (Elsevier) & Full text/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
-arXiv & Full text/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
-Biomed Central (via Springer) & Full text/Metadata & fulltext &
+Public Library of Science (PLoS) & Full text (pdf/xml)/Metadata & rplos
+& \footnote{\url{http://api.plos.org/solr}}\tabularnewline
+Scopus (Elsevier) & Full text (pdf/xml)/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
+arXiv & Full text (pdf)/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
+Biomed Central (via Springer) & Full text (pdf)/Metadata & fulltext &
 \footnote{\url{https://dev.springer.com/}}\tabularnewline
-bioRxiv & Full text/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
-PMC/Pubmed (via Entrez) & Full text/Metadata & rentrez & \footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
-Europe PMC & Full text/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
+bioRxiv & Full text (pdf)/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
+PMC/Pubmed (via Entrez) & Full text (pdf/xml)/Metadata & rentrez &
+\footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
+Europe PMC & Full text (pdf/xml)/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
 Microsoft Academic Search & Metadata & microdemic & \footnote{\url{https://dev.labs.cognitive.microsoft.com/docs/services/56332331778daf02acc0a50b/operations/565d9001ca73072048922d97}}\tabularnewline
 Directory of Open Access Journals & Metadata & jaod & \footnote{\url{https://doaj.org/api/v1/docs}}\tabularnewline
 JSTOR Data for Research & Full text & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
@@ -353,7 +354,7 @@ Wikimedia's Citoid & Citations & rcitoid & \footnote{\url{https://en.wikipedia.o
 Open Citation Corpus & Citations & citecorp & \footnote{\url{http://opencitations.net/}}\tabularnewline
 Fatcat & Metadata & none & \footnote{\url{https://fatcat.wiki/}}\tabularnewline
 SHERPA/RoMEO & Journal Level Metadata & rromeo & \footnote{\url{http://www.sherpa.ac.uk/romeo/apimanual.php?la=en\&fIDnum=\%7C\&mode=simple}}\tabularnewline
-CORE & Full text/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
+CORE & Full text (pdf)/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
 Dissemin & Metadata & dissemr & \footnote{\url{https://dissemin.readthedocs.io/en/latest/api.html}}\tabularnewline
 \bottomrule
 \end{longtable}
@@ -412,12 +413,14 @@ articles. The main R interace to PLOS is through
 \hypertarget{elsevierscopus}{%
 \subsection{Elsevier/Scopus}\label{elsevierscopus}}
 
-Elsevier is one of the largest publishers. Most of their articles are
-not open access. However, they have a numbrer of advantages if you have
+Elsevier is one of the largest publishers. Scopus is one of their
+products, a searchable database of articles. Most of their articles are
+not open access. However, they have a number of advantages if you have
 access to their articles: they are one of the few publishers to provide
 machine readable XML (many publishers do have XML versions of articles,
-but do not provide it); they are one of the few (two) publishers part of
-Crossref's text and data mining program. The packages
+but do not provide it, as mentioned in the Introduction); they are one
+of the few (two) publishers that take part in Crossref's text and data
+mining program. The packages
 \href{https://github.com/ropensci/fulltext}{fulltext} and
 \href{https://github.com/ropensci/crminer}{crminer} can be used to
 access Elsevier articles through Crossref's TDM program. There's an
@@ -428,8 +431,10 @@ interface to Scopus article search within
 \subsection{arXiv/bioRxiv}\label{arxivbiorxiv}}
 
 arXiv and bioRxiv are preprint publishers, the former in existence for
-many years, and the latter new on the scene. You can access articles
-from these publishers through
+many years, and the latter new on the scene. Preprints are scholarly
+articles that are generally not peer-reviewed, but that for the most
+part will later be published in a different peer-review publication. You
+can access articles from these publishers through
 \href{https://github.com/ropensci/fulltext}{fulltext}. arXiv does
 provide a web API that we hook into; bioRxiv does not, but we can get
 you articles nonetheless.
@@ -502,7 +507,7 @@ Citation Corpus is
 
 Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is
 a ``versioned, publicly-editable catalog of research publications:
-journal articles, conference proceedings, pre-prints, blog posts''.
+journal articles, conference proceedings, preprints, blog posts''.
 Fatcat is currently does not have an R client, but is used inside of the
 \href{https://github.com/ropensci/fulltext}{fulltext} package.
 
@@ -1062,7 +1067,7 @@ publishers should:
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-xxxx
+This manuscript was greatly improved by comments from Maëlle Salmon.
 
 \hypertarget{data-accessibility}{%
 \section{Data Accessibility}\label{data-accessibility}}
@@ -1071,7 +1076,7 @@ All scripts and data used in this paper can be found in the permanent
 data archive Zenodo under the digital object identifier (DOI). This DOI
 corresponds to a snapshot of the GitHub repository at
 \url{https://github.com/ropensci/textmine}. Software can be found at
-\url{https://github.com/ropensci/xxx}, xxxx, all under MIT licenses.
+\url{https://github.com/ropensci}, all under MIT licenses.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
