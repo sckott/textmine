@@ -309,13 +309,14 @@ search their articles. The main R interace to PLOS is through [rplos][].
 
 ## Elsevier/Scopus
 
-Elsevier is one of the largest publishers. Most of their articles are not open access. However,
-they have a numbrer of advantages if you have access to their articles: they are one of the few
+Elsevier is one of the largest publishers. Scopus is one of their products, a searchable
+database of articles. Most of their articles are not open access. However,
+they have a number of advantages if you have access to their articles: they are one of the few
 publishers to provide machine readable XML (many publishers do have XML versions of articles,
-but do not provide it); they are one of the few (two) publishers part of Crossref's text
-and data mining program. The packages [fulltext][] and [crminer][] can be used to access
-Elsevier articles through Crossref's TDM program. There's an interface to Scopus article
-search within [fulltext][].
+but do not provide it, as mentioned in the Introduction); they are one of the few (two)
+publishers that take part in Crossref's text and data mining program. The packages
+[fulltext][] and [crminer][] can be used to access Elsevier articles through Crossref's
+TDM program. There's an interface to Scopus article search within [fulltext][].
 
 ## arXiv/bioRxiv
 
