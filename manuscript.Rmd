@@ -12,7 +12,7 @@ address:
     address: |
       rOpenSci, Museum of Paleontology, University of California, Berkeley, CA, USA
 abstract: |
-  Text-mining is a powerful method for answering research questions. However,
+  Text mining is a powerful method for answering research questions. However,
   getting texts to extract information can be a daunting and complicated task.
   The primary reason for this is publishers. There are thousands of different
   publishers, each with their own licenses, URL patterns, access options, and
@@ -21,9 +21,9 @@ abstract: |
   in the R programming language for fetching texts. The tapestry of different
   publishers, access levels, and other factors requires a patchwork of approaches
   for getting texts to users. The flagship R package called fulltext attempts
-  to simplify search and retrieval of texts for text-mining. The fulltext package,
+  to simplify search and retrieval of texts for text mining. The fulltext package,
   along with many others, make acquiring texts easier than ever, facilitating
-  answering research questions with text-mining.
+  answering research questions with text mining.
 bibliography: components/references.bib
 csl: components/peerj.csl
 documentclass: components/elsarticle
@@ -70,9 +70,9 @@ can be extracted from numeric results: P-values, effect sizes, means, and
 more. In addition, researchers are often interested in words in articles,
 their use through time, and the contexts they are found in.
 
-Text-mining is the broad term associated with pulling information
-out of articles. Given the importance of text-mining, good
-text-mining tools are needed to make it easier for researchers to do.
+Text mining is the broad term associated with pulling information
+out of articles. Given the importance of text mining, good
+text mining tools are needed to make it easier for researchers to do.
 Graphical user interface (GUI) based text mining tools are available
 [e.g., @ba2016interoperability; @Munoz2019; @Canada2017] and some research papers
 have used them [@Chaix2019], but given the urgent recent call to action for
@@ -82,8 +82,8 @@ of programmatic tools can be found in the literature. For example, @Sinclair2016
 present a tool in Python called seqenv for the domain specific task of
 linking sequences to environments through text mining.
 
-Most recent text-mining papers do not use programmatic approaches, highlighting
-the need for more programmatic text-mining tools, and increased
+Most recent text mining papers do not use programmatic approaches, highlighting
+the need for more programmatic text mining tools, and increased
 discussion of those tools to increase awareness. For example, many papers 
 search Web of Science using their web interface, and downloading papers manually 
 [@Ding2018; @McCallen2019]. Many of these papers doing GUI based searching and 
@@ -95,8 +95,8 @@ The R programming language is used widely throughout many academic fields;
 tools in R for text mining are of particular importance because they
 can be adopted by academics rapidly.
 
-Here, I present an overview of text-mining tools in the R programming
-language, not for text-mining analysis, but rather those
+Here, I present an overview of text mining tools in the R programming
+language, not for text mining analysis, but rather those
 tools for searching for, acquiring, and extracting parts of texts
 (e.g., title, abstract, authors). Most of the packages presented here are
 part of the rOpenSci suite (https://ropensci.org/).
@@ -119,7 +119,7 @@ Document Format (PDF)[^pdf]. These can be broken out into two groups: text based
 PDFs and scanned PDFs. The former are converted from digital versions of
 various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
 latter are created by scanning print articles to a PDF format. Text-based
-PDFs are much better for text-mining purposes as plain text can be extracted
+PDFs are much better for text mining purposes as plain text can be extracted
 easily in R with [pdftools][], a binding to [libpoppler][]. However, with
 scanned PDFs, text must be extracted using Optimal Character Recognition
 (OCR; see R package [tesseract][]), which isn't always a clean solution,
@@ -129,9 +129,9 @@ The reality in scholarly publishing is all publishers, if they provide
 any access to their articles, only provide PDF format. Very few publishers,
 with some quite large (Elsevier, Pensoft, PLOS), provide XML format. Although
 most publishers most likely have the XML behind each of their articles,
-they for some indefensible reason do not share it - making text-mining more
+they for some indefensible reason do not share it - making text mining more
 difficult. Some provide plain text (Elsevier). I only know of one publisher
-that provides full text as JSON (PLOS). Thus, text-mining, in most cases,
+that provides full text as JSON (PLOS). Thus, text mining, in most cases,
 will require extracting text from PDFs.
 
 [^xml]: https://www.w3.org/TR/xml/
@@ -141,7 +141,7 @@ will require extracting text from PDFs.
 
 # Digital articles: the access landscape
 
-Acces to full-text is the holy grail in text-mining. Some use cases can
+Acces to full-text is the holy grail in text mining. Some use cases can
 get by with article metadata (authors, title, etc.), some with abstracts,
 but many use cases require full-text.
 
@@ -161,9 +161,9 @@ on each institution's publisher contracts. MORE ABOUT THIS ...
 Some may not realize access to articles varies with IP address so that
 access from campus vs. from home (if not on a VPN) will drastically differ.
 Sometimes a VPN is required, and this can provide a significant technical
-hurdle to users attempting to do text-mining work.
+hurdle to users attempting to do text mining work.
 
-One final hurdle in text-mining comes unsurprisingly from Elsevier. They
+One final hurdle in text mining comes unsurprisingly from Elsevier. They
 use so-called "fences" for programmatic access. That is, even if a person
 trying to get an article programmatically their institution has access to
 and they have access to, and they are on the correct IP address, they may
@@ -178,8 +178,8 @@ paywalled. No tools in this manuscript provide access to SciHub.
 
 # The discovery problem
 
-A text-mining project starts with a question. From that question, researchers
-then attempt to acquire scholarly articles for text-mining. Finding appropriate
+A text mining project starts with a question. From that question, researchers
+then attempt to acquire scholarly articles for text mining. Finding appropriate
 articles is not altogether straight-forward.
 
 Some of the discovery difficulty relates to the fact that there are so many
@@ -206,7 +206,7 @@ provide wild card search and some do not. Some sources are searching full text
 of articles, while others only search metadata (i.e., title, authors, abstract).
 In addition, each source has a different set of metadata/full text available.
 In brief, the same search against different sources produces different results.
-Some text-mining research articles perform the same search against many
+Some text mining research articles perform the same search against many
 different sources (refs), while others choose just one source.
 
 
@@ -277,7 +277,7 @@ number of citations to the article, as well as references in the article, and ev
 abstracts. At the time of writing they hold 100 million DOIs.
 
 One can search by DOI or search citation data to get citations. In addition, Crossref has a
-text-mining opt-in program for publishers. The result of this is that some
+text mining opt-in program for publishers. The result of this is that some
 publishers provide URLs for full text content of their articles. The majority of these links
 are pay-walled, while some are open access. Using any of the various tools for working with
 Crossref data, you can filter your search to get only articles with full text links, and further
@@ -395,7 +395,7 @@ Dissemin API.
 
 # fulltext: a toolset for text mining in R
 
-[fulltext][] is a general purpose R package for the data part of text-mining:
+[fulltext][] is a general purpose R package for the data part of text mining:
 search for articles, get links to articles, get article abstracts, and fetch
 full text of articles. The `fulltext` package is always adding additional
 data sources as time allows (See Table 1). Starting from searching for
@@ -530,14 +530,14 @@ function to help the user quickly determine what went wrong.
 
 # Future directions
 
-Text-mining will always be a complex task given all the layers involved:
+Text mining will always be a complex task given all the layers involved:
 often temporal time-span of research questions; varied permissions among 
 researchers and their articles they're trying to access; varied approaches
 to getting full text (xml vs pdf vs plain text); and more. 
 
-Programmatic text-mining is a first step towards making text-mining easier.
-The R ecosystem is an especially good place to do text-mining because 
-there are many packages for text-mining analysis, and endless packages for
+Programmatic text mining is a first step towards making text mining easier.
+The R ecosystem is an especially good place to do text mining because 
+there are many packages for text mining analysis, and endless packages for
 any required statistical analyses. In addition, rOpenSci and others are 
 building up a set of packages in R for searching for and acquiring full
 text programatically to help make the research workflow as reproducible
@@ -551,7 +551,7 @@ Future work for `fulltext` includes:
 4. Incorporate more search engines to help resolve URLs for fulltext versions
 5. Improve documentation
 
-With respect to what publishers can do to make text-mining easier, publishers
+With respect to what publishers can do to make text mining easier, publishers
 should:
 
 1. provide XML if they have it
