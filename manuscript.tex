@@ -171,6 +171,13 @@ programmatic tools can be found in the literature. For example, Sinclair
 et al. (2016) present a tool in Python called seqenv for the domain
 specific task of linking sequences to environments through text mining.
 
+Using programmatic tools for text mining is important for a variety of
+reasons. First, using programmatic tools makes it easier for yourself.
+You can re-run code to get updated results as data changes, and results
+can always be re-created. Second, code can be shared whereas GUI driving
+workflows can not; colleagues, reviewers and other researchers can
+reproduce and check your work. (FIXME: re-work this; citations)
+
 Most recent text mining papers do not use programmatic approaches,
 highlighting the need for more programmatic text mining tools, and
 increased discussion of those tools to increase awareness. For example,
@@ -726,8 +733,8 @@ Since users can go through a lot of article requests, we cache
 successfully downloaded articles, and keep that knowledge consistent
 across R sessions; all subsequent requests for the same article just use
 the cached version. Additionally, all errors in \texttt{ft\_get()} are
-collected in a tidy data.frame in the output of the function to help the
-user quickly determine what went wrong.
+collected in a data.frame in the output of the function to help the user
+quickly determine what went wrong.
 
 \hypertarget{how-to-text-mine-from-r-three-case-studies}{%
 \section{How to text mine from R: Three case

@@ -84,6 +84,13 @@ of programmatic tools can be found in the literature. For example, @Sinclair2016
 present a tool in Python called seqenv for the domain specific task of
 linking sequences to environments through text mining.
 
+Using programmatic tools for text mining is important for a variety of reasons.
+First, using programmatic tools makes it easier for yourself. You can re-run code
+to get updated results as data changes, and results can always be re-created.
+Second, code can be shared whereas GUI driving workflows can not; colleagues,
+reviewers and other researchers can reproduce and check your work. (FIXME: 
+re-work this; citations)
+
 Most recent text mining papers do not use programmatic approaches, highlighting
 the need for more programmatic text mining tools, and increased
 discussion of those tools to increase awareness. For example, many papers
