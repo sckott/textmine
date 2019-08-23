@@ -570,7 +570,7 @@ should:
 
 # Acknowledgments
 
-xxxx
+This manuscript was greatly improved by comments from Maëlle Salmon.
 
 # Data Accessibility
 
@@ -578,7 +578,7 @@ All scripts and data used in this paper can be found in the permanent
 data archive Zenodo under the digital object identifier (DOI). This DOI
 corresponds to a snapshot of the GitHub repository at
 <https://github.com/ropensci/textmine>. Software can be found at
-<https://github.com/ropensci/xxx>, xxxx, all under MIT licenses.
+<https://github.com/ropensci>, all under MIT licenses.
 
 
 # References
