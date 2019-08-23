@@ -407,6 +407,12 @@ open versions of articles. The [dissemr][] R package interfaces with the
 Dissemin API.
 
 
+## Learn more
+
+To learn how to use the above packages, follow the links to get to documentation,
+and how to report issues. The rOpenSci forum (<https://discuss.ropensci.org/>) is
+a good place to ask questions about these packages.
+
 
 # fulltext: a toolset for text mining in R
 
@@ -541,7 +547,6 @@ function to help the user quickly determine what went wrong.
 
 ```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
 ```
-
 
 # Future directions
 
