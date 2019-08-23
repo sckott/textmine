@@ -318,302 +318,6 @@ different results. Some text mining research articles perform the same
 search against many different sources (refs), while others choose just
 one source.
 
-\hypertarget{text-mining-in-r-three-case-studies}{%
-\section{Text mining in R: Three case
-studies}\label{text-mining-in-r-three-case-studies}}
-
-\hypertarget{case-study-1-citation-mining}{%
-\subsection{Case study 1: Citation
-mining}\label{case-study-1-citation-mining}}
-
-In this example, xxxx
-
-\emph{Load libraries}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"rcrossref"}\NormalTok{)}
-\KeywordTok{library}\NormalTok{(}\StringTok{"rplos"}\NormalTok{)}
-\KeywordTok{library}\NormalTok{(}\StringTok{"rorcid"}\NormalTok{)}
-\KeywordTok{library}\NormalTok{(}\StringTok{"rcitoid"}\NormalTok{)}
-\KeywordTok{library}\NormalTok{(}\StringTok{"citecorp"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{rcrossref}
-
-Using \texttt{rcrossref} for Crossref data:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{cr_works}\NormalTok{(}\DataTypeTok{query=}\StringTok{"NSF"}\NormalTok{)}
-\KeywordTok{head}\NormalTok{(x}\OperatorTok{$}\NormalTok{data)}
-\CommentTok{#> # A tibble: 6 x 32}
-\CommentTok{#>   alternative.id container.title created deposited published.print doi  }
-\CommentTok{#>   <chr>          <chr>           <chr>   <chr>     <chr>           <chr>}
-\CommentTok{#> 1 S106352031630~ Applied and Co~ 2016-0~ 2019-02-~ 2018-03         10.1~}
-\CommentTok{#> 2 <NA>           Biogeosciences~ 2017-0~ 2017-07-~ <NA>            10.5~}
-\CommentTok{#> 3 <NA>           Global Biogeoc~ 2018-0~ 2019-01-~ 2018-10         10.1~}
-\CommentTok{#> 4 <NA>           IEEE Communica~ 2016-1~ 2017-12-~ 2017            10.1~}
-\CommentTok{#> 5 S002178241400~ Journal de Mat~ 2014-0~ 2018-10-~ 2014-10         10.1~}
-\CommentTok{#> 6 123            Light: Science~ 2019-0~ 2019-01-~ 2019-12         10.1~}
-\CommentTok{#> # ... with 26 more variables: indexed <chr>, issn <chr>, issue <chr>,}
-\CommentTok{#> #   issued <chr>, member <chr>, page <chr>, prefix <chr>, publisher <chr>,}
-\CommentTok{#> #   reference.count <chr>, score <chr>, ...}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{case-study-2-abstract-mining}{%
-\subsection{Case study 2: Abstract
-mining}\label{case-study-2-abstract-mining}}
-
-Sometimes you just need abstracts for your research question. The
-benefit of only needing abstracts, and not need full text, is that
-there's many more articles that will have abstracts available than have
-their full text available.
-
-As an example, let's say you xxxx
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{xxxxx}
-
-Using \texttt{fulltext}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{,}
-  \DataTypeTok{crossrefopts =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{filter =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{has_abstract =} \OtherTok{TRUE}\NormalTok{)))}
-\NormalTok{ids <-}\StringTok{ }\NormalTok{res}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi}
-\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_abstract}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ids, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{)}
-\NormalTok{abstracts <-}\StringTok{ }\KeywordTok{vapply}\NormalTok{(out}\OperatorTok{$}\NormalTok{crossref, }\StringTok{"[["}\NormalTok{, }\StringTok{""}\NormalTok{, }\StringTok{"abstract"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Using \href{https://quanteda.io/}{quanteda}, read the abstracts into a
-corpus
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
-\NormalTok{corp <-}\StringTok{ }\KeywordTok{corpus}\NormalTok{(abstracts)}
-\KeywordTok{docvars}\NormalTok{(corp) <-}\StringTok{ }\NormalTok{ids}
-\end{Highlighting}
-\end{Shaded}
-
-Get a summary of the abstracts
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(corp)}
-\CommentTok{#> Corpus consisting of 10 documents:}
-\CommentTok{#> }
-\CommentTok{#>    Text Types Tokens Sentences                    V1}
-\CommentTok{#>   text1   143    262        10   10.2458/v22i1.21112}
-\CommentTok{#>   text2   117    244         6   10.2458/v17i1.21696}
-\CommentTok{#>   text3    75    118         4   10.2458/v25i1.23119}
-\CommentTok{#>   text4     5      8         1    10.2458/v1i1.21154}
-\CommentTok{#>   text5   105    171         7   10.1155/2011/868426}
-\CommentTok{#>   text6   112    181         6   10.1155/2012/273413}
-\CommentTok{#>   text7   117    240         8 10.5194/we-13-91-2013}
-\CommentTok{#>   text8   140    245         9 10.5194/we-13-95-2013}
-\CommentTok{#>   text9   107    202         7   10.1155/2014/198707}
-\CommentTok{#>  text10   118    224         6   10.5402/2011/897578}
-\CommentTok{#> }
-\CommentTok{#> Source: /Users/sckott/github/ropensci/textmine/use-cases/* on x86_64 by sckott}
-\CommentTok{#> Created: Thu Apr 11 11:20:19 2019}
-\CommentTok{#> Notes:}
-\end{Highlighting}
-\end{Shaded}
-
-Use the \texttt{kwic()} function to see a word in context across the
-abstracts
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{kwic}\NormalTok{(corp, }\DataTypeTok{pattern =} \StringTok{"ecology"}\NormalTok{)}
-\CommentTok{#>                                                                         }
-\CommentTok{#>   [text1, 33] knowledge production within critical political | ecology |}
-\CommentTok{#>   [text1, 50]              in scientific articles on dryland | ecology |}
-\CommentTok{#>  [text1, 204]                 to equilibrium models in range | ecology |}
-\CommentTok{#>  [text1, 246]    communal areas.Keywords: Critical political | ecology |}
-\CommentTok{#>  [text1, 255]                 , scientific models, rangeland | ecology |}
-\CommentTok{#>    [text2, 5]                            < jats:p> Political | ecology |}
-\CommentTok{#>   [text2, 23]        manifestations of political economy and | ecology |}
-\CommentTok{#>   [text2, 45]                      I try to extend political | ecology |}
-\CommentTok{#>  [text2, 149]                   , in dialogue with political | ecology |}
-\CommentTok{#>  [text2, 177]            people and resources that political | ecology |}
-\CommentTok{#>  [text2, 229]      indigeneity scholars.Key words: political | ecology |}
-\CommentTok{#>   [text3, 71]                   an analysis from a political | ecology |}
-\CommentTok{#>  [text3, 114]                system, supermarkets, political | ecology |}
-\CommentTok{#>  [text6, 134]                was observed when allopatry and | ecology |}
-\CommentTok{#>  [text7, 167]             ecosystem should be considered for | ecology |}
-\CommentTok{#>  [text7, 185]                       the" four-color issue of | ecology |}
-\CommentTok{#>  [text7, 201]             step toward advancing knowledge in | ecology |}
-\CommentTok{#>  [text9, 195]         or for theoretical studies integrating | ecology |}
-\CommentTok{#>                                              }
-\CommentTok{#>  . This article is a                         }
-\CommentTok{#>  , and investigates the functions            }
-\CommentTok{#>  , and the fence-line photographs            }
-\CommentTok{#>  , fence-line photography, scientific        }
-\CommentTok{#>  , Southern Africa</                         }
-\CommentTok{#>  has expanded in multiple new                }
-\CommentTok{#>  in the" problem"                            }
-\CommentTok{#>  to engage with ethnic studies               }
-\CommentTok{#>  approaches to better understand the         }
-\CommentTok{#>  focuses on cannot be adequately             }
-\CommentTok{#>  , coloniality, Maidu,                       }
-\CommentTok{#>  standpoint allows a different interpretation}
-\CommentTok{#>  </ jats:p>                                  }
-\CommentTok{#>  act together, leading to                    }
-\CommentTok{#>  "? Here, I                                  }
-\CommentTok{#>  ", and propose that                         }
-\CommentTok{#>  and conservation biology. In                }
-\CommentTok{#>  and biogeography.</}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{case-study-3-full-text-mining}{%
-\subsection{Case study 3: Full text
-mining}\label{case-study-3-full-text-mining}}
-
-In this example, xxxx
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
-\CommentTok{# library("crminer")}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Search for articles}
-
-Search for the term \emph{ecology} in PLOS journals.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(res1 <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \StringTok{'plos'}\NormalTok{))}
-\CommentTok{#> Query:}
-\CommentTok{#>   [ecology] }
-\CommentTok{#> Found:}
-\CommentTok{#>   [PLoS: 47272; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] }
-\CommentTok{#> Returned:}
-\CommentTok{#>   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]}
-\end{Highlighting}
-\end{Shaded}
-
-Each publisher/search-engine has a slot with metadata and data
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{res1}\OperatorTok{$}\NormalTok{plos}
-\CommentTok{#> Query: [ecology] }
-\CommentTok{#> Records found, returned: [47272, 10] }
-\CommentTok{#> License: [CC-BY] }
-\CommentTok{#>                              id}
-\CommentTok{#> 1  10.1371/journal.pone.0001248}
-\CommentTok{#> 2  10.1371/journal.pone.0059813}
-\CommentTok{#> 3  10.1371/journal.pone.0080763}
-\CommentTok{#> 4  10.1371/journal.pone.0155019}
-\CommentTok{#> 5  10.1371/journal.pone.0175014}
-\CommentTok{#> 6  10.1371/journal.pone.0150648}
-\CommentTok{#> 7  10.1371/journal.pone.0208370}
-\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
-\CommentTok{#> 9  10.1371/journal.pone.0102437}
-\CommentTok{#> 10 10.1371/journal.pone.0166559}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Get full text}
-
-Using the results from \texttt{ft\_search()} we can grab full text of
-some articles
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{(out <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res1))}
-\CommentTok{#> <fulltext text>}
-\CommentTok{#> [Docs] 10 }
-\CommentTok{#> [Source] ext - /Users/sckott/Library/Caches/R/fulltext }
-\CommentTok{#> [IDs] 10.1371/journal.pone.0001248 10.1371/journal.pone.0059813}
-\CommentTok{#>      10.1371/journal.pone.0080763 10.1371/journal.pone.0155019}
-\CommentTok{#>      10.1371/journal.pone.0175014 10.1371/journal.pone.0150648}
-\CommentTok{#>      10.1371/journal.pone.0208370 10.1371/journal.pcbi.1003594}
-\CommentTok{#>      10.1371/journal.pone.0102437 10.1371/journal.pone.0166559 ...}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Extract text from pdfs}
-
-Ideally for text mining you have access to XML or other text based
-formats. However, sometimes you only have access to PDFs. In this case
-you want to extract text from PDFs. \texttt{fulltext} can help with
-that.
-
-You can extract from any pdf from a file path, like:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{path <-}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"examples"}\NormalTok{, }\StringTok{"example1.pdf"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"fulltext"}\NormalTok{)}
-\KeywordTok{ft_extract}\NormalTok{(path)}
-\CommentTok{#> <document>/Library/Frameworks/R.framework/Versions/3.5/Resources/library/fulltext/examples/example1.pdf}
-\CommentTok{#>   Title: Suffering and mental health among older people living in nursing homes---a mixed-methods study}
-\CommentTok{#>   Producer: pdfTeX-1.40.10}
-\CommentTok{#>   Creation date: 2015-07-17}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Extract text chunks}
-
-Requires the \href{https://github.com/ropensci/pubchunks}{pubchunks}
-library. Here, we'll search for some PLOS articles, then get their full
-text, then extract various parts of each article with
-\texttt{pub\_chunks()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(}\StringTok{"pubchunks"}\NormalTok{)}
-\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"plos"}\NormalTok{, }\DataTypeTok{limit =} \DecValTok{3}\NormalTok{)}
-\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res)}
-\NormalTok{x }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ft_collect}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_chunks}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"doi"}\NormalTok{, }\StringTok{"history"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_tabularize}\NormalTok{()}
-\CommentTok{#> $plos}
-\CommentTok{#> $plos$`10.1371/journal.pone.0001248`}
-\CommentTok{#>                            doi history.received history.accepted}
-\CommentTok{#> 1 10.1371/journal.pone.0001248       2007-07-02       2007-11-06}
-\CommentTok{#>   .publisher}
-\CommentTok{#> 1       plos}
-\CommentTok{#> }
-\CommentTok{#> $plos$`10.1371/journal.pone.0059813`}
-\CommentTok{#>                            doi history.received history.accepted}
-\CommentTok{#> 1 10.1371/journal.pone.0059813       2012-09-16       2013-02-19}
-\CommentTok{#>   .publisher}
-\CommentTok{#> 1       plos}
-\CommentTok{#> }
-\CommentTok{#> $plos$`10.1371/journal.pone.0080763`}
-\CommentTok{#>                            doi history.received history.accepted}
-\CommentTok{#> 1 10.1371/journal.pone.0080763       2013-08-15       2013-10-16}
-\CommentTok{#>   .publisher}
-\CommentTok{#> 1       plos}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Further processing}
-
-From here, you'll likely want to use R packages for removing stopwords,
-tokenizing, and more. The Natural Language Processing CRAN Task View
-(\url{https://cloud.r-project.org/web/views/NaturalLanguageProcessing.html})
-is a good place to start if you're not sure what packages to use. Some
-packages worth trying in this space are
-\href{https://github.com/ropensci/antiword}{antiword},
-\href{https://github.com/ropensci/pdftools}{pdftools},
-\href{https://github.com/ropensci/rtika}{rtika},
-\href{https://github.com/ropensci/tokenizers}{tokenizers}, and
-\href{https://github.com/ropensci/textreuse}{textreuse}.
-
 \hypertarget{data-sources}{%
 \section{Data sources}\label{data-sources}}
 
@@ -1040,6 +744,304 @@ the cached version. Additionally, all errors in \texttt{ft\_get()} are
 collected in a data.frame in the output of the function to help the user
 quickly determine what went wrong.
 
+\hypertarget{text-mining-in-r-use-cases}{%
+\section{Text mining in R: Use Cases}\label{text-mining-in-r-use-cases}}
+
+\hypertarget{use-cases-in-the-literature}{%
+\subsection{Use cases in the
+literature}\label{use-cases-in-the-literature}}
+
+At least three papers have used the fulltext package. Bauer, Barbera \&
+Munzert (2016) explored a way to think about the qualitative impact of
+citations rather than simple counts of citations; they did not use
+fulltext, but pointed it out as a good option for collecting papers.
+Walsh \& Cherbuin (2018) used fulltext and
+\href{https://github.com/ropensci/roadoi}{roadoi}, an rOpenSci R
+package, to ``map the literature'' on nutritional interventions in
+cognitive health. Piper et al. (2019) in a review of DNA metabarcoding
+for high-throughput insect surveillance used fulltext, along with
+\href{https://github.com/ropensci/rentrez}{rentrez} (an rOpenSci
+package), to collect articles for text mining.
+
+\hypertarget{three-case-studies}{%
+\subsection{Three case studies}\label{three-case-studies}}
+
+The following three case studies demonstrate in brief how one could use
+fulltext and related packages to do a few different text mining tasks.
+
+\hypertarget{case-study-1-citation-mining}{%
+\subsubsection{Case study 1: Citation
+mining}\label{case-study-1-citation-mining}}
+
+In this example, xxxx
+
+\emph{Load libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"rcrossref"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rplos"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rorcid"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"rcitoid"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(}\StringTok{"citecorp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{rcrossref}
+
+Using \texttt{rcrossref} for Crossref data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{cr_works}\NormalTok{(}\DataTypeTok{query=}\StringTok{"NSF"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(x}\OperatorTok{$}\NormalTok{data)}
+\CommentTok{#> # A tibble: 6 x 32}
+\CommentTok{#>   alternative.id container.title created deposited published.print doi  }
+\CommentTok{#>   <chr>          <chr>           <chr>   <chr>     <chr>           <chr>}
+\CommentTok{#> 1 S106352031630~ Applied and Co~ 2016-0~ 2019-02-~ 2018-03         10.1~}
+\CommentTok{#> 2 <NA>           Biogeosciences~ 2017-0~ 2017-07-~ <NA>            10.5~}
+\CommentTok{#> 3 <NA>           Global Biogeoc~ 2018-0~ 2019-01-~ 2018-10         10.1~}
+\CommentTok{#> 4 <NA>           IEEE Communica~ 2016-1~ 2017-12-~ 2017            10.1~}
+\CommentTok{#> 5 S002178241400~ Journal de Mat~ 2014-0~ 2018-10-~ 2014-10         10.1~}
+\CommentTok{#> 6 123            Light: Science~ 2019-0~ 2019-01-~ 2019-12         10.1~}
+\CommentTok{#> # ... with 26 more variables: indexed <chr>, issn <chr>, issue <chr>,}
+\CommentTok{#> #   issued <chr>, member <chr>, page <chr>, prefix <chr>, publisher <chr>,}
+\CommentTok{#> #   reference.count <chr>, score <chr>, ...}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{case-study-2-abstract-mining}{%
+\subsubsection{Case study 2: Abstract
+mining}\label{case-study-2-abstract-mining}}
+
+Sometimes you just need abstracts for your research question. The
+benefit of only needing abstracts, and not need full text, is that
+there's many more articles that will have abstracts available than have
+their full text available.
+
+As an example, let's say you xxxx
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{xxxxx}
+
+Using \texttt{fulltext}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{,}
+  \DataTypeTok{crossrefopts =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{filter =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{has_abstract =} \OtherTok{TRUE}\NormalTok{)))}
+\NormalTok{ids <-}\StringTok{ }\NormalTok{res}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi}
+\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_abstract}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ids, }\DataTypeTok{from =} \StringTok{"crossref"}\NormalTok{)}
+\NormalTok{abstracts <-}\StringTok{ }\KeywordTok{vapply}\NormalTok{(out}\OperatorTok{$}\NormalTok{crossref, }\StringTok{"[["}\NormalTok{, }\StringTok{""}\NormalTok{, }\StringTok{"abstract"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using \href{https://quanteda.io/}{quanteda}, read the abstracts into a
+corpus
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
+\NormalTok{corp <-}\StringTok{ }\KeywordTok{corpus}\NormalTok{(abstracts)}
+\KeywordTok{docvars}\NormalTok{(corp) <-}\StringTok{ }\NormalTok{ids}
+\end{Highlighting}
+\end{Shaded}
+
+Get a summary of the abstracts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(corp)}
+\CommentTok{#> Corpus consisting of 10 documents:}
+\CommentTok{#> }
+\CommentTok{#>    Text Types Tokens Sentences                    V1}
+\CommentTok{#>   text1   143    262        10   10.2458/v22i1.21112}
+\CommentTok{#>   text2   117    244         6   10.2458/v17i1.21696}
+\CommentTok{#>   text3    75    118         4   10.2458/v25i1.23119}
+\CommentTok{#>   text4     5      8         1    10.2458/v1i1.21154}
+\CommentTok{#>   text5   105    171         7   10.1155/2011/868426}
+\CommentTok{#>   text6   112    181         6   10.1155/2012/273413}
+\CommentTok{#>   text7   117    240         8 10.5194/we-13-91-2013}
+\CommentTok{#>   text8   140    245         9 10.5194/we-13-95-2013}
+\CommentTok{#>   text9   107    202         7   10.1155/2014/198707}
+\CommentTok{#>  text10   118    224         6   10.5402/2011/897578}
+\CommentTok{#> }
+\CommentTok{#> Source: /Users/sckott/github/ropensci/textmine/use-cases/* on x86_64 by sckott}
+\CommentTok{#> Created: Thu Apr 11 11:20:19 2019}
+\CommentTok{#> Notes:}
+\end{Highlighting}
+\end{Shaded}
+
+Use the \texttt{kwic()} function to see a word in context across the
+abstracts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{kwic}\NormalTok{(corp, }\DataTypeTok{pattern =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{window =} \DecValTok{2}\NormalTok{)}
+\CommentTok{#>                                                                }
+\CommentTok{#>   [text1, 33]  critical political | ecology | . This           }
+\CommentTok{#>   [text1, 50]          on dryland | ecology | , and            }
+\CommentTok{#>  [text1, 204]            in range | ecology | , and            }
+\CommentTok{#>  [text1, 246]  Critical political | ecology | , fence-line     }
+\CommentTok{#>  [text1, 255]         , rangeland | ecology | , Southern       }
+\CommentTok{#>    [text2, 5]         > Political | ecology | has expanded     }
+\CommentTok{#>   [text2, 23]         economy and | ecology | in the           }
+\CommentTok{#>   [text2, 45]    extend political | ecology | to engage        }
+\CommentTok{#>  [text2, 149]      with political | ecology | approaches to    }
+\CommentTok{#>  [text2, 177]      that political | ecology | focuses on       }
+\CommentTok{#>  [text2, 229]         : political | ecology | , coloniality    }
+\CommentTok{#>   [text3, 71]         a political | ecology | standpoint allows}
+\CommentTok{#>  [text3, 114]         , political | ecology | </               }
+\CommentTok{#>  [text6, 134]       allopatry and | ecology | act together     }
+\CommentTok{#>  [text7, 167]      considered for | ecology | "?               }
+\CommentTok{#>  [text7, 185]            issue of | ecology | ",               }
+\CommentTok{#>  [text7, 201]        knowledge in | ecology | and conservation }
+\CommentTok{#>  [text9, 195] studies integrating | ecology | and biogeography}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{case-study-3-full-text-mining}{%
+\subsubsection{Case study 3: Full text
+mining}\label{case-study-3-full-text-mining}}
+
+In this example, xxxx
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"fulltext"}\NormalTok{)}
+\CommentTok{# library("crminer")}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Search for articles}
+
+Search for the term \emph{ecology} in PLOS journals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(res1 <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \StringTok{'plos'}\NormalTok{))}
+\CommentTok{#> Query:}
+\CommentTok{#>   [ecology] }
+\CommentTok{#> Found:}
+\CommentTok{#>   [PLoS: 47272; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] }
+\CommentTok{#> Returned:}
+\CommentTok{#>   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]}
+\end{Highlighting}
+\end{Shaded}
+
+Each publisher/search-engine has a slot with metadata and data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res1}\OperatorTok{$}\NormalTok{plos}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [47272, 10] }
+\CommentTok{#> License: [CC-BY] }
+\CommentTok{#>                              id}
+\CommentTok{#> 1  10.1371/journal.pone.0001248}
+\CommentTok{#> 2  10.1371/journal.pone.0059813}
+\CommentTok{#> 3  10.1371/journal.pone.0080763}
+\CommentTok{#> 4  10.1371/journal.pone.0155019}
+\CommentTok{#> 5  10.1371/journal.pone.0175014}
+\CommentTok{#> 6  10.1371/journal.pone.0150648}
+\CommentTok{#> 7  10.1371/journal.pone.0208370}
+\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
+\CommentTok{#> 9  10.1371/journal.pone.0102437}
+\CommentTok{#> 10 10.1371/journal.pone.0166559}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Get full text}
+
+Using the results from \texttt{ft\_search()} we can grab full text of
+some articles
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(out <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res1))}
+\CommentTok{#> <fulltext text>}
+\CommentTok{#> [Docs] 10 }
+\CommentTok{#> [Source] ext - /Users/sckott/Library/Caches/R/fulltext }
+\CommentTok{#> [IDs] 10.1371/journal.pone.0001248 10.1371/journal.pone.0059813}
+\CommentTok{#>      10.1371/journal.pone.0080763 10.1371/journal.pone.0155019}
+\CommentTok{#>      10.1371/journal.pone.0175014 10.1371/journal.pone.0150648}
+\CommentTok{#>      10.1371/journal.pone.0208370 10.1371/journal.pcbi.1003594}
+\CommentTok{#>      10.1371/journal.pone.0102437 10.1371/journal.pone.0166559 ...}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Extract text from pdfs}
+
+Ideally for text mining you have access to XML or other text based
+formats. However, sometimes you only have access to PDFs. In this case
+you want to extract text from PDFs. \texttt{fulltext} can help with
+that.
+
+You can extract from any pdf from a file path, like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{path <-}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"examples"}\NormalTok{, }\StringTok{"example1.pdf"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"fulltext"}\NormalTok{)}
+\KeywordTok{ft_extract}\NormalTok{(path)}
+\CommentTok{#> <document>/Library/Frameworks/R.framework/Versions/3.5/Resources/library/fulltext/examples/example1.pdf}
+\CommentTok{#>   Title: Suffering and mental health among older people living in nursing homes---a mixed-methods study}
+\CommentTok{#>   Producer: pdfTeX-1.40.10}
+\CommentTok{#>   Creation date: 2015-07-17}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Extract text chunks}
+
+Requires the \href{https://github.com/ropensci/pubchunks}{pubchunks}
+library. Here, we'll search for some PLOS articles, then get their full
+text, then extract various parts of each article with
+\texttt{pub\_chunks()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"pubchunks"}\NormalTok{)}
+\NormalTok{res <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"plos"}\NormalTok{, }\DataTypeTok{limit =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_get}\NormalTok{(res)}
+\NormalTok{x }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ft_collect}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_chunks}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"doi"}\NormalTok{, }\StringTok{"history"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pub_tabularize}\NormalTok{()}
+\CommentTok{#> $plos}
+\CommentTok{#> $plos$`10.1371/journal.pone.0001248`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0001248       2007-07-02       2007-11-06}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\CommentTok{#> }
+\CommentTok{#> $plos$`10.1371/journal.pone.0059813`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0059813       2012-09-16       2013-02-19}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\CommentTok{#> }
+\CommentTok{#> $plos$`10.1371/journal.pone.0080763`}
+\CommentTok{#>                            doi history.received history.accepted}
+\CommentTok{#> 1 10.1371/journal.pone.0080763       2013-08-15       2013-10-16}
+\CommentTok{#>   .publisher}
+\CommentTok{#> 1       plos}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Further processing}
+
+From here, you'll likely want to use R packages for removing stopwords,
+tokenizing, and more. The Natural Language Processing CRAN Task View
+(\url{https://cloud.r-project.org/web/views/NaturalLanguageProcessing.html})
+is a good place to start if you're not sure what packages to use. Some
+packages worth trying in this space are
+\href{https://github.com/ropensci/antiword}{antiword},
+\href{https://github.com/ropensci/pdftools}{pdftools},
+\href{https://github.com/ropensci/rtika}{rtika},
+\href{https://github.com/ropensci/tokenizers}{tokenizers}, and
+\href{https://github.com/ropensci/textreuse}{textreuse}.
+
 \hypertarget{future-directions}{%
 \section{Future directions}\label{future-directions}}
 
@@ -1117,6 +1119,11 @@ engines: The case of alvisnlp/ml in openminted. In: \emph{Proceedings of
 the workshop on cross-platform text mining and natural language
 processing interoperability (interop 2016) at lrec}. 15--18.
 
+\leavevmode\hypertarget{ref-Bauer2016}{}%
+Bauer PC., Barbera P., Munzert S. 2016. The quality of citations:
+Towards quantifying qualitative impact in social science research.
+\emph{SSRN Electronic Journal}.
+
 \leavevmode\hypertarget{ref-Camerer2016}{}%
 Camerer CF., Dreber A., Forsell E., Ho T-H., Huber J., Johannesson M.,
 Kirchler M., Almenberg J., Altmejd A., Chan T., Heikensten E.,
@@ -1169,6 +1176,12 @@ published literature. \emph{Biodiversity Data Journal} 7.
 Open Science Collaboration. 2015. Estimating the reproducibility of
 psychological science. \emph{Science} 349:aac4716--aac4716.
 
+\leavevmode\hypertarget{ref-Piper2019}{}%
+Piper AM., Batovska J., Cogan NOI., Weiss J., Cunningham JP., Rodoni
+BC., Blacket MJ. 2019. Prospects and challenges of implementing DNA
+metabarcoding for high-throughput insect surveillance.
+\emph{GigaScience} 8.
+
 \leavevmode\hypertarget{ref-Piwowar2018}{}%
 Piwowar H., Priem J., Larivière V., Alperin JP., Matthias L., Norlander
 B., Farley A., West J., Haustein S. 2018. The state of OA: A large-scale
@@ -1185,6 +1198,11 @@ to environments through text mining. \emph{PeerJ} 4:e2690.
 Usai A., Pironti M., Mital M., Mejri CA. 2018. Knowledge discovery out
 of text data: A systematic review via text mining. \emph{Journal of
 Knowledge Management} 22:1471--1488.
+
+\leavevmode\hypertarget{ref-Walsh2018}{}%
+Walsh E., Cherbuin N. 2018. Mapping the literature on nutritional
+interventions in cognitive health: A data-driven approach.
+\emph{Nutrients} 11:38.
 
 \end{document}
 

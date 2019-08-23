@@ -219,23 +219,6 @@ In brief, the same search against different sources produces different results.
 Some text mining research articles perform the same search against many
 different sources (refs), while others choose just one source.
 
-# Text mining in R: Three case studies
-
-## Case study 1: Citation mining
-
-```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
-```
-
-## Case study 2: Abstract mining
-
-```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
-```
-
-## Case study 3: Full text mining
-
-```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
-```
-
 # Data sources
 
 There is increasing open access scientific literature content available
@@ -546,6 +529,40 @@ subsequent requests for the same article just use the cached version. Additional
 all errors in `ft_get()` are collected in a data.frame in the output of the
 function to help the user quickly determine what went wrong.
 
+# Text mining in R: Use Cases
+
+## Use cases in the literature
+
+At least three papers have used the fulltext package. @Bauer2016 explored
+a way to think about the qualitative impact of citations rather than simple
+counts of citations; they did not use fulltext, but pointed it out as a good
+option for collecting papers. @Walsh2018 used fulltext and [roadoi][], an
+rOpenSci R package, to "map the literature" on nutritional interventions
+in cognitive health. @Piper2019 in a review of DNA metabarcoding for
+high-throughput insect surveillance used fulltext, along with [rentrez][]
+(an rOpenSci package), to collect articles for text mining.
+
+
+## Three case studies
+
+The following three case studies demonstrate in brief how one could use
+fulltext and related packages to do a few different text mining tasks.
+
+### Case study 1: Citation mining
+
+```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
+```
+
+### Case study 2: Abstract mining
+
+```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
+```
+
+### Case study 3: Full text mining
+
+```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
+```
+
 # Future directions
 
 Text mining will always be a complex task given all the layers involved:
@@ -616,3 +633,4 @@ corresponds to a snapshot of the GitHub repository at
 [libpoppler]: https://poppler.freedesktop.org/
 [tesseract]: https://github.com/ropensci/tesseract
 [rcoreoa]: https://github.com/ropensci/rcoreoa
+[roadoi]: https://github.com/ropensci/roadoi
