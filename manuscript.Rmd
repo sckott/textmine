@@ -514,7 +514,7 @@ If Crossref doesn't have any full text links, we give up.
 Since users can go through a lot of article requests, we cache successfully
 downloaded articles, and keep that knowledge consistent across R sessions; all
 subsequent requests for the same article just use the cached version. Additionally,
-all errors in `ft_get()` are collected in a tidy data.frame in the output of the
+all errors in `ft_get()` are collected in a data.frame in the output of the
 function to help the user quickly determine what went wrong.
 
 
