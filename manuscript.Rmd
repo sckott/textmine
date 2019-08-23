@@ -321,7 +321,9 @@ TDM program. There's an interface to Scopus article search within [fulltext][].
 ## arXiv/bioRxiv
 
 arXiv and bioRxiv are preprint publishers, the former in existence for many years, and the
-latter new on the scene. You can access articles from these publishers through [fulltext][].
+latter new on the scene. Preprints are scholarly articles that are generally not
+peer-reviewed, but that for the most part will later be published in a different peer-review
+publication. You can access articles from these publishers through [fulltext][].
 arXiv does provide a web API that we hook into; bioRxiv does not, but we can get you
 articles nonetheless.
 
@@ -373,7 +375,7 @@ interface to the Open Citation Corpus is [rcitoid][].
 
 Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a
 "versioned, publicly-editable catalog of research publications:  journal articles,
-conference proceedings, pre-prints, blog posts". Fatcat is currently does not have an
+conference proceedings, preprints, blog posts". Fatcat is currently does not have an
 R client, but is used inside of the [fulltext][] package.
 
 ## SHERPA/RoMEO
