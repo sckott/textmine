@@ -118,8 +118,8 @@ with line breaks and spaces in between.
 
 Of the non-machine readable types, the most noteable is the Portable
 Document Format (PDF)[^pdf]. These can be broken out into two groups: text based
-PDFs and scanned PDFs. The former are converted from digital versions of
-various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
+PDFs and scanned PDFs (images of text). The former are converted from digital
+versions of various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
 latter are created by scanning print articles to a PDF format. Text-based
 PDFs are much better for text mining purposes as plain text can be extracted
 easily in R with [pdftools][], a binding to [libpoppler][]. However, with
@@ -204,7 +204,8 @@ search is implemented in each source. Most sources are probably using Solr
 or Elasticsearch under the hood, though we can't know this for sure as most 
 do not make their software infrastructure public knowledge. Nonetheless, data
 sources differ in how search works from the user perspective. For example, some 
-provide wild card search and some do not. Some sources are searching full text
+provide wild card/fuzzy search (i.e., 'appl\*' includes results for 'apple',
+'application', etc.) and some do not. Some sources are searching full text
 of articles, while others only search metadata (i.e., title, authors, abstract).
 In addition, each source has a different set of metadata/full text available.
 In brief, the same search against different sources produces different results.
