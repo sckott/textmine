@@ -122,19 +122,21 @@
 CA, USA}
   
   \begin{abstract}
-  Text-mining is a powerful method for answering research questions.
+  Text mining is a powerful method for answering research questions.
   However, getting texts to extract information can be a daunting and
-  complicated task. The primary reason for this is publishers. There are
-  thousands of different publishers, each with their own licenses, URL
-  patterns, access options, and more. Layered on top of that is the varied
-  access each user has based on their institutional affiliation. Here, I
-  introduce a suite of software packages in the R programming language for
-  fetching texts. The tapestry of different publishers, access levels, and
-  other factors requires a patchwork of approaches for getting texts to
-  users. The flagship R package called fulltext attempts to simplify
-  search and retrieval of texts for text-mining. The fulltext package,
-  along with many others, make acquiring texts easier than ever,
-  facilitating answering research questions with text-mining.
+  complicated task. The primary reason for this is the diversity of
+  publisher technologies. There are thousands of different publishers,
+  each with their own licenses, URL patterns, access options, and more.
+  Layered on top of that is the varied access each user has based on their
+  institutional affiliation. Here, I introduce a suite of software
+  packages in the R programming language for fetching texts. The tapestry
+  of different publishers, access levels, and other factors requires a
+  patchwork of approaches for getting texts to users. The flagship R
+  package called fulltext attempts to simplify search and retrieval of
+  texts for text mining by serving as an interface to the varied and
+  complex publishers. The fulltext package, along with many others, make
+  acquiring texts easier than ever, facilitating answering research
+  questions with text mining.
   \end{abstract}
   
  \end{frontmatter}
@@ -145,8 +147,8 @@ CA, USA}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-There's more than 100 million research articles published (Crossref API:
-\url{https://github.com/CrossRef/rest-api-doc}), representing an
+There are more than 100 million research articles published (Crossref
+API: \url{https://github.com/CrossRef/rest-api-doc}), representing an
 enormous amount of knowledge. In addition to simply reading these
 articles, the articles contain a vast trove of information of interest
 to researchers for machine aided questions (Kong \& Gerstein, 2018; Usai
@@ -156,8 +158,8 @@ results: P-values, effect sizes, means, and more. In addition,
 researchers are often interested in words in articles, their use through
 time, and the contexts they are found in.
 
-Text-mining is the broad term associated with pulling information out of
-articles. Given the importance of text-mining, good text-mining tools
+Text mining is the broad term associated with pulling information out of
+articles. Given the importance of text mining, good text mining tools
 are needed to make it easier for researchers to do. Graphical user
 interface (GUI) based text mining tools are available (e.g., Ba \&
 Bossy, 2016; Cañada et al., 2017; Muñoz, Kissling \& Loon, 2019) and
@@ -169,8 +171,15 @@ programmatic tools can be found in the literature. For example, Sinclair
 et al. (2016) present a tool in Python called seqenv for the domain
 specific task of linking sequences to environments through text mining.
 
-Most recent text-mining papers do not use programmatic approaches,
-highlighting the need for more programmatic text-mining tools, and
+Using programmatic tools for text mining is important for a variety of
+reasons. First, using programmatic tools makes it easier for yourself.
+You can re-run code to get updated results as data changes, and results
+can always be re-created. Second, code can be shared whereas GUI driving
+workflows can not; colleagues, reviewers and other researchers can
+reproduce and check your work. (FIXME: re-work this; citations)
+
+Most recent text mining papers do not use programmatic approaches,
+highlighting the need for more programmatic text mining tools, and
 increased discussion of those tools to increase awareness. For example,
 many papers search Web of Science using their web interface, and
 downloading papers manually (Ding, Li \& Fan, 2018; McCallen et al.,
@@ -179,12 +188,12 @@ downloads are using R or Python downstream for analysis; replacing GUI
 based data acquisition with programmatic approaches will improve
 research.
 
-The R programming language is used widely throughout many academic
-fields; tools in R for text mining are of particular importance because
-they can be adopted by academics rapidly.
+The R programming language is free of cost, and is used widely
+throughout many academic fields; tools in R for text mining are of
+particular importance because they can be adopted by academics rapidly.
 
-Here, I present an overview of text-mining tools in the R programming
-language, not for text-mining analysis, but rather those tools for
+Here, I present an overview of text mining tools in the R programming
+language, not for text mining analysis, but rather those tools for
 searching for, acquiring, and extracting parts of texts (e.g., title,
 abstract, authors). Most of the packages presented here are part of the
 rOpenSci suite (\url{https://ropensci.org/}).
@@ -206,14 +215,15 @@ with line breaks and spaces in between.
 Of the non-machine readable types, the most noteable is the Portable
 Document Format (PDF)\footnote{\url{https://en.wikipedia.org/wiki/PDF}}.
 These can be broken out into two groups: text based PDFs and scanned
-PDFs. The former are converted from digital versions of various kinds
-(MS Word, OpenOffice, LaTeX, markdown, etc.), while the latter are
-created by scanning print articles to a PDF format. Text-based PDFs are
-much better for text-mining purposes as plain text can be extracted
-easily in R with \href{https://github.com/ropensci/pdftools}{pdftools},
-a binding to \href{https://poppler.freedesktop.org/}{libpoppler}.
-However, with scanned PDFs, text must be extracted using Optimal
-Character Recognition (OCR; see R package
+PDFs (images of text). The former are converted from digital versions of
+various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
+latter are created by scanning print articles to a PDF format.
+Text-based PDFs are much better for text mining purposes as plain text
+can be extracted easily in R with
+\href{https://github.com/ropensci/pdftools}{pdftools}, a binding to
+\href{https://poppler.freedesktop.org/}{libpoppler}. However, with
+scanned PDFs, text must be extracted using Optimal Character Recognition
+(OCR; see R package
 \href{https://github.com/ropensci/tesseract}{tesseract}), which isn't
 always a clean solution, especially compared to true text based PDFs.
 
@@ -222,15 +232,15 @@ any access to their articles, only provide PDF format. Very few
 publishers, with some quite large (Elsevier, Pensoft, PLOS), provide XML
 format. Although most publishers most likely have the XML behind each of
 their articles, they for some indefensible reason do not share it -
-making text-mining more difficult. Some provide plain text (Elsevier). I
+making text mining more difficult. Some provide plain text (Elsevier). I
 only know of one publisher that provides full text as JSON (PLOS). Thus,
-text-mining, in most cases, will require extracting text from PDFs.
+text mining, in most cases, will require extracting text from PDFs.
 
 \hypertarget{digital-articles-the-access-landscape}{%
 \section{Digital articles: the access
 landscape}\label{digital-articles-the-access-landscape}}
 
-Acces to full-text is the holy grail in text-mining. Some use cases can
+Acces to full-text is the holy grail in text mining. Some use cases can
 get by with article metadata (authors, title, etc.), some with
 abstracts, but many use cases require full-text.
 
@@ -252,9 +262,9 @@ depending on each institution's publisher contracts. MORE ABOUT THIS
 Some may not realize access to articles varies with IP address so that
 access from campus vs.~from home (if not on a VPN) will drastically
 differ. Sometimes a VPN is required, and this can provide a significant
-technical hurdle to users attempting to do text-mining work.
+technical hurdle to users attempting to do text mining work.
 
-One final hurdle in text-mining comes unsurprisingly from Elsevier. They
+One final hurdle in text mining comes unsurprisingly from Elsevier. They
 use so-called ``fences'' for programmatic access. That is, even if a
 person trying to get an article programmatically their institution has
 access to and they have access to, and they are on the correct IP
@@ -272,8 +282,8 @@ SciHub.
 \hypertarget{the-discovery-problem}{%
 \section{The discovery problem}\label{the-discovery-problem}}
 
-A text-mining project starts with a question. From that question,
-researchers then attempt to acquire scholarly articles for text-mining.
+A text mining project starts with a question. From that question,
+researchers then attempt to acquire scholarly articles for text mining.
 Finding appropriate articles is not altogether straight-forward.
 
 Some of the discovery difficulty relates to the fact that there are so
@@ -298,22 +308,24 @@ that search is implemented in each source. Most sources are probably
 using Solr or Elasticsearch under the hood, though we can't know this
 for sure as most do not make their software infrastructure public
 knowledge. Nonetheless, data sources differ in how search works from the
-user perspective. For example, some provide wild card search and some do
-not. Some sources are searching full text of articles, while others only
-search metadata (i.e., title, authors, abstract). In addition, each
-source has a different set of metadata/full text available. In brief,
-the same search against different sources produces different results.
-Some text-mining research articles perform the same search against many
-different sources (refs), while others choose just one source.
+user perspective. For example, some provide wild card/fuzzy search
+(i.e., `appl*' includes results for `apple', `application', etc.) and
+some do not. Some sources are searching full text of articles, while
+others only search metadata (i.e., title, authors, abstract). In
+addition, each source has a different set of metadata/full text
+available. In brief, the same search against different sources produces
+different results. Some text mining research articles perform the same
+search against many different sources (refs), while others choose just
+one source.
 
 \hypertarget{data-sources}{%
 \section{Data sources}\label{data-sources}}
 
 There is increasing open access scientific literature content available
 online. However, only a small proportion of scientific journals provide
-access to their full content; whereas, most publishers provide open
-access to their metadata only (most often through Crossref; Table 1).
-The following is a synopsis of the major data sources and associated R
+access to their full text; whereas, most publishers provide open access
+to their metadata only (most often through Crossref; Table 1). The
+following is a synopsis of the major data sources and associated R
 tools.
 
 \newpage
@@ -330,32 +342,32 @@ Documentation\tabularnewline
 \endhead
 Crossref & Metadata & rcrossref/crminer & \footnote{\url{https://api.crossref.org}}\tabularnewline
 DataCite & Metadata & rdatacite & \footnote{\url{https://support.datacite.org/docs/api}}\tabularnewline
-Biodiversity Heritage Library & Full content/Metadata & rbhl &
-\footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
-Public Library of Science (PLoS) & Full content/altmetrics & rplos &
-\footnote{\url{http://api.plos.org/solr}}\tabularnewline
-Scopus (Elsevier) & Full content/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
-arXiv & Full content/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
-Biomed Central (via Springer) & Full content/Metadata & fulltext &
+Biodiversity Heritage Library & Full text/Metadata & rbhl & \footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
+Public Library of Science (PLoS) & Full text (pdf/xml)/Metadata & rplos
+& \footnote{\url{http://api.plos.org/solr}}\tabularnewline
+Scopus (Elsevier) & Full text (pdf/xml)/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
+arXiv & Full text (pdf)/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
+Biomed Central (via Springer) & Full text (pdf)/Metadata & fulltext &
 \footnote{\url{https://dev.springer.com/}}\tabularnewline
-bioRxiv & Full content/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
-PMC/Pubmed (via Entrez) & Full content/Metadata & rentrez & \footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
-Europe PMC & Full content/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
+bioRxiv & Full text (pdf)/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
+PMC/Pubmed (via Entrez) & Full text (pdf/xml)/Metadata & rentrez &
+\footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
+Europe PMC & Full text (pdf/xml)/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
 Microsoft Academic Search & Metadata & microdemic & \footnote{\url{https://dev.labs.cognitive.microsoft.com/docs/services/56332331778daf02acc0a50b/operations/565d9001ca73072048922d97}}\tabularnewline
 Directory of Open Access Journals & Metadata & jaod & \footnote{\url{https://doaj.org/api/v1/docs}}\tabularnewline
-JSTOR Data for Research & Full content & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
+JSTOR Data for Research & Full text & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
 ORCID & Metadata & rorcid & \footnote{\url{https://pub.orcid.org/}}\tabularnewline
 Wikimedia's Citoid & Citations & rcitoid & \footnote{\url{https://en.wikipedia.org/api/rest_v1/\#/Citation/getCitation}}\tabularnewline
 Open Citation Corpus & Citations & citecorp & \footnote{\url{http://opencitations.net/}}\tabularnewline
 Fatcat & Metadata & none & \footnote{\url{https://fatcat.wiki/}}\tabularnewline
 SHERPA/RoMEO & Journal Level Metadata & rromeo & \footnote{\url{http://www.sherpa.ac.uk/romeo/apimanual.php?la=en\&fIDnum=\%7C\&mode=simple}}\tabularnewline
-CORE & Full content/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
+CORE & Full text (pdf)/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
 Dissemin & Metadata & dissemr & \footnote{\url{https://dissemin.readthedocs.io/en/latest/api.html}}\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{crossrefdatacite}{%
-\subsection{Crossref/Datacite}\label{crossrefdatacite}}
+\hypertarget{crossref-and-datacite}{%
+\subsection{Crossref and Datacite}\label{crossref-and-datacite}}
 
 Crossref is a non-profit that creates (or ``mints'') Digital Object
 Identifiers (DOIs). In addition, they maintain metadata associated with
@@ -365,7 +377,7 @@ article, as well as references in the article, and even abstracts. At
 the time of writing they hold 100 million DOIs.
 
 One can search by DOI or search citation data to get citations. In
-addition, Crossref has a text-mining opt-in program for publishers. The
+addition, Crossref has a text mining opt-in program for publishers. The
 result of this is that some publishers provide URLs for full text
 content of their articles. The majority of these links are pay-walled,
 while some are open access. Using any of the various tools for working
@@ -375,8 +387,10 @@ that are open access.
 
 The main interfaces for Crossref in R are
 \href{https://github.com/ropensci/rcrossref}{rcrossref} and
-\href{https://github.com/ropensci/crminer}{crminer}. Similar interfaces
-are available in Ruby
+\href{https://github.com/ropensci/crminer}{crminer}. rcrossref is a
+complete client for the public facing Crossref web services including
+metadata, whereas crminer focuses only on retrieving full text of
+articles. Similar interfaces to rcrossref are available in Ruby
 (\href{https://github.com/sckott/serrano}{serrano}) and Python
 (\href{https://github.com/sckott/habanero}{habanero}).
 
@@ -406,12 +420,14 @@ articles. The main R interace to PLOS is through
 \hypertarget{elsevierscopus}{%
 \subsection{Elsevier/Scopus}\label{elsevierscopus}}
 
-Elsevier is one of the largest publishers. Most of their articles are
-not open access. However, they have a numbrer of advantages if you have
+Elsevier is one of the largest publishers. Scopus is one of their
+products, a searchable database of articles. Most of their articles are
+not open access. However, they have a number of advantages if you have
 access to their articles: they are one of the few publishers to provide
 machine readable XML (many publishers do have XML versions of articles,
-but do not provide it); they are one of the few (two) publishers part of
-Crossref's text and data mining program. The packages
+but do not provide it, as mentioned in the Introduction); they are one
+of the few (two) publishers that take part in Crossref's text and data
+mining program. The packages
 \href{https://github.com/ropensci/fulltext}{fulltext} and
 \href{https://github.com/ropensci/crminer}{crminer} can be used to
 access Elsevier articles through Crossref's TDM program. There's an
@@ -422,8 +438,10 @@ interface to Scopus article search within
 \subsection{arXiv/bioRxiv}\label{arxivbiorxiv}}
 
 arXiv and bioRxiv are preprint publishers, the former in existence for
-many years, and the latter new on the scene. You can access articles
-from these publishers through
+many years, and the latter new on the scene. Preprints are scholarly
+articles that are generally not peer-reviewed, but that for the most
+part will later be published in a different peer-review publication. You
+can access articles from these publishers through
 \href{https://github.com/ropensci/fulltext}{fulltext}. arXiv does
 provide a web API that we hook into; bioRxiv does not, but we can get
 you articles nonetheless.
@@ -496,7 +514,7 @@ Citation Corpus is
 
 Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is
 a ``versioned, publicly-editable catalog of research publications:
-journal articles, conference proceedings, pre-prints, blog posts''.
+journal articles, conference proceedings, preprints, blog posts''.
 Fatcat is currently does not have an R client, but is used inside of the
 \href{https://github.com/ropensci/fulltext}{fulltext} package.
 
@@ -525,12 +543,20 @@ invites authors to upload them to an open repository. Dissemin provides
 metadata including links to open versions of articles. The
 {[}dissemr{]}{[}{]} R package interfaces with the Dissemin API.
 
+\hypertarget{learn-more}{%
+\subsection{Learn more}\label{learn-more}}
+
+To learn how to use the above packages, follow the links to get to
+documentation, and how to report issues. The rOpenSci forum
+(\url{https://discuss.ropensci.org/}) is a good place to ask questions
+about these packages.
+
 \hypertarget{fulltext-a-toolset-for-text-mining-in-r}{%
 \section{fulltext: a toolset for text mining in
 R}\label{fulltext-a-toolset-for-text-mining-in-r}}
 
 \href{https://github.com/ropensci/fulltext}{fulltext} is a general
-purpose R package for the data part of text-mining: search for articles,
+purpose R package for the data part of text mining: search for articles,
 get links to articles, get article abstracts, and fetch full text of
 articles. The \texttt{fulltext} package is always adding additional data
 sources as time allows (See Table 1). Starting from searching for
@@ -715,15 +741,36 @@ Since users can go through a lot of article requests, we cache
 successfully downloaded articles, and keep that knowledge consistent
 across R sessions; all subsequent requests for the same article just use
 the cached version. Additionally, all errors in \texttt{ft\_get()} are
-collected in a tidy data.frame in the output of the function to help the
-user quickly determine what went wrong.
+collected in a data.frame in the output of the function to help the user
+quickly determine what went wrong.
 
-\hypertarget{how-to-text-mine-from-r-three-case-studies}{%
-\section{How to text mine from R: Three case
-studies}\label{how-to-text-mine-from-r-three-case-studies}}
+\hypertarget{text-mining-in-r-use-cases}{%
+\section{Text mining in R: Use Cases}\label{text-mining-in-r-use-cases}}
+
+\hypertarget{use-cases-in-the-literature}{%
+\subsection{Use cases in the
+literature}\label{use-cases-in-the-literature}}
+
+At least three papers have used the fulltext package. Bauer, Barbera \&
+Munzert (2016) explored a way to think about the qualitative impact of
+citations rather than simple counts of citations; they did not use
+fulltext, but pointed it out as a good option for collecting papers.
+Walsh \& Cherbuin (2018) used fulltext and
+\href{https://github.com/ropensci/roadoi}{roadoi}, an rOpenSci R
+package, to ``map the literature'' on nutritional interventions in
+cognitive health. Piper et al. (2019) in a review of DNA metabarcoding
+for high-throughput insect surveillance used fulltext, along with
+\href{https://github.com/ropensci/rentrez}{rentrez} (an rOpenSci
+package), to collect articles for text mining.
+
+\hypertarget{three-case-studies}{%
+\subsection{Three case studies}\label{three-case-studies}}
+
+The following three case studies demonstrate in brief how one could use
+fulltext and related packages to do a few different text mining tasks.
 
 \hypertarget{case-study-1-citation-mining}{%
-\subsection{Case study 1: Citation
+\subsubsection{Case study 1: Citation
 mining}\label{case-study-1-citation-mining}}
 
 In this example, xxxx
@@ -764,7 +811,7 @@ Using \texttt{rcrossref} for Crossref data:
 \end{Shaded}
 
 \hypertarget{case-study-2-abstract-mining}{%
-\subsection{Case study 2: Abstract
+\subsubsection{Case study 2: Abstract
 mining}\label{case-study-2-abstract-mining}}
 
 Sometimes you just need abstracts for your research question. The
@@ -835,50 +882,31 @@ abstracts
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{kwic}\NormalTok{(corp, }\DataTypeTok{pattern =} \StringTok{"ecology"}\NormalTok{)}
-\CommentTok{#>                                                                         }
-\CommentTok{#>   [text1, 33] knowledge production within critical political | ecology |}
-\CommentTok{#>   [text1, 50]              in scientific articles on dryland | ecology |}
-\CommentTok{#>  [text1, 204]                 to equilibrium models in range | ecology |}
-\CommentTok{#>  [text1, 246]    communal areas.Keywords: Critical political | ecology |}
-\CommentTok{#>  [text1, 255]                 , scientific models, rangeland | ecology |}
-\CommentTok{#>    [text2, 5]                            < jats:p> Political | ecology |}
-\CommentTok{#>   [text2, 23]        manifestations of political economy and | ecology |}
-\CommentTok{#>   [text2, 45]                      I try to extend political | ecology |}
-\CommentTok{#>  [text2, 149]                   , in dialogue with political | ecology |}
-\CommentTok{#>  [text2, 177]            people and resources that political | ecology |}
-\CommentTok{#>  [text2, 229]      indigeneity scholars.Key words: political | ecology |}
-\CommentTok{#>   [text3, 71]                   an analysis from a political | ecology |}
-\CommentTok{#>  [text3, 114]                system, supermarkets, political | ecology |}
-\CommentTok{#>  [text6, 134]                was observed when allopatry and | ecology |}
-\CommentTok{#>  [text7, 167]             ecosystem should be considered for | ecology |}
-\CommentTok{#>  [text7, 185]                       the" four-color issue of | ecology |}
-\CommentTok{#>  [text7, 201]             step toward advancing knowledge in | ecology |}
-\CommentTok{#>  [text9, 195]         or for theoretical studies integrating | ecology |}
-\CommentTok{#>                                              }
-\CommentTok{#>  . This article is a                         }
-\CommentTok{#>  , and investigates the functions            }
-\CommentTok{#>  , and the fence-line photographs            }
-\CommentTok{#>  , fence-line photography, scientific        }
-\CommentTok{#>  , Southern Africa</                         }
-\CommentTok{#>  has expanded in multiple new                }
-\CommentTok{#>  in the" problem"                            }
-\CommentTok{#>  to engage with ethnic studies               }
-\CommentTok{#>  approaches to better understand the         }
-\CommentTok{#>  focuses on cannot be adequately             }
-\CommentTok{#>  , coloniality, Maidu,                       }
-\CommentTok{#>  standpoint allows a different interpretation}
-\CommentTok{#>  </ jats:p>                                  }
-\CommentTok{#>  act together, leading to                    }
-\CommentTok{#>  "? Here, I                                  }
-\CommentTok{#>  ", and propose that                         }
-\CommentTok{#>  and conservation biology. In                }
-\CommentTok{#>  and biogeography.</}
+\KeywordTok{kwic}\NormalTok{(corp, }\DataTypeTok{pattern =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{window =} \DecValTok{2}\NormalTok{)}
+\CommentTok{#>                                                                }
+\CommentTok{#>   [text1, 33]  critical political | ecology | . This           }
+\CommentTok{#>   [text1, 50]          on dryland | ecology | , and            }
+\CommentTok{#>  [text1, 204]            in range | ecology | , and            }
+\CommentTok{#>  [text1, 246]  Critical political | ecology | , fence-line     }
+\CommentTok{#>  [text1, 255]         , rangeland | ecology | , Southern       }
+\CommentTok{#>    [text2, 5]         > Political | ecology | has expanded     }
+\CommentTok{#>   [text2, 23]         economy and | ecology | in the           }
+\CommentTok{#>   [text2, 45]    extend political | ecology | to engage        }
+\CommentTok{#>  [text2, 149]      with political | ecology | approaches to    }
+\CommentTok{#>  [text2, 177]      that political | ecology | focuses on       }
+\CommentTok{#>  [text2, 229]         : political | ecology | , coloniality    }
+\CommentTok{#>   [text3, 71]         a political | ecology | standpoint allows}
+\CommentTok{#>  [text3, 114]         , political | ecology | </               }
+\CommentTok{#>  [text6, 134]       allopatry and | ecology | act together     }
+\CommentTok{#>  [text7, 167]      considered for | ecology | "?               }
+\CommentTok{#>  [text7, 185]            issue of | ecology | ",               }
+\CommentTok{#>  [text7, 201]        knowledge in | ecology | and conservation }
+\CommentTok{#>  [text9, 195] studies integrating | ecology | and biogeography}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{case-study-3-full-text-mining}{%
-\subsection{Case study 3: Full text
+\subsubsection{Case study 3: Full text
 mining}\label{case-study-3-full-text-mining}}
 
 In this example, xxxx
@@ -1001,17 +1029,30 @@ text, then extract various parts of each article with
 \end{Highlighting}
 \end{Shaded}
 
+\emph{Further processing}
+
+From here, you'll likely want to use R packages for removing stopwords,
+tokenizing, and more. The Natural Language Processing CRAN Task View
+(\url{https://cloud.r-project.org/web/views/NaturalLanguageProcessing.html})
+is a good place to start if you're not sure what packages to use. Some
+packages worth trying in this space are
+\href{https://github.com/ropensci/antiword}{antiword},
+\href{https://github.com/ropensci/pdftools}{pdftools},
+\href{https://github.com/ropensci/rtika}{rtika},
+\href{https://github.com/ropensci/tokenizers}{tokenizers}, and
+\href{https://github.com/ropensci/textreuse}{textreuse}.
+
 \hypertarget{future-directions}{%
 \section{Future directions}\label{future-directions}}
 
-Text-mining will always be a complex task given all the layers involved:
+Text mining will always be a complex task given all the layers involved:
 often temporal time-span of research questions; varied permissions among
 researchers and their articles they're trying to access; varied
 approaches to getting full text (xml vs pdf vs plain text); and more.
 
-Programmatic text-mining is a first step towards making text-mining
-easier. The R ecosystem is an especially good place to do text-mining
-because there are many packages for text-mining analysis, and endless
+Programmatic text mining is a first step towards making text mining
+easier. The R ecosystem is an especially good place to do text mining
+because there are many packages for text mining analysis, and endless
 packages for any required statistical analyses. In addition, rOpenSci
 and others are building up a set of packages in R for searching for and
 acquiring full text programatically to help make the research workflow
@@ -1035,7 +1076,7 @@ Future work for \texttt{fulltext} includes:
   Improve documentation
 \end{enumerate}
 
-With respect to what publishers can do to make text-mining easier,
+With respect to what publishers can do to make text mining easier,
 publishers should:
 
 \begin{enumerate}
@@ -1056,7 +1097,7 @@ publishers should:
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-xxxx
+This manuscript was greatly improved by comments from Maëlle Salmon.
 
 \hypertarget{data-accessibility}{%
 \section{Data Accessibility}\label{data-accessibility}}
@@ -1065,7 +1106,7 @@ All scripts and data used in this paper can be found in the permanent
 data archive Zenodo under the digital object identifier (DOI). This DOI
 corresponds to a snapshot of the GitHub repository at
 \url{https://github.com/ropensci/textmine}. Software can be found at
-\url{https://github.com/ropensci/xxx}, xxxx, all under MIT licenses.
+\url{https://github.com/ropensci}, all under MIT licenses.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -1077,6 +1118,11 @@ Ba M., Bossy R. 2016. Interoperability of corpus processing work-flow
 engines: The case of alvisnlp/ml in openminted. In: \emph{Proceedings of
 the workshop on cross-platform text mining and natural language
 processing interoperability (interop 2016) at lrec}. 15--18.
+
+\leavevmode\hypertarget{ref-Bauer2016}{}%
+Bauer PC., Barbera P., Munzert S. 2016. The quality of citations:
+Towards quantifying qualitative impact in social science research.
+\emph{SSRN Electronic Journal}.
 
 \leavevmode\hypertarget{ref-Camerer2016}{}%
 Camerer CF., Dreber A., Forsell E., Ho T-H., Huber J., Johannesson M.,
@@ -1130,6 +1176,12 @@ published literature. \emph{Biodiversity Data Journal} 7.
 Open Science Collaboration. 2015. Estimating the reproducibility of
 psychological science. \emph{Science} 349:aac4716--aac4716.
 
+\leavevmode\hypertarget{ref-Piper2019}{}%
+Piper AM., Batovska J., Cogan NOI., Weiss J., Cunningham JP., Rodoni
+BC., Blacket MJ. 2019. Prospects and challenges of implementing DNA
+metabarcoding for high-throughput insect surveillance.
+\emph{GigaScience} 8.
+
 \leavevmode\hypertarget{ref-Piwowar2018}{}%
 Piwowar H., Priem J., Larivière V., Alperin JP., Matthias L., Norlander
 B., Farley A., West J., Haustein S. 2018. The state of OA: A large-scale
@@ -1146,6 +1198,11 @@ to environments through text mining. \emph{PeerJ} 4:e2690.
 Usai A., Pironti M., Mital M., Mejri CA. 2018. Knowledge discovery out
 of text data: A systematic review via text mining. \emph{Journal of
 Knowledge Management} 22:1471--1488.
+
+\leavevmode\hypertarget{ref-Walsh2018}{}%
+Walsh E., Cherbuin N. 2018. Mapping the literature on nutritional
+interventions in cognitive health: A data-driven approach.
+\emph{Nutrients} 11:38.
 
 \end{document}
 

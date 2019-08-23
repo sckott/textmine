@@ -61,3 +61,19 @@ res <- ft_search(query = "ecology", from = "plos", limit = 3)
 x <- ft_get(res)
 x %>% ft_collect() %>% pub_chunks(c("doi", "history")) %>% pub_tabularize()
 ```
+
+_Further processing_
+
+From here, you'll likely want to use R packages for removing stopwords, tokenizing, 
+and more. The Natural Language Processing CRAN Task View
+(https://cloud.r-project.org/web/views/NaturalLanguageProcessing.html) is a good place
+to start if you're not sure what packages to use. Some packages worth trying in this
+space are [antiword][], [pdftools][], [rtika][], [tokenizers][], and [textreuse][]. 
+
+[antiword]: https://github.com/ropensci/antiword
+[pdftools]: https://github.com/ropensci/pdftools
+[rtika]: https://github.com/ropensci/rtika
+[tokenizers]: https://github.com/ropensci/tokenizers
+[textreuse]: https://github.com/ropensci/textreuse
+
+

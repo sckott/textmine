@@ -49,5 +49,5 @@ Use the `kwic()` function to see a word in context across
 the abstracts
 
 ```{r}
-kwic(corp, pattern = "ecology")
+kwic(corp, pattern = "ecology", window = 2)
 ```

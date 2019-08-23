@@ -12,18 +12,20 @@ address:
     address: |
       rOpenSci, Museum of Paleontology, University of California, Berkeley, CA, USA
 abstract: |
-  Text-mining is a powerful method for answering research questions. However,
+  Text mining is a powerful method for answering research questions. However,
   getting texts to extract information can be a daunting and complicated task.
-  The primary reason for this is publishers. There are thousands of different
-  publishers, each with their own licenses, URL patterns, access options, and
-  more. Layered on top of that is the varied access each user has based on
-  their institutional affiliation. Here, I introduce a suite of software packages
-  in the R programming language for fetching texts. The tapestry of different
-  publishers, access levels, and other factors requires a patchwork of approaches
-  for getting texts to users. The flagship R package called fulltext attempts
-  to simplify search and retrieval of texts for text-mining. The fulltext package,
-  along with many others, make acquiring texts easier than ever, facilitating
-  answering research questions with text-mining.
+  The primary reason for this is the diversity of publisher technologies.
+  There are thousands of different publishers, each with their own licenses,
+  URL patterns, access options, and more. Layered on top of that is the varied
+  access each user has based on their institutional affiliation. Here, I
+  introduce a suite of software packages in the R programming language for
+  fetching texts. The tapestry of different publishers, access levels, and
+  other factors requires a patchwork of approaches for getting texts to users.
+  The flagship R package called fulltext attempts to simplify search and
+  retrieval of texts for text mining by serving as an interface to the varied
+  and complex publishers. The fulltext package, along with many others, make
+  acquiring texts easier than ever, facilitating answering research questions
+  with text mining.
 bibliography: components/references.bib
 csl: components/peerj.csl
 documentclass: components/elsarticle
@@ -60,19 +62,19 @@ options(tibble.max_extra_cols = 10)
 
 # Introduction
 
-There's more than 100 million research articles published
+There are more than 100 million research articles published
 (Crossref API: <https://github.com/CrossRef/rest-api-doc>), representing
 an enormous amount of knowledge. In addition to simply reading these
 articles, the articles contain a vast trove of information of interest to
 researchers for machine aided questions [@Kong2018; @Usai2018]. For example,
-many researchers are interested in statistical outcomes of articles that 
+many researchers are interested in statistical outcomes of articles that
 can be extracted from numeric results: P-values, effect sizes, means, and
 more. In addition, researchers are often interested in words in articles,
 their use through time, and the contexts they are found in.
 
-Text-mining is the broad term associated with pulling information
-out of articles. Given the importance of text-mining, good
-text-mining tools are needed to make it easier for researchers to do.
+Text mining is the broad term associated with pulling information
+out of articles. Given the importance of text mining, good
+text mining tools are needed to make it easier for researchers to do.
 Graphical user interface (GUI) based text mining tools are available
 [e.g., @ba2016interoperability; @Munoz2019; @Canada2017] and some research papers
 have used them [@Chaix2019], but given the urgent recent call to action for
@@ -82,21 +84,28 @@ of programmatic tools can be found in the literature. For example, @Sinclair2016
 present a tool in Python called seqenv for the domain specific task of
 linking sequences to environments through text mining.
 
-Most recent text-mining papers do not use programmatic approaches, highlighting
-the need for more programmatic text-mining tools, and increased
-discussion of those tools to increase awareness. For example, many papers 
-search Web of Science using their web interface, and downloading papers manually 
-[@Ding2018; @McCallen2019]. Many of these papers doing GUI based searching and 
-paper downloads are using R or Python downstream for analysis; replacing 
-GUI based data acquisition with programmatic approaches will improve 
-research. 
+Using programmatic tools for text mining is important for a variety of reasons.
+First, using programmatic tools makes it easier for yourself. You can re-run code
+to get updated results as data changes, and results can always be re-created.
+Second, code can be shared whereas GUI driving workflows can not; colleagues,
+reviewers and other researchers can reproduce and check your work. (FIXME: 
+re-work this; citations)
 
-The R programming language is used widely throughout many academic fields;
-tools in R for text mining are of particular importance because they
-can be adopted by academics rapidly.
+Most recent text mining papers do not use programmatic approaches, highlighting
+the need for more programmatic text mining tools, and increased
+discussion of those tools to increase awareness. For example, many papers
+search Web of Science using their web interface, and downloading papers manually
+[@Ding2018; @McCallen2019]. Many of these papers doing GUI based searching and
+paper downloads are using R or Python downstream for analysis; replacing
+GUI based data acquisition with programmatic approaches will improve
+research.
 
-Here, I present an overview of text-mining tools in the R programming
-language, not for text-mining analysis, but rather those
+The R programming language is free of cost, and is used widely throughout
+many academic fields; tools in R for text mining are of particular
+importance because they can be adopted by academics rapidly.
+
+Here, I present an overview of text mining tools in the R programming
+language, not for text mining analysis, but rather those
 tools for searching for, acquiring, and extracting parts of texts
 (e.g., title, abstract, authors). Most of the packages presented here are
 part of the rOpenSci suite (https://ropensci.org/).
@@ -116,10 +125,10 @@ with line breaks and spaces in between.
 
 Of the non-machine readable types, the most noteable is the Portable
 Document Format (PDF)[^pdf]. These can be broken out into two groups: text based
-PDFs and scanned PDFs. The former are converted from digital versions of
-various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
+PDFs and scanned PDFs (images of text). The former are converted from digital
+versions of various kinds (MS Word, OpenOffice, LaTeX, markdown, etc.), while the
 latter are created by scanning print articles to a PDF format. Text-based
-PDFs are much better for text-mining purposes as plain text can be extracted
+PDFs are much better for text mining purposes as plain text can be extracted
 easily in R with [pdftools][], a binding to [libpoppler][]. However, with
 scanned PDFs, text must be extracted using Optimal Character Recognition
 (OCR; see R package [tesseract][]), which isn't always a clean solution,
@@ -129,9 +138,9 @@ The reality in scholarly publishing is all publishers, if they provide
 any access to their articles, only provide PDF format. Very few publishers,
 with some quite large (Elsevier, Pensoft, PLOS), provide XML format. Although
 most publishers most likely have the XML behind each of their articles,
-they for some indefensible reason do not share it - making text-mining more
+they for some indefensible reason do not share it - making text mining more
 difficult. Some provide plain text (Elsevier). I only know of one publisher
-that provides full text as JSON (PLOS). Thus, text-mining, in most cases,
+that provides full text as JSON (PLOS). Thus, text mining, in most cases,
 will require extracting text from PDFs.
 
 [^xml]: https://www.w3.org/TR/xml/
@@ -141,7 +150,7 @@ will require extracting text from PDFs.
 
 # Digital articles: the access landscape
 
-Acces to full-text is the holy grail in text-mining. Some use cases can
+Acces to full-text is the holy grail in text mining. Some use cases can
 get by with article metadata (authors, title, etc.), some with abstracts,
 but many use cases require full-text.
 
@@ -161,9 +170,9 @@ on each institution's publisher contracts. MORE ABOUT THIS ...
 Some may not realize access to articles varies with IP address so that
 access from campus vs. from home (if not on a VPN) will drastically differ.
 Sometimes a VPN is required, and this can provide a significant technical
-hurdle to users attempting to do text-mining work.
+hurdle to users attempting to do text mining work.
 
-One final hurdle in text-mining comes unsurprisingly from Elsevier. They
+One final hurdle in text mining comes unsurprisingly from Elsevier. They
 use so-called "fences" for programmatic access. That is, even if a person
 trying to get an article programmatically their institution has access to
 and they have access to, and they are on the correct IP address, they may
@@ -178,8 +187,8 @@ paywalled. No tools in this manuscript provide access to SciHub.
 
 # The discovery problem
 
-A text-mining project starts with a question. From that question, researchers
-then attempt to acquire scholarly articles for text-mining. Finding appropriate
+A text mining project starts with a question. From that question, researchers
+then attempt to acquire scholarly articles for text mining. Finding appropriate
 articles is not altogether straight-forward.
 
 Some of the discovery difficulty relates to the fact that there are so many
@@ -197,24 +206,24 @@ Microsoft Academic Research, Scopus, ScienceDirect, Pubmed/Entrez, Europe PMC,
 and Directory of Open Access Journals. All of these are included in the R
 package [fulltext][], discussed further below.
 
-On top of the vast array of different data sources is the varied ways that 
+On top of the vast array of different data sources is the varied ways that
 search is implemented in each source. Most sources are probably using Solr
-or Elasticsearch under the hood, though we can't know this for sure as most 
+or Elasticsearch under the hood, though we can't know this for sure as most
 do not make their software infrastructure public knowledge. Nonetheless, data
-sources differ in how search works from the user perspective. For example, some 
-provide wild card search and some do not. Some sources are searching full text
+sources differ in how search works from the user perspective. For example, some
+provide wild card/fuzzy search (i.e., 'appl\*' includes results for 'apple',
+'application', etc.) and some do not. Some sources are searching full text
 of articles, while others only search metadata (i.e., title, authors, abstract).
 In addition, each source has a different set of metadata/full text available.
 In brief, the same search against different sources produces different results.
-Some text-mining research articles perform the same search against many
+Some text mining research articles perform the same search against many
 different sources (refs), while others choose just one source.
-
 
 # Data sources
 
 There is increasing open access scientific literature content available
 online. However, only a small proportion of scientific journals provide
-access to their full content; whereas, most publishers provide open
+access to their full text; whereas, most publishers provide open
 access to their metadata only (most often through Crossref; Table 1).
 The following is a synopsis of the major data sources and associated R
 tools.
@@ -224,28 +233,28 @@ Table 1. Sources of scientific literature, their content type provided via
 web services, whether rOpenSci has an R packages for the service, and
 where to find the API documentation.
 
-Data Provider                      | Content Type            | rOpenSci Package         | Documentation
----------------------------------- | ---------------------   | ------------------------ | -------------
-Crossref                           | Metadata                | rcrossref/crminer        | [^1]
-DataCite                           | Metadata                | rdatacite                | [^2]
-Biodiversity Heritage Library      | Full content/Metadata   | rbhl                     | [^3]
-Public Library of Science (PLoS)   | Full content/altmetrics | rplos                    | [^4]
-Scopus (Elsevier)                  | Full content/Metadata   | fulltext                 | [^5]
-arXiv                              | Full content/Metadata   | aRxiv                    | [^6]
-Biomed Central (via Springer)      | Full content/Metadata   | fulltext                 | [^7]
-bioRxiv                            | Full content/Metadata   | fulltext                 | [^8]
-PMC/Pubmed (via Entrez)            | Full content/Metadata   | rentrez                  | [^9]
-Europe PMC                         | Full content/Metadata   | europepmc                | [^10]
-Microsoft Academic Search          | Metadata                | microdemic               | [^11]
-Directory of Open Access Journals  | Metadata                | jaod                     | [^12]
-JSTOR Data for Research            | Full content            | jstor                    | [^13]
-ORCID                              | Metadata                | rorcid                   | [^14]
-Wikimedia's Citoid                 | Citations               | rcitoid                  | [^15]
-Open Citation Corpus               | Citations               | citecorp                 | [^16]
-Fatcat                             | Metadata                | none                     | [^17]
-SHERPA/RoMEO                       | Journal Level Metadata  | rromeo                   | [^18]
-CORE                               | Full content/Metadata   | rcoreoa                  | [^19]
-Dissemin                           | Metadata                | dissemr                  | [^20]
+Data Provider                      | Content Type                 | rOpenSci Package   | Documentation
+---------------------------------- | ---------------------------- | ------------------ | -------------
+Crossref                           | Metadata                     | rcrossref/crminer  | [^1]
+DataCite                           | Metadata                     | rdatacite          | [^2]
+Biodiversity Heritage Library      | Full text/Metadata           | rbhl               | [^3]
+Public Library of Science (PLoS)   | Full text (pdf/xml)/Metadata | rplos              | [^4]
+Scopus (Elsevier)                  | Full text (pdf/xml)/Metadata | fulltext           | [^5]
+arXiv                              | Full text (pdf)/Metadata     | aRxiv              | [^6]
+Biomed Central (via Springer)      | Full text (pdf)/Metadata     | fulltext           | [^7]
+bioRxiv                            | Full text (pdf)/Metadata     | fulltext           | [^8]
+PMC/Pubmed (via Entrez)            | Full text (pdf/xml)/Metadata | rentrez            | [^9]
+Europe PMC                         | Full text (pdf/xml)/Metadata | europepmc          | [^10]
+Microsoft Academic Search          | Metadata                     | microdemic         | [^11]
+Directory of Open Access Journals  | Metadata                     | jaod               | [^12]
+JSTOR Data for Research            | Full text                    | jstor              | [^13]
+ORCID                              | Metadata                     | rorcid             | [^14]
+Wikimedia's Citoid                 | Citations                    | rcitoid            | [^15]
+Open Citation Corpus               | Citations                    | citecorp           | [^16]
+Fatcat                             | Metadata                     | none               | [^17]
+SHERPA/RoMEO                       | Journal Level Metadata       | rromeo             | [^18]
+CORE                               | Full text (pdf)/Metadata     | rcoreoa            | [^19]
+Dissemin                           | Metadata                     | dissemr            | [^20]
 
 [^1]: https://api.crossref.org
 [^2]: https://support.datacite.org/docs/api
@@ -268,7 +277,7 @@ Dissemin                           | Metadata                | dissemr          
 [^19]: https://core.ac.uk/
 [^20]: https://dissemin.readthedocs.io/en/latest/api.html
 
-## Crossref/Datacite
+## Crossref and Datacite
 
 Crossref is a non-profit that creates (or "mints") Digital Object Identifiers (DOIs).
 In addition, they maintain metadata associated with each DOI. The metadata ranges
@@ -277,13 +286,15 @@ number of citations to the article, as well as references in the article, and ev
 abstracts. At the time of writing they hold 100 million DOIs.
 
 One can search by DOI or search citation data to get citations. In addition, Crossref has a
-text-mining opt-in program for publishers. The result of this is that some
+text mining opt-in program for publishers. The result of this is that some
 publishers provide URLs for full text content of their articles. The majority of these links
 are pay-walled, while some are open access. Using any of the various tools for working with
 Crossref data, you can filter your search to get only articles with full text links, and further
 to get only articles with full text links that are open access.
 
-The main interfaces for Crossref in R are [rcrossref][] and [crminer][]. Similar interfaces
+The main interfaces for Crossref in R are [rcrossref][] and [crminer][]. rcrossref is a
+complete client for the public facing Crossref web services including metadata, whereas crminer
+focuses only on retrieving full text of articles. Similar interfaces to rcrossref
 are available in Ruby ([serrano][]) and Python ([habanero][]).
 
 Datacite is similar to Crossref, but focuses on datasets instead of articles. The main
@@ -304,18 +315,21 @@ search their articles. The main R interace to PLOS is through [rplos][].
 
 ## Elsevier/Scopus
 
-Elsevier is one of the largest publishers. Most of their articles are not open access. However,
-they have a numbrer of advantages if you have access to their articles: they are one of the few
+Elsevier is one of the largest publishers. Scopus is one of their products, a searchable
+database of articles. Most of their articles are not open access. However,
+they have a number of advantages if you have access to their articles: they are one of the few
 publishers to provide machine readable XML (many publishers do have XML versions of articles,
-but do not provide it); they are one of the few (two) publishers part of Crossref's text
-and data mining program. The packages [fulltext][] and [crminer][] can be used to access
-Elsevier articles through Crossref's TDM program. There's an interface to Scopus article
-search within [fulltext][].
+but do not provide it, as mentioned in the Introduction); they are one of the few (two)
+publishers that take part in Crossref's text and data mining program. The packages
+[fulltext][] and [crminer][] can be used to access Elsevier articles through Crossref's
+TDM program. There's an interface to Scopus article search within [fulltext][].
 
 ## arXiv/bioRxiv
 
 arXiv and bioRxiv are preprint publishers, the former in existence for many years, and the
-latter new on the scene. You can access articles from these publishers through [fulltext][].
+latter new on the scene. Preprints are scholarly articles that are generally not
+peer-reviewed, but that for the most part will later be published in a different peer-review
+publication. You can access articles from these publishers through [fulltext][].
 arXiv does provide a web API that we hook into; bioRxiv does not, but we can get you
 articles nonetheless.
 
@@ -365,7 +379,7 @@ interface to the Open Citation Corpus is [rcitoid][].
 
 ## Fatcat
 
-Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a 
+Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a
 "versioned, publicly-editable catalog of research publications:  journal articles,
 conference proceedings, pre-prints, blog posts". Fatcat currently does not have an
 R client, but is used inside of the [fulltext][] package.
@@ -375,9 +389,9 @@ R client, but is used inside of the [fulltext][] package.
 SHERPA/RoMEO (http://sherpa.mimas.ac.uk/romeo/index.php) aggregates and analyses
 publisher open access policies and provides summaries of self-archiving permissions
 and conditions of rights given to authors. The [rromeo][] is an R interface
-to SHERPA/RoMEO. 
+to SHERPA/RoMEO.
 
-## CORE 
+## CORE
 
 CORE (https://core.ac.uk/) touts itself as the world's largest collection of open
 access research articles, providing metadata on journals and articles, as well
@@ -392,10 +406,16 @@ open versions of articles. The [dissemr][] R package interfaces with the
 Dissemin API.
 
 
+## Learn more
+
+To learn how to use the above packages, follow the links to get to documentation,
+and how to report issues. The rOpenSci forum (<https://discuss.ropensci.org/>) is
+a good place to ask questions about these packages.
+
 
 # fulltext: a toolset for text mining in R
 
-[fulltext][] is a general purpose R package for the data part of text-mining:
+[fulltext][] is a general purpose R package for the data part of text mining:
 search for articles, get links to articles, get article abstracts, and fetch
 full text of articles. The `fulltext` package is always adding additional
 data sources as time allows (See Table 1). Starting from searching for
@@ -506,39 +526,54 @@ If Crossref doesn't have any full text links, we give up.
 Since users can go through a lot of article requests, we cache successfully
 downloaded articles, and keep that knowledge consistent across R sessions; all
 subsequent requests for the same article just use the cached version. Additionally,
-all errors in `ft_get()` are collected in a tidy data.frame in the output of the
+all errors in `ft_get()` are collected in a data.frame in the output of the
 function to help the user quickly determine what went wrong.
 
+# Text mining in R: Use Cases
 
-# How to text mine from R: Three case studies
+## Use cases in the literature
 
-## Case study 1: Citation mining
+At least three papers have used the fulltext package. @Bauer2016 explored
+a way to think about the qualitative impact of citations rather than simple
+counts of citations; they did not use fulltext, but pointed it out as a good
+option for collecting papers. @Walsh2018 used fulltext and [roadoi][], an
+rOpenSci R package, to "map the literature" on nutritional interventions
+in cognitive health. @Piper2019 in a review of DNA metabarcoding for
+high-throughput insect surveillance used fulltext, along with [rentrez][]
+(an rOpenSci package), to collect articles for text mining.
+
+
+## Three case studies
+
+The following three case studies demonstrate in brief how one could use
+fulltext and related packages to do a few different text mining tasks.
+
+### Case study 1: Citation mining
 
 ```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
 ```
 
-## Case study 2: Abstract mining
+### Case study 2: Abstract mining
 
 ```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
 ```
 
-## Case study 3: Full text mining
+### Case study 3: Full text mining
 
 ```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
 ```
 
-
 # Future directions
 
-Text-mining will always be a complex task given all the layers involved:
-often temporal time-span of research questions; varied permissions among 
+Text mining will always be a complex task given all the layers involved:
+often temporal time-span of research questions; varied permissions among
 researchers and their articles they're trying to access; varied approaches
-to getting full text (xml vs pdf vs plain text); and more. 
+to getting full text (xml vs pdf vs plain text); and more.
 
-Programmatic text-mining is a first step towards making text-mining easier.
-The R ecosystem is an especially good place to do text-mining because 
-there are many packages for text-mining analysis, and endless packages for
-any required statistical analyses. In addition, rOpenSci and others are 
+Programmatic text mining is a first step towards making text mining easier.
+The R ecosystem is an especially good place to do text mining because
+there are many packages for text mining analysis, and endless packages for
+any required statistical analyses. In addition, rOpenSci and others are
 building up a set of packages in R for searching for and acquiring full
 text programatically to help make the research workflow as reproducible
 as possible.
@@ -546,12 +581,12 @@ as possible.
 Future work for `fulltext` includes:
 
 1. Adding more publisher plugins
-2. Fine tuned user control over publishers 
+2. Fine tuned user control over publishers
 3. Improve VPN/proxy controls
 4. Incorporate more search engines to help resolve URLs for fulltext versions
 5. Improve documentation
 
-With respect to what publishers can do to make text-mining easier, publishers
+With respect to what publishers can do to make text mining easier, publishers
 should:
 
 1. provide XML if they have it
@@ -562,7 +597,7 @@ should:
 
 # Acknowledgments
 
-xxxx
+This manuscript was greatly improved by comments from Maëlle Salmon.
 
 # Data Accessibility
 
@@ -570,7 +605,7 @@ All scripts and data used in this paper can be found in the permanent
 data archive Zenodo under the digital object identifier (DOI). This DOI
 corresponds to a snapshot of the GitHub repository at
 <https://github.com/ropensci/textmine>. Software can be found at
-<https://github.com/ropensci/xxx>, xxxx, all under MIT licenses.
+<https://github.com/ropensci>, all under MIT licenses.
 
 
 # References
@@ -598,3 +633,4 @@ corresponds to a snapshot of the GitHub repository at
 [libpoppler]: https://poppler.freedesktop.org/
 [tesseract]: https://github.com/ropensci/tesseract
 [rcoreoa]: https://github.com/ropensci/rcoreoa
+[roadoi]: https://github.com/ropensci/roadoi
