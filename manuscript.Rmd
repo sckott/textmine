@@ -14,7 +14,7 @@ address:
 abstract: |
   Text mining is a powerful method for answering research questions. However,
   getting texts to extract information can be a daunting and complicated task.
-  The primary reason for this is the diversity of publisher technologies. 
+  The primary reason for this is the diversity of publisher technologies.
   There are thousands of different publishers, each with their own licenses,
   URL patterns, access options, and more. Layered on top of that is the varied
   access each user has based on their institutional affiliation. Here, I
@@ -67,7 +67,7 @@ There's more than 100 million research articles published
 an enormous amount of knowledge. In addition to simply reading these
 articles, the articles contain a vast trove of information of interest to
 researchers for machine aided questions [@Kong2018; @Usai2018]. For example,
-many researchers are interested in statistical outcomes of articles that 
+many researchers are interested in statistical outcomes of articles that
 can be extracted from numeric results: P-values, effect sizes, means, and
 more. In addition, researchers are often interested in words in articles,
 their use through time, and the contexts they are found in.
@@ -86,12 +86,12 @@ linking sequences to environments through text mining.
 
 Most recent text mining papers do not use programmatic approaches, highlighting
 the need for more programmatic text mining tools, and increased
-discussion of those tools to increase awareness. For example, many papers 
-search Web of Science using their web interface, and downloading papers manually 
-[@Ding2018; @McCallen2019]. Many of these papers doing GUI based searching and 
-paper downloads are using R or Python downstream for analysis; replacing 
-GUI based data acquisition with programmatic approaches will improve 
-research. 
+discussion of those tools to increase awareness. For example, many papers
+search Web of Science using their web interface, and downloading papers manually
+[@Ding2018; @McCallen2019]. Many of these papers doing GUI based searching and
+paper downloads are using R or Python downstream for analysis; replacing
+GUI based data acquisition with programmatic approaches will improve
+research.
 
 The R programming language is free of cost, and is used widely throughout
 many academic fields; tools in R for text mining are of particular
@@ -199,11 +199,11 @@ Microsoft Academic Research, Scopus, ScienceDirect, Pubmed/Entrez, Europe PMC,
 and Directory of Open Access Journals. All of these are included in the R
 package [fulltext][], discussed further below.
 
-On top of the vast array of different data sources is the varied ways that 
+On top of the vast array of different data sources is the varied ways that
 search is implemented in each source. Most sources are probably using Solr
-or Elasticsearch under the hood, though we can't know this for sure as most 
+or Elasticsearch under the hood, though we can't know this for sure as most
 do not make their software infrastructure public knowledge. Nonetheless, data
-sources differ in how search works from the user perspective. For example, some 
+sources differ in how search works from the user perspective. For example, some
 provide wild card/fuzzy search (i.e., 'appl\*' includes results for 'apple',
 'application', etc.) and some do not. Some sources are searching full text
 of articles, while others only search metadata (i.e., title, authors, abstract).
@@ -370,7 +370,7 @@ interface to the Open Citation Corpus is [rcitoid][].
 
 ## Fatcat
 
-Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a 
+Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is a
 "versioned, publicly-editable catalog of research publications:  journal articles,
 conference proceedings, pre-prints, blog posts". Fatcat is currently does not have an
 R client, but is used inside of the [fulltext][] package.
@@ -380,9 +380,9 @@ R client, but is used inside of the [fulltext][] package.
 SHERPA/RoMEO (http://sherpa.mimas.ac.uk/romeo/index.php) aggregates and analyses
 publisher open access policies and provides summaries of self-archiving permissions
 and conditions of rights given to authors. The [rromeo][] is an R interface
-to SHERPA/RoMEO. 
+to SHERPA/RoMEO.
 
-## CORE 
+## CORE
 
 CORE (https://core.ac.uk/) touts itself as the world's largest collection of open
 access research articles, providing metadata on journals and articles, as well
@@ -536,14 +536,14 @@ function to help the user quickly determine what went wrong.
 # Future directions
 
 Text mining will always be a complex task given all the layers involved:
-often temporal time-span of research questions; varied permissions among 
+often temporal time-span of research questions; varied permissions among
 researchers and their articles they're trying to access; varied approaches
-to getting full text (xml vs pdf vs plain text); and more. 
+to getting full text (xml vs pdf vs plain text); and more.
 
 Programmatic text mining is a first step towards making text mining easier.
-The R ecosystem is an especially good place to do text mining because 
+The R ecosystem is an especially good place to do text mining because
 there are many packages for text mining analysis, and endless packages for
-any required statistical analyses. In addition, rOpenSci and others are 
+any required statistical analyses. In addition, rOpenSci and others are
 building up a set of packages in R for searching for and acquiring full
 text programatically to help make the research workflow as reproducible
 as possible.
@@ -551,7 +551,7 @@ as possible.
 Future work for `fulltext` includes:
 
 1. Adding more publisher plugins
-2. Fine tuned user control over publishers 
+2. Fine tuned user control over publishers
 3. Improve VPN/proxy controls
 4. Incorporate more search engines to help resolve URLs for fulltext versions
 5. Improve documentation
