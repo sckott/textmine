@@ -358,8 +358,8 @@ Dissemin & Metadata & dissemr & \footnote{\url{https://dissemin.readthedocs.io/e
 \bottomrule
 \end{longtable}
 
-\hypertarget{crossrefdatacite}{%
-\subsection{Crossref/Datacite}\label{crossrefdatacite}}
+\hypertarget{crossref-and-datacite}{%
+\subsection{Crossref and Datacite}\label{crossref-and-datacite}}
 
 Crossref is a non-profit that creates (or ``mints'') Digital Object
 Identifiers (DOIs). In addition, they maintain metadata associated with
@@ -379,8 +379,10 @@ that are open access.
 
 The main interfaces for Crossref in R are
 \href{https://github.com/ropensci/rcrossref}{rcrossref} and
-\href{https://github.com/ropensci/crminer}{crminer}. Similar interfaces
-are available in Ruby
+\href{https://github.com/ropensci/crminer}{crminer}. rcrossref is a
+complete client for the public facing Crossref web services including
+metadata, whereas crminer focuses only on retrieving full text of
+articles. Similar interfaces to rcrossref are available in Ruby
 (\href{https://github.com/sckott/serrano}{serrano}) and Python
 (\href{https://github.com/sckott/habanero}{habanero}).
 

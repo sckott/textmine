@@ -271,7 +271,7 @@ Dissemin                           | Metadata                | dissemr          
 [^19]: https://core.ac.uk/
 [^20]: https://dissemin.readthedocs.io/en/latest/api.html
 
-## Crossref/Datacite
+## Crossref and Datacite
 
 Crossref is a non-profit that creates (or "mints") Digital Object Identifiers (DOIs).
 In addition, they maintain metadata associated with each DOI. The metadata ranges
@@ -286,7 +286,9 @@ are pay-walled, while some are open access. Using any of the various tools for w
 Crossref data, you can filter your search to get only articles with full text links, and further
 to get only articles with full text links that are open access.
 
-The main interfaces for Crossref in R are [rcrossref][] and [crminer][]. Similar interfaces
+The main interfaces for Crossref in R are [rcrossref][] and [crminer][]. rcrossref is a
+complete client for the public facing Crossref web services including metadata, whereas crminer
+focuses only on retrieving full text of articles. Similar interfaces to rcrossref
 are available in Ruby ([serrano][]) and Python ([habanero][]).
 
 Datacite is similar to Crossref, but focuses on datasets instead of articles. The main
