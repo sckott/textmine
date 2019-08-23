@@ -217,7 +217,7 @@ different sources (refs), while others choose just one source.
 
 There is increasing open access scientific literature content available
 online. However, only a small proportion of scientific journals provide
-access to their full content; whereas, most publishers provide open
+access to their full text; whereas, most publishers provide open
 access to their metadata only (most often through Crossref; Table 1).
 The following is a synopsis of the major data sources and associated R
 tools.
@@ -231,23 +231,23 @@ Data Provider                      | Content Type            | rOpenSci Package 
 ---------------------------------- | ---------------------   | ------------------------ | -------------
 Crossref                           | Metadata                | rcrossref/crminer        | [^1]
 DataCite                           | Metadata                | rdatacite                | [^2]
-Biodiversity Heritage Library      | Full content/Metadata   | rbhl                     | [^3]
-Public Library of Science (PLoS)   | Full content/altmetrics | rplos                    | [^4]
-Scopus (Elsevier)                  | Full content/Metadata   | fulltext                 | [^5]
-arXiv                              | Full content/Metadata   | aRxiv                    | [^6]
-Biomed Central (via Springer)      | Full content/Metadata   | fulltext                 | [^7]
-bioRxiv                            | Full content/Metadata   | fulltext                 | [^8]
-PMC/Pubmed (via Entrez)            | Full content/Metadata   | rentrez                  | [^9]
-Europe PMC                         | Full content/Metadata   | europepmc                | [^10]
+Biodiversity Heritage Library      | Full text/Metadata      | rbhl                     | [^3]
+Public Library of Science (PLoS)   | Full text/altmetrics    | rplos                    | [^4]
+Scopus (Elsevier)                  | Full text/Metadata      | fulltext                 | [^5]
+arXiv                              | Full text/Metadata      | aRxiv                    | [^6]
+Biomed Central (via Springer)      | Full text/Metadata      | fulltext                 | [^7]
+bioRxiv                            | Full text/Metadata      | fulltext                 | [^8]
+PMC/Pubmed (via Entrez)            | Full text/Metadata      | rentrez                  | [^9]
+Europe PMC                         | Full text/Metadata      | europepmc                | [^10]
 Microsoft Academic Search          | Metadata                | microdemic               | [^11]
 Directory of Open Access Journals  | Metadata                | jaod                     | [^12]
-JSTOR Data for Research            | Full content            | jstor                    | [^13]
+JSTOR Data for Research            | Full text               | jstor                    | [^13]
 ORCID                              | Metadata                | rorcid                   | [^14]
 Wikimedia's Citoid                 | Citations               | rcitoid                  | [^15]
 Open Citation Corpus               | Citations               | citecorp                 | [^16]
 Fatcat                             | Metadata                | none                     | [^17]
 SHERPA/RoMEO                       | Journal Level Metadata  | rromeo                   | [^18]
-CORE                               | Full content/Metadata   | rcoreoa                  | [^19]
+CORE                               | Full text/Metadata      | rcoreoa                  | [^19]
 Dissemin                           | Metadata                | dissemr                  | [^20]
 
 [^1]: https://api.crossref.org
