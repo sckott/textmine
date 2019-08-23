@@ -318,427 +318,9 @@ different results. Some text mining research articles perform the same
 search against many different sources (refs), while others choose just
 one source.
 
-\hypertarget{data-sources}{%
-\section{Data sources}\label{data-sources}}
-
-There is increasing open access scientific literature content available
-online. However, only a small proportion of scientific journals provide
-access to their full text; whereas, most publishers provide open access
-to their metadata only (most often through Crossref; Table 1). The
-following is a synopsis of the major data sources and associated R
-tools.
-
-\newpage
-
-Table 1. Sources of scientific literature, their content type provided
-via web services, whether rOpenSci has an R packages for the service,
-and where to find the API documentation.
-
-\begin{longtable}[]{@{}llll@{}}
-\toprule
-Data Provider & Content Type & rOpenSci Package &
-Documentation\tabularnewline
-\midrule
-\endhead
-Crossref & Metadata & rcrossref/crminer & \footnote{\url{https://api.crossref.org}}\tabularnewline
-DataCite & Metadata & rdatacite & \footnote{\url{https://support.datacite.org/docs/api}}\tabularnewline
-Biodiversity Heritage Library & Full text/Metadata & rbhl & \footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
-Public Library of Science (PLoS) & Full text (pdf/xml)/Metadata & rplos
-& \footnote{\url{http://api.plos.org/solr}}\tabularnewline
-Scopus (Elsevier) & Full text (pdf/xml)/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
-arXiv & Full text (pdf)/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
-Biomed Central (via Springer) & Full text (pdf)/Metadata & fulltext &
-\footnote{\url{https://dev.springer.com/}}\tabularnewline
-bioRxiv & Full text (pdf)/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
-PMC/Pubmed (via Entrez) & Full text (pdf/xml)/Metadata & rentrez &
-\footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
-Europe PMC & Full text (pdf/xml)/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
-Microsoft Academic Search & Metadata & microdemic & \footnote{\url{https://dev.labs.cognitive.microsoft.com/docs/services/56332331778daf02acc0a50b/operations/565d9001ca73072048922d97}}\tabularnewline
-Directory of Open Access Journals & Metadata & jaod & \footnote{\url{https://doaj.org/api/v1/docs}}\tabularnewline
-JSTOR Data for Research & Full text & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
-ORCID & Metadata & rorcid & \footnote{\url{https://pub.orcid.org/}}\tabularnewline
-Wikimedia's Citoid & Citations & rcitoid & \footnote{\url{https://en.wikipedia.org/api/rest_v1/\#/Citation/getCitation}}\tabularnewline
-Open Citation Corpus & Citations & citecorp & \footnote{\url{http://opencitations.net/}}\tabularnewline
-Fatcat & Metadata & none & \footnote{\url{https://fatcat.wiki/}}\tabularnewline
-SHERPA/RoMEO & Journal Level Metadata & rromeo & \footnote{\url{http://www.sherpa.ac.uk/romeo/apimanual.php?la=en\&fIDnum=\%7C\&mode=simple}}\tabularnewline
-CORE & Full text (pdf)/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
-Dissemin & Metadata & dissemr & \footnote{\url{https://dissemin.readthedocs.io/en/latest/api.html}}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\hypertarget{crossref-and-datacite}{%
-\subsection{Crossref and Datacite}\label{crossref-and-datacite}}
-
-Crossref is a non-profit that creates (or ``mints'') Digital Object
-Identifiers (DOIs). In addition, they maintain metadata associated with
-each DOI. The metadata ranges from simple (including author, title,
-dates, DOI, type, publisher) to including number of citations to the
-article, as well as references in the article, and even abstracts. At
-the time of writing they hold 100 million DOIs.
-
-One can search by DOI or search citation data to get citations. In
-addition, Crossref has a text mining opt-in program for publishers. The
-result of this is that some publishers provide URLs for full text
-content of their articles. The majority of these links are pay-walled,
-while some are open access. Using any of the various tools for working
-with Crossref data, you can filter your search to get only articles with
-full text links, and further to get only articles with full text links
-that are open access.
-
-The main interfaces for Crossref in R are
-\href{https://github.com/ropensci/rcrossref}{rcrossref} and
-\href{https://github.com/ropensci/crminer}{crminer}. rcrossref is a
-complete client for the public facing Crossref web services including
-metadata, whereas crminer focuses only on retrieving full text of
-articles. Similar interfaces to rcrossref are available in Ruby
-(\href{https://github.com/sckott/serrano}{serrano}) and Python
-(\href{https://github.com/sckott/habanero}{habanero}).
-
-Datacite is similar to Crossref, but focuses on datasets instead of
-articles. The main interface for Datacite in R is
-\href{https://github.com/ropensci/rdatacite}{rdatacite}.
-
-\hypertarget{biodiversity-heritage-library}{%
-\subsection{Biodiversity Heritage
-Library}\label{biodiversity-heritage-library}}
-
-The Biodiversity Heritage Library (BHL) houses scans of biodiversity
-books, and provides web interfaces and APIs to query and fetch those
-data. They also provide text of the scanned pages. The main R interace
-to BHL is through \href{https://github.com/ropensci/rbhl}{rbhl}.
-
-\hypertarget{public-library-of-science}{%
-\subsection{Public Library of Science}\label{public-library-of-science}}
-
-The Public Library of Science (PLOS) is one of the largest open access
-only publishers. They as of this writing have published 2.1 million
-articles. One of the strongs advantages of PLOS is that they provide an
-API to their Solr instance, which is a very flexible way to search their
-articles. The main R interace to PLOS is through
-\href{https://github.com/ropensci/rplos}{rplos}.
-
-\hypertarget{elsevierscopus}{%
-\subsection{Elsevier/Scopus}\label{elsevierscopus}}
-
-Elsevier is one of the largest publishers. Scopus is one of their
-products, a searchable database of articles. Most of their articles are
-not open access. However, they have a number of advantages if you have
-access to their articles: they are one of the few publishers to provide
-machine readable XML (many publishers do have XML versions of articles,
-but do not provide it, as mentioned in the Introduction); they are one
-of the few (two) publishers that take part in Crossref's text and data
-mining program. The packages
-\href{https://github.com/ropensci/fulltext}{fulltext} and
-\href{https://github.com/ropensci/crminer}{crminer} can be used to
-access Elsevier articles through Crossref's TDM program. There's an
-interface to Scopus article search within
-\href{https://github.com/ropensci/fulltext}{fulltext}.
-
-\hypertarget{arxivbiorxiv}{%
-\subsection{arXiv/bioRxiv}\label{arxivbiorxiv}}
-
-arXiv and bioRxiv are preprint publishers, the former in existence for
-many years, and the latter new on the scene. Preprints are scholarly
-articles that are generally not peer-reviewed, but that for the most
-part will later be published in a different peer-review publication. You
-can access articles from these publishers through
-\href{https://github.com/ropensci/fulltext}{fulltext}. arXiv does
-provide a web API that we hook into; bioRxiv does not, but we can get
-you articles nonetheless.
-
-\hypertarget{pubmedpmceurope-pmc}{%
-\subsection{Pubmed/PMC/Europe PMC}\label{pubmedpmceurope-pmc}}
-
-Pubmed/PMC is a corpus/website of NIH funded research in the United
-States; while Europe PMC is an equivalent for the European Union. You
-can access articles from Pubmed/PMC through
-\href{https://github.com/ropensci/fulltext}{fulltext}, and for Europe
-PMC through \href{https://github.com/ropensci/europepmc}{europepmc}.
-
-\hypertarget{microsoft-academic-research}{%
-\subsection{Microsoft Academic
-Research}\label{microsoft-academic-research}}
-
-Microsoft Academic Research (MAR) is a search engine for research
-articles. You can use their GUI web interface to search, and they
-provide APIs for programmatic access. The R interface for MAR is
-\href{https://github.com/ropensci/microdemic}{microdemic}; and
-\href{https://github.com/ropensci/fulltext}{fulltext} hooks into
-\texttt{microdemic} as well for article search and abstract retrieval.
-
-\hypertarget{directory-of-open-access-journals}{%
-\subsection{Directory of Open Access
-Journals}\label{directory-of-open-access-journals}}
-
-Directory of Open Access Journals (DOAJ) maintains data on open access
-journals, as well as some portion of the articles in those journals.
-Thus, you can search for journals as well as articles with DOAJ. The R
-interface for DOAJ is \href{https://github.com/ropensci/jaod}{jaod}.
-
-\hypertarget{jstor}{%
-\subsection{JSTOR}\label{jstor}}
-
-JSTOR's Data for Research program gives institutions with access to
-JSTOR, access to full text of articles within JSTOR. There is no way
-however to make the interaction with JSTOR completely programmatic, thus
-making reproducible research very difficult. Nonetheless, there is an R
-package (\href{https://github.com/ropensci/jstor}{jstor}) for using data
-from JSTOR's Data for Research.
-
-\hypertarget{orcid}{%
-\subsection{ORCID}\label{orcid}}
-
-ORCID (\url{https://orcid.org/}) is an organization keeping track of
-identifiers and metadata for researchers around the world. Individuals
-can optionally maintain metadata on their scholarly works connected to
-their account with ORCID. Thus, across all of ORCID, a significant cache
-of metadata is accruing on scholarly works, their funding amounts,
-collaborators, etc., useful for bibliometrics research and more. The R
-interface for ORCID is
-\href{https://github.com/ropensci/rorcid}{rorcid}.
-
-\hypertarget{citoidopen-citation-corpus}{%
-\subsection{Citoid/Open Citation
-Corpus}\label{citoidopen-citation-corpus}}
-
-The Open Citation Corpus (\url{http://opencitations.net/}) holds records
-of which articles cite which other articles, allowing for all important
-research on the scholarly web of citation. Citation data has been very
-closely guarded until recently, but the largest publishers are still not
-contributing to the Open Citation Corpus. The R interface to the Open
-Citation Corpus is
-\href{https://github.com/ropenscilabs/rcitoid}{rcitoid}.
-
-\hypertarget{fatcat}{%
-\subsection{Fatcat}\label{fatcat}}
-
-Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is
-a ``versioned, publicly-editable catalog of research publications:
-journal articles, conference proceedings, preprints, blog posts''.
-Fatcat is currently does not have an R client, but is used inside of the
-\href{https://github.com/ropensci/fulltext}{fulltext} package.
-
-\hypertarget{sherparomeo}{%
-\subsection{SHERPA/RoMEO}\label{sherparomeo}}
-
-SHERPA/RoMEO (\url{http://sherpa.mimas.ac.uk/romeo/index.php})
-aggregates and analyses publisher open access policies and provides
-summaries of self-archiving permissions and conditions of rights given
-to authors. The {[}rromeo{]}{[}{]} is an R interface to SHERPA/RoMEO.
-
-\hypertarget{core}{%
-\subsection{CORE}\label{core}}
-
-CORE (\url{https://core.ac.uk/}) touts itself as the world's largest
-collection of open access research articles, providing metadata on
-journals and articles, as well as access to the full text of articles.
-The \href{https://github.com/ropensci/rcoreoa}{rcoreoa} R package
-interfaces with the CORE API.
-
-\hypertarget{dissemin}{%
-\subsection{Dissemin}\label{dissemin}}
-
-Dissemin (\url{https://dissem.in/}) detects papers behind pay-walls and
-invites authors to upload them to an open repository. Dissemin provides
-metadata including links to open versions of articles. The
-{[}dissemr{]}{[}{]} R package interfaces with the Dissemin API.
-
-\hypertarget{fulltext-a-toolset-for-text-mining-in-r}{%
-\section{fulltext: a toolset for text mining in
-R}\label{fulltext-a-toolset-for-text-mining-in-r}}
-
-\href{https://github.com/ropensci/fulltext}{fulltext} is a general
-purpose R package for the data part of text mining: search for articles,
-get links to articles, get article abstracts, and fetch full text of
-articles. The \texttt{fulltext} package is always adding additional data
-sources as time allows (See Table 1). Starting from searching for
-articles, the outputs of search can be fed into a function to get links
-to those articles, or to get abstracts for those articles, or to fetch
-their full text. The following is a breakdown of the major distinct
-parts of \texttt{fulltext}.
-
-\hypertarget{search}{%
-\subsection{Search}\label{search}}
-
-\texttt{ft\_search()} provides search access to nine different data
-sources (PLOS, BMC, Crossref, Entrez, arXiv, bioRxiv, Europe PMC,
-Scopus, Microsoft Academic), creating a mostly unified interface to all
-data sources. The parts of each data source that are common are for the
-most part factored out into the parameters of the \texttt{ft\_search()}
-function: query term(s), pagination (number of results, result number to
-start at). In addition, we allow the user to pass on data source
-specific options to refine the search per data source.
-
-With \texttt{ft\_search()}, you can query any combination of the nine
-data sources at once. The returned object is a list, with access to
-results of each data source by its name (e.g., \texttt{\$plos}, or
-\texttt{\$crossref}). For each data source, the returned object does
-vary because the returned data from each data source widely varies; for
-the most part data.frame's are returned. For those data sources not
-queried, their slot is empty.
-
-One important aspect of the research result we highlight is the licenses
-in the returned data for each data source.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \KeywordTok{c}\NormalTok{(}\StringTok{"plos"}\NormalTok{, }\StringTok{"crossref"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-The results for this PLOS search have all CC-BY licenses
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x}\OperatorTok{$}\NormalTok{plos}
-\CommentTok{#> Query: [ecology] }
-\CommentTok{#> Records found, returned: [47257, 10] }
-\CommentTok{#> License: [CC-BY] }
-\CommentTok{#>                              id}
-\CommentTok{#> 1  10.1371/journal.pone.0001248}
-\CommentTok{#> 2  10.1371/journal.pone.0059813}
-\CommentTok{#> 3  10.1371/journal.pone.0080763}
-\CommentTok{#> 4  10.1371/journal.pone.0155019}
-\CommentTok{#> 5  10.1371/journal.pone.0175014}
-\CommentTok{#> 6  10.1371/journal.pone.0150648}
-\CommentTok{#> 7  10.1371/journal.pone.0208370}
-\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
-\CommentTok{#> 9  10.1371/journal.pone.0102437}
-\CommentTok{#> 10 10.1371/journal.pone.0166559}
-\end{Highlighting}
-\end{Shaded}
-
-Whereas the results for this Crossref search have mixed licenses
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x}\OperatorTok{$}\NormalTok{crossref}
-\CommentTok{#> Query: [ecology] }
-\CommentTok{#> Records found, returned: [164657, 10] }
-\CommentTok{#> License: [variable, see individual records] }
-\CommentTok{#>    archive               container.title    created  deposited}
-\CommentTok{#> 1  Portico                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 2  Portico                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 3       NA                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 4       NA                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 5       NA                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 6       NA                       Ecology 2006-05-03 2018-08-04}
-\CommentTok{#> 7       NA                       Ecology 2006-05-09 2018-08-01}
-\CommentTok{#> 8  Portico                       Ecology 2017-04-26 2019-03-08}
-\CommentTok{#> 9       NA Trends in Ecology & Evolution 2002-07-25 2017-06-14}
-\CommentTok{#> 10      NA Journal of Industrial Ecology 2014-11-21 2017-06-23}
-\CommentTok{#> Variables not shown: published.print (chr), published.online (chr), doi}
-\CommentTok{#>      (chr), indexed (chr), issn (chr), issue (chr), issued (chr), member}
-\CommentTok{#>      (chr), page (chr), prefix (chr), publisher (chr), reference.count}
-\CommentTok{#>      (chr), score (chr), source (chr), title (chr), type (chr), url (chr),}
-\CommentTok{#>      volume (chr), author (list), link (list), license (list), subject}
-\CommentTok{#>      (chr), alternative.id (chr), subtitle (chr), reference (list)}
-\end{Highlighting}
-\end{Shaded}
-
-You can dig into the license field for each article, with URLs holding
-information on each license
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{vapply}\NormalTok{(x}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{license, }\ControlFlowTok{function}\NormalTok{(w) w}\OperatorTok{$}\NormalTok{URL[}\DecValTok{1}\NormalTok{], }\StringTok{""}\NormalTok{)}
-\CommentTok{#>  [1] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
-\CommentTok{#>  [2] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
-\CommentTok{#>  [3] "http://doi.wiley.com/10.1002/tdm_license_1"  }
-\CommentTok{#>  [4] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
-\CommentTok{#>  [5] "http://doi.wiley.com/10.1002/tdm_license_1"  }
-\CommentTok{#>  [6] "http://doi.wiley.com/10.1002/tdm_license_1"  }
-\CommentTok{#>  [7] "http://doi.wiley.com/10.1002/tdm_license_1"  }
-\CommentTok{#>  [8] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
-\CommentTok{#>  [9] "http://www.elsevier.com/tdm/userlicense/1.0/"}
-\CommentTok{#> [10] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{links}{%
-\subsection{Links}\label{links}}
-
-\texttt{ft\_links()} provides two pathways to get links (URLs) for
-articles, with a choice of four different data sources (PLOS, BMC,
-Crossref, Entrez). First, you can use \texttt{ft\_search()}, then pass
-the output of that function to \texttt{ft\_links()}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"entrez"}\NormalTok{)}
-\KeywordTok{ft_links}\NormalTok{(out)}
-\CommentTok{#> <fulltext links>}
-\CommentTok{#> [Found] 6 }
-\CommentTok{#> [IDs] ID_30964001 ID_30962485 ID_30962432 ID_30952928 ID_30674747}
-\CommentTok{#>      ID_30674743 ...}
-\end{Highlighting}
-\end{Shaded}
-
-Second, you can pass DOIs directly to \texttt{ft\_links()}. Both end up
-at the same point, links for each article, if they could be found for
-the user selected data source.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# }\AlertTok{FIXME}
-\KeywordTok{ft_links}\NormalTok{(out}\OperatorTok{$}\NormalTok{entrez}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi)}
-\end{Highlighting}
-\end{Shaded}
-
-The biggest caveat with \texttt{ft\_links()} is that we can't gaurantee
-that the links will work. Link rot is one way in which the links may not
-work: link rot is when the URL does not point to the original content
-anymore, or fails altogether. Additionally, with Crossref, publishers
-can deposit URLs for articles, but they make change the URLs at some
-later date but not update the URLs with Crossref.
-
-\hypertarget{abstracts}{%
-\subsection{Abstracts}\label{abstracts}}
-
-\texttt{ft\_abstract()} provides access to article abstracts from four
-different data sources (PLOS, Scopus, Microsoft Academic Research,
-Crossref). The only way to use the function is to pass article
-identifiers, which are for the most DOIs.
-
-The advantage of abstracts over full text is that abstracts can often be
-retrieved even for paywalled articles. That is, you can have much
-broader coverage of the articles you're targeting relative to full text.
-
-If you are after abstracts, and you are already getting or already have
-full text, and if the articles are in XML format, then you can use
-\href{https://github.com/ropensci/pubchunks}{pubchunks} to extract out
-the abstracts.
-
-\hypertarget{fetch-full-text}{%
-\subsection{Fetch full text}\label{fetch-full-text}}
-
-\texttt{ft\_get()} fetchs full text of articles from many different data
-sources. From the DOIs that are passed in to the function, we detect the
-publisher, and there are specific plugins for certain publishers: AAAS,
-American Institute of Physics, American Society of Clinical Oncology,
-American Society for Microbiology, arXiv, bioRxiv, BiomedCentral,
-Copernicus, Crossref, Elife, Elsevier, Pubmed/PMC via NCBI's Entrez,
-Frontiers, IEEE, Informa, Instituto de Investigaciones Filologicas,
-American Medical Association, Microbiology Society, PeerJ, Pensoft,
-PLOS, PNAS, Royal Society of Chemistry, ScienceDirect, Scientific
-Societies, and Wiley.
-
-If there's no built-in plugin for the publisher already, we use the
-FTDOI API (\url{https://ftdoi.org}) to try to get the link for the full
-text of the article. If the FTDOI API doesn't bear fruit, we search
-Crossref for a link to the full text. If Crossref doesn't have any full
-text links, we give up.
-
-Since users can go through a lot of article requests, we cache
-successfully downloaded articles, and keep that knowledge consistent
-across R sessions; all subsequent requests for the same article just use
-the cached version. Additionally, all errors in \texttt{ft\_get()} are
-collected in a data.frame in the output of the function to help the user
-quickly determine what went wrong.
-
-\hypertarget{how-to-text-mine-from-r-three-case-studies}{%
-\section{How to text mine from R: Three case
-studies}\label{how-to-text-mine-from-r-three-case-studies}}
+\hypertarget{text-mining-in-r-three-case-studies}{%
+\section{Text mining in R: Three case
+studies}\label{text-mining-in-r-three-case-studies}}
 
 \hypertarget{case-study-1-citation-mining}{%
 \subsection{Case study 1: Citation
@@ -1018,6 +600,432 @@ text, then extract various parts of each article with
 \CommentTok{#> 1       plos}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{data-sources}{%
+\section{Data sources}\label{data-sources}}
+
+There is increasing open access scientific literature content available
+online. However, only a small proportion of scientific journals provide
+access to their full text; whereas, most publishers provide open access
+to their metadata only (most often through Crossref; Table 1). The
+following is a synopsis of the major data sources and associated R
+tools.
+
+\newpage
+
+Table 1. Sources of scientific literature, their content type provided
+via web services, whether rOpenSci has an R packages for the service,
+and where to find the API documentation.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Data Provider & Content Type & rOpenSci Package &
+Documentation\tabularnewline
+\midrule
+\endhead
+Crossref & Metadata & rcrossref/crminer & \footnote{\url{https://api.crossref.org}}\tabularnewline
+DataCite & Metadata & rdatacite & \footnote{\url{https://support.datacite.org/docs/api}}\tabularnewline
+Biodiversity Heritage Library & Full text/Metadata & rbhl & \footnote{\url{http://bit.ly/KYQ1Rd}}\tabularnewline
+Public Library of Science (PLoS) & Full text (pdf/xml)/Metadata & rplos
+& \footnote{\url{http://api.plos.org/solr}}\tabularnewline
+Scopus (Elsevier) & Full text (pdf/xml)/Metadata & fulltext & \footnote{\url{http://bit.ly/J9S616}}\tabularnewline
+arXiv & Full text (pdf)/Metadata & aRxiv & \footnote{\url{https://arxiv.org/help/api/index}}\tabularnewline
+Biomed Central (via Springer) & Full text (pdf)/Metadata & fulltext &
+\footnote{\url{https://dev.springer.com/}}\tabularnewline
+bioRxiv & Full text (pdf)/Metadata & fulltext & \footnote{\url{http://www.biorxiv.org/}}\tabularnewline
+PMC/Pubmed (via Entrez) & Full text (pdf/xml)/Metadata & rentrez &
+\footnote{\url{https://www.ncbi.nlm.nih.gov/books/NBK25500}}\tabularnewline
+Europe PMC & Full text (pdf/xml)/Metadata & europepmc & \footnote{\url{https://azure.microsoft.com/en-us/services/cognitive-services}}\tabularnewline
+Microsoft Academic Search & Metadata & microdemic & \footnote{\url{https://dev.labs.cognitive.microsoft.com/docs/services/56332331778daf02acc0a50b/operations/565d9001ca73072048922d97}}\tabularnewline
+Directory of Open Access Journals & Metadata & jaod & \footnote{\url{https://doaj.org/api/v1/docs}}\tabularnewline
+JSTOR Data for Research & Full text & jstor & \footnote{\url{https://www.jstor.org/dfr/}}\tabularnewline
+ORCID & Metadata & rorcid & \footnote{\url{https://pub.orcid.org/}}\tabularnewline
+Wikimedia's Citoid & Citations & rcitoid & \footnote{\url{https://en.wikipedia.org/api/rest_v1/\#/Citation/getCitation}}\tabularnewline
+Open Citation Corpus & Citations & citecorp & \footnote{\url{http://opencitations.net/}}\tabularnewline
+Fatcat & Metadata & none & \footnote{\url{https://fatcat.wiki/}}\tabularnewline
+SHERPA/RoMEO & Journal Level Metadata & rromeo & \footnote{\url{http://www.sherpa.ac.uk/romeo/apimanual.php?la=en\&fIDnum=\%7C\&mode=simple}}\tabularnewline
+CORE & Full text (pdf)/Metadata & rcoreoa & \footnote{\url{https://core.ac.uk/}}\tabularnewline
+Dissemin & Metadata & dissemr & \footnote{\url{https://dissemin.readthedocs.io/en/latest/api.html}}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{crossref-and-datacite}{%
+\subsection{Crossref and Datacite}\label{crossref-and-datacite}}
+
+Crossref is a non-profit that creates (or ``mints'') Digital Object
+Identifiers (DOIs). In addition, they maintain metadata associated with
+each DOI. The metadata ranges from simple (including author, title,
+dates, DOI, type, publisher) to including number of citations to the
+article, as well as references in the article, and even abstracts. At
+the time of writing they hold 100 million DOIs.
+
+One can search by DOI or search citation data to get citations. In
+addition, Crossref has a text mining opt-in program for publishers. The
+result of this is that some publishers provide URLs for full text
+content of their articles. The majority of these links are pay-walled,
+while some are open access. Using any of the various tools for working
+with Crossref data, you can filter your search to get only articles with
+full text links, and further to get only articles with full text links
+that are open access.
+
+The main interfaces for Crossref in R are
+\href{https://github.com/ropensci/rcrossref}{rcrossref} and
+\href{https://github.com/ropensci/crminer}{crminer}. rcrossref is a
+complete client for the public facing Crossref web services including
+metadata, whereas crminer focuses only on retrieving full text of
+articles. Similar interfaces to rcrossref are available in Ruby
+(\href{https://github.com/sckott/serrano}{serrano}) and Python
+(\href{https://github.com/sckott/habanero}{habanero}).
+
+Datacite is similar to Crossref, but focuses on datasets instead of
+articles. The main interface for Datacite in R is
+\href{https://github.com/ropensci/rdatacite}{rdatacite}.
+
+\hypertarget{biodiversity-heritage-library}{%
+\subsection{Biodiversity Heritage
+Library}\label{biodiversity-heritage-library}}
+
+The Biodiversity Heritage Library (BHL) houses scans of biodiversity
+books, and provides web interfaces and APIs to query and fetch those
+data. They also provide text of the scanned pages. The main R interace
+to BHL is through \href{https://github.com/ropensci/rbhl}{rbhl}.
+
+\hypertarget{public-library-of-science}{%
+\subsection{Public Library of Science}\label{public-library-of-science}}
+
+The Public Library of Science (PLOS) is one of the largest open access
+only publishers. They as of this writing have published 2.1 million
+articles. One of the strongs advantages of PLOS is that they provide an
+API to their Solr instance, which is a very flexible way to search their
+articles. The main R interace to PLOS is through
+\href{https://github.com/ropensci/rplos}{rplos}.
+
+\hypertarget{elsevierscopus}{%
+\subsection{Elsevier/Scopus}\label{elsevierscopus}}
+
+Elsevier is one of the largest publishers. Scopus is one of their
+products, a searchable database of articles. Most of their articles are
+not open access. However, they have a number of advantages if you have
+access to their articles: they are one of the few publishers to provide
+machine readable XML (many publishers do have XML versions of articles,
+but do not provide it, as mentioned in the Introduction); they are one
+of the few (two) publishers that take part in Crossref's text and data
+mining program. The packages
+\href{https://github.com/ropensci/fulltext}{fulltext} and
+\href{https://github.com/ropensci/crminer}{crminer} can be used to
+access Elsevier articles through Crossref's TDM program. There's an
+interface to Scopus article search within
+\href{https://github.com/ropensci/fulltext}{fulltext}.
+
+\hypertarget{arxivbiorxiv}{%
+\subsection{arXiv/bioRxiv}\label{arxivbiorxiv}}
+
+arXiv and bioRxiv are preprint publishers, the former in existence for
+many years, and the latter new on the scene. Preprints are scholarly
+articles that are generally not peer-reviewed, but that for the most
+part will later be published in a different peer-review publication. You
+can access articles from these publishers through
+\href{https://github.com/ropensci/fulltext}{fulltext}. arXiv does
+provide a web API that we hook into; bioRxiv does not, but we can get
+you articles nonetheless.
+
+\hypertarget{pubmedpmceurope-pmc}{%
+\subsection{Pubmed/PMC/Europe PMC}\label{pubmedpmceurope-pmc}}
+
+Pubmed/PMC is a corpus/website of NIH funded research in the United
+States; while Europe PMC is an equivalent for the European Union. You
+can access articles from Pubmed/PMC through
+\href{https://github.com/ropensci/fulltext}{fulltext}, and for Europe
+PMC through \href{https://github.com/ropensci/europepmc}{europepmc}.
+
+\hypertarget{microsoft-academic-research}{%
+\subsection{Microsoft Academic
+Research}\label{microsoft-academic-research}}
+
+Microsoft Academic Research (MAR) is a search engine for research
+articles. You can use their GUI web interface to search, and they
+provide APIs for programmatic access. The R interface for MAR is
+\href{https://github.com/ropensci/microdemic}{microdemic}; and
+\href{https://github.com/ropensci/fulltext}{fulltext} hooks into
+\texttt{microdemic} as well for article search and abstract retrieval.
+
+\hypertarget{directory-of-open-access-journals}{%
+\subsection{Directory of Open Access
+Journals}\label{directory-of-open-access-journals}}
+
+Directory of Open Access Journals (DOAJ) maintains data on open access
+journals, as well as some portion of the articles in those journals.
+Thus, you can search for journals as well as articles with DOAJ. The R
+interface for DOAJ is \href{https://github.com/ropensci/jaod}{jaod}.
+
+\hypertarget{jstor}{%
+\subsection{JSTOR}\label{jstor}}
+
+JSTOR's Data for Research program gives institutions with access to
+JSTOR, access to full text of articles within JSTOR. There is no way
+however to make the interaction with JSTOR completely programmatic, thus
+making reproducible research very difficult. Nonetheless, there is an R
+package (\href{https://github.com/ropensci/jstor}{jstor}) for using data
+from JSTOR's Data for Research.
+
+\hypertarget{orcid}{%
+\subsection{ORCID}\label{orcid}}
+
+ORCID (\url{https://orcid.org/}) is an organization keeping track of
+identifiers and metadata for researchers around the world. Individuals
+can optionally maintain metadata on their scholarly works connected to
+their account with ORCID. Thus, across all of ORCID, a significant cache
+of metadata is accruing on scholarly works, their funding amounts,
+collaborators, etc., useful for bibliometrics research and more. The R
+interface for ORCID is
+\href{https://github.com/ropensci/rorcid}{rorcid}.
+
+\hypertarget{citoidopen-citation-corpus}{%
+\subsection{Citoid/Open Citation
+Corpus}\label{citoidopen-citation-corpus}}
+
+The Open Citation Corpus (\url{http://opencitations.net/}) holds records
+of which articles cite which other articles, allowing for all important
+research on the scholarly web of citation. Citation data has been very
+closely guarded until recently, but the largest publishers are still not
+contributing to the Open Citation Corpus. The R interface to the Open
+Citation Corpus is
+\href{https://github.com/ropenscilabs/rcitoid}{rcitoid}.
+
+\hypertarget{fatcat}{%
+\subsection{Fatcat}\label{fatcat}}
+
+Fatcat is a project from Ben Newbold of the Internet Archive Labs. It is
+a ``versioned, publicly-editable catalog of research publications:
+journal articles, conference proceedings, preprints, blog posts''.
+Fatcat is currently does not have an R client, but is used inside of the
+\href{https://github.com/ropensci/fulltext}{fulltext} package.
+
+\hypertarget{sherparomeo}{%
+\subsection{SHERPA/RoMEO}\label{sherparomeo}}
+
+SHERPA/RoMEO (\url{http://sherpa.mimas.ac.uk/romeo/index.php})
+aggregates and analyses publisher open access policies and provides
+summaries of self-archiving permissions and conditions of rights given
+to authors. The {[}rromeo{]}{[}{]} is an R interface to SHERPA/RoMEO.
+
+\hypertarget{core}{%
+\subsection{CORE}\label{core}}
+
+CORE (\url{https://core.ac.uk/}) touts itself as the world's largest
+collection of open access research articles, providing metadata on
+journals and articles, as well as access to the full text of articles.
+The \href{https://github.com/ropensci/rcoreoa}{rcoreoa} R package
+interfaces with the CORE API.
+
+\hypertarget{dissemin}{%
+\subsection{Dissemin}\label{dissemin}}
+
+Dissemin (\url{https://dissem.in/}) detects papers behind pay-walls and
+invites authors to upload them to an open repository. Dissemin provides
+metadata including links to open versions of articles. The
+{[}dissemr{]}{[}{]} R package interfaces with the Dissemin API.
+
+\hypertarget{learn-more}{%
+\subsection{Learn more}\label{learn-more}}
+
+To learn how to use the above packages, follow the links to get to
+documentation, and how to report issues. The rOpenSci forum
+(\url{https://discuss.ropensci.org/}) is a good place to ask questions
+about these packages.
+
+\hypertarget{fulltext-a-toolset-for-text-mining-in-r}{%
+\section{fulltext: a toolset for text mining in
+R}\label{fulltext-a-toolset-for-text-mining-in-r}}
+
+\href{https://github.com/ropensci/fulltext}{fulltext} is a general
+purpose R package for the data part of text mining: search for articles,
+get links to articles, get article abstracts, and fetch full text of
+articles. The \texttt{fulltext} package is always adding additional data
+sources as time allows (See Table 1). Starting from searching for
+articles, the outputs of search can be fed into a function to get links
+to those articles, or to get abstracts for those articles, or to fetch
+their full text. The following is a breakdown of the major distinct
+parts of \texttt{fulltext}.
+
+\hypertarget{search}{%
+\subsection{Search}\label{search}}
+
+\texttt{ft\_search()} provides search access to nine different data
+sources (PLOS, BMC, Crossref, Entrez, arXiv, bioRxiv, Europe PMC,
+Scopus, Microsoft Academic), creating a mostly unified interface to all
+data sources. The parts of each data source that are common are for the
+most part factored out into the parameters of the \texttt{ft\_search()}
+function: query term(s), pagination (number of results, result number to
+start at). In addition, we allow the user to pass on data source
+specific options to refine the search per data source.
+
+With \texttt{ft\_search()}, you can query any combination of the nine
+data sources at once. The returned object is a list, with access to
+results of each data source by its name (e.g., \texttt{\$plos}, or
+\texttt{\$crossref}). For each data source, the returned object does
+vary because the returned data from each data source widely varies; for
+the most part data.frame's are returned. For those data sources not
+queried, their slot is empty.
+
+One important aspect of the research result we highlight is the licenses
+in the returned data for each data source.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{'ecology'}\NormalTok{, }\DataTypeTok{from =} \KeywordTok{c}\NormalTok{(}\StringTok{"plos"}\NormalTok{, }\StringTok{"crossref"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The results for this PLOS search have all CC-BY licenses
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{$}\NormalTok{plos}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [47257, 10] }
+\CommentTok{#> License: [CC-BY] }
+\CommentTok{#>                              id}
+\CommentTok{#> 1  10.1371/journal.pone.0001248}
+\CommentTok{#> 2  10.1371/journal.pone.0059813}
+\CommentTok{#> 3  10.1371/journal.pone.0080763}
+\CommentTok{#> 4  10.1371/journal.pone.0155019}
+\CommentTok{#> 5  10.1371/journal.pone.0175014}
+\CommentTok{#> 6  10.1371/journal.pone.0150648}
+\CommentTok{#> 7  10.1371/journal.pone.0208370}
+\CommentTok{#> 8  10.1371/journal.pcbi.1003594}
+\CommentTok{#> 9  10.1371/journal.pone.0102437}
+\CommentTok{#> 10 10.1371/journal.pone.0166559}
+\end{Highlighting}
+\end{Shaded}
+
+Whereas the results for this Crossref search have mixed licenses
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{$}\NormalTok{crossref}
+\CommentTok{#> Query: [ecology] }
+\CommentTok{#> Records found, returned: [164657, 10] }
+\CommentTok{#> License: [variable, see individual records] }
+\CommentTok{#>    archive               container.title    created  deposited}
+\CommentTok{#> 1  Portico                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 2  Portico                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 3       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 4       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 5       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 6       NA                       Ecology 2006-05-03 2018-08-04}
+\CommentTok{#> 7       NA                       Ecology 2006-05-09 2018-08-01}
+\CommentTok{#> 8  Portico                       Ecology 2017-04-26 2019-03-08}
+\CommentTok{#> 9       NA Trends in Ecology & Evolution 2002-07-25 2017-06-14}
+\CommentTok{#> 10      NA Journal of Industrial Ecology 2014-11-21 2017-06-23}
+\CommentTok{#> Variables not shown: published.print (chr), published.online (chr), doi}
+\CommentTok{#>      (chr), indexed (chr), issn (chr), issue (chr), issued (chr), member}
+\CommentTok{#>      (chr), page (chr), prefix (chr), publisher (chr), reference.count}
+\CommentTok{#>      (chr), score (chr), source (chr), title (chr), type (chr), url (chr),}
+\CommentTok{#>      volume (chr), author (list), link (list), license (list), subject}
+\CommentTok{#>      (chr), alternative.id (chr), subtitle (chr), reference (list)}
+\end{Highlighting}
+\end{Shaded}
+
+You can dig into the license field for each article, with URLs holding
+information on each license
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{vapply}\NormalTok{(x}\OperatorTok{$}\NormalTok{crossref}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{license, }\ControlFlowTok{function}\NormalTok{(w) w}\OperatorTok{$}\NormalTok{URL[}\DecValTok{1}\NormalTok{], }\StringTok{""}\NormalTok{)}
+\CommentTok{#>  [1] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [2] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [3] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [4] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [5] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [6] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [7] "http://doi.wiley.com/10.1002/tdm_license_1"  }
+\CommentTok{#>  [8] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\CommentTok{#>  [9] "http://www.elsevier.com/tdm/userlicense/1.0/"}
+\CommentTok{#> [10] "http://doi.wiley.com/10.1002/tdm_license_1.1"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{links}{%
+\subsection{Links}\label{links}}
+
+\texttt{ft\_links()} provides two pathways to get links (URLs) for
+articles, with a choice of four different data sources (PLOS, BMC,
+Crossref, Entrez). First, you can use \texttt{ft\_search()}, then pass
+the output of that function to \texttt{ft\_links()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{out <-}\StringTok{ }\KeywordTok{ft_search}\NormalTok{(}\DataTypeTok{query =} \StringTok{"ecology"}\NormalTok{, }\DataTypeTok{from =} \StringTok{"entrez"}\NormalTok{)}
+\KeywordTok{ft_links}\NormalTok{(out)}
+\CommentTok{#> <fulltext links>}
+\CommentTok{#> [Found] 6 }
+\CommentTok{#> [IDs] ID_30964001 ID_30962485 ID_30962432 ID_30952928 ID_30674747}
+\CommentTok{#>      ID_30674743 ...}
+\end{Highlighting}
+\end{Shaded}
+
+Second, you can pass DOIs directly to \texttt{ft\_links()}. Both end up
+at the same point, links for each article, if they could be found for
+the user selected data source.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# }\AlertTok{FIXME}
+\KeywordTok{ft_links}\NormalTok{(out}\OperatorTok{$}\NormalTok{entrez}\OperatorTok{$}\NormalTok{data}\OperatorTok{$}\NormalTok{doi)}
+\end{Highlighting}
+\end{Shaded}
+
+The biggest caveat with \texttt{ft\_links()} is that we can't gaurantee
+that the links will work. Link rot is one way in which the links may not
+work: link rot is when the URL does not point to the original content
+anymore, or fails altogether. Additionally, with Crossref, publishers
+can deposit URLs for articles, but they make change the URLs at some
+later date but not update the URLs with Crossref.
+
+\hypertarget{abstracts}{%
+\subsection{Abstracts}\label{abstracts}}
+
+\texttt{ft\_abstract()} provides access to article abstracts from four
+different data sources (PLOS, Scopus, Microsoft Academic Research,
+Crossref). The only way to use the function is to pass article
+identifiers, which are for the most DOIs.
+
+The advantage of abstracts over full text is that abstracts can often be
+retrieved even for paywalled articles. That is, you can have much
+broader coverage of the articles you're targeting relative to full text.
+
+If you are after abstracts, and you are already getting or already have
+full text, and if the articles are in XML format, then you can use
+\href{https://github.com/ropensci/pubchunks}{pubchunks} to extract out
+the abstracts.
+
+\hypertarget{fetch-full-text}{%
+\subsection{Fetch full text}\label{fetch-full-text}}
+
+\texttt{ft\_get()} fetchs full text of articles from many different data
+sources. From the DOIs that are passed in to the function, we detect the
+publisher, and there are specific plugins for certain publishers: AAAS,
+American Institute of Physics, American Society of Clinical Oncology,
+American Society for Microbiology, arXiv, bioRxiv, BiomedCentral,
+Copernicus, Crossref, Elife, Elsevier, Pubmed/PMC via NCBI's Entrez,
+Frontiers, IEEE, Informa, Instituto de Investigaciones Filologicas,
+American Medical Association, Microbiology Society, PeerJ, Pensoft,
+PLOS, PNAS, Royal Society of Chemistry, ScienceDirect, Scientific
+Societies, and Wiley.
+
+If there's no built-in plugin for the publisher already, we use the
+FTDOI API (\url{https://ftdoi.org}) to try to get the link for the full
+text of the article. If the FTDOI API doesn't bear fruit, we search
+Crossref for a link to the full text. If Crossref doesn't have any full
+text links, we give up.
+
+Since users can go through a lot of article requests, we cache
+successfully downloaded articles, and keep that knowledge consistent
+across R sessions; all subsequent requests for the same article just use
+the cached version. Additionally, all errors in \texttt{ft\_get()} are
+collected in a data.frame in the output of the function to help the user
+quickly determine what went wrong.
 
 \hypertarget{future-directions}{%
 \section{Future directions}\label{future-directions}}

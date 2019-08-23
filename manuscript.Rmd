@@ -219,6 +219,22 @@ In brief, the same search against different sources produces different results.
 Some text mining research articles perform the same search against many
 different sources (refs), while others choose just one source.
 
+# Text mining in R: Three case studies
+
+## Case study 1: Citation mining
+
+```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
+```
+
+## Case study 2: Abstract mining
+
+```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
+```
+
+## Case study 3: Full text mining
+
+```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
+```
 
 # Data sources
 
@@ -529,24 +545,6 @@ downloaded articles, and keep that knowledge consistent across R sessions; all
 subsequent requests for the same article just use the cached version. Additionally,
 all errors in `ft_get()` are collected in a data.frame in the output of the
 function to help the user quickly determine what went wrong.
-
-
-# How to text mine from R: Three case studies
-
-## Case study 1: Citation mining
-
-```{r citation-mining, child="use-cases/citation-mining.Rmd", eval=TRUE}
-```
-
-## Case study 2: Abstract mining
-
-```{r abstract-mining, child="use-cases/abstract-mining.Rmd", eval=TRUE}
-```
-
-## Case study 3: Full text mining
-
-```{r full-text-mining, child="use-cases/full-text-mining.Rmd", eval=TRUE}
-```
 
 # Future directions
 
