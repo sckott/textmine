@@ -482,7 +482,6 @@ Second, you can pass DOIs directly to `ft_links()`. Both end up at the same poin
 for each article, if they could be found for the user selected data source.
 
 ```{r eval=FALSE}
-# FIXME
 ft_links(out$entrez$data$doi)
 ```
 

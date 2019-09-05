@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  23 AUG 2019 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  5 SEP 2019 13:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1081,23 +1081,23 @@ Package microtype Info: Character `texttrademark ' is missing
 Package microtype Info: Character `texttrademark ' is missing
 (microtype)             in font `TS1/lmtt/m/it/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
-[20]
-Underfull \hbox (badness 1603) in paragraph at lines 1034--1044
+
+Underfull \hbox (badness 1603) in paragraph at lines 1033--1043
 \T1/lmr/m/n/10.95 (+20) The Nat-u-ral Lan-guage Pro-cess-ing CRAN Task View ([]
 []$https : / / cloud . r -[] project . org / web / views /
  []
 
-[21] [22]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1207.
+[20] [21] [22]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1206.
 [23]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1207.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1206.
 (./manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1207.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1207.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1206.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1206.
 
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: A25C76C0686777052AA8F6071BA213E3;5453.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1207.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1206.
  ) 
 Here is how much of TeX's memory you used:
  13532 strings out of 492995
@@ -1124,7 +1124,7 @@ l/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/
 2017/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2017/texmf
 -dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/2017/texmf-dist/fonts
 /type1/public/lm/lmtti10.pfb>
-Output written on manuscript.pdf (23 pages, 390507 bytes).
+Output written on manuscript.pdf (23 pages, 389940 bytes).
 PDF statistics:
  549 PDF objects out of 1000 (max. 8388607)
  502 compressed objects within 6 object streams
